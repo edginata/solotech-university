@@ -18,7 +18,8 @@ const Header = () => {
     { label: 'PROFIL', href: '#profil', hasDropdown: true, active: true },
     { label: 'AKADEMIK', href: '#akademik', hasDropdown: true },
     { label: 'PENELITIAN', href: '#penelitian' },
-    { label: 'CREATIVEPARK', href: '#creativepark' },
+    { label: 'PENGABDIAN', href: '#pengabdian' },
+    { label: 'BEM', href: '#bem' },
   ];
 
   return (
@@ -32,15 +33,16 @@ const Header = () => {
           {/* Logo */}
           <a href="/" className="flex items-center gap-3">
             <div className="flex items-center">
-              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-primary-foreground font-heading font-bold text-lg lg:text-xl">U</span>
+              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-primary rounded-lg flex items-center justify-center">
+                <span className="text-primary-foreground font-heading font-bold text-lg lg:text-xl">S</span>
               </div>
               <div className="ml-2">
-                <div className="text-xs text-muted-foreground uppercase tracking-wider">Universitas</div>
                 <div className="font-heading font-bold text-primary text-lg lg:text-xl tracking-tight">
-                  AMIKOM
+                  SOLOTECH
                 </div>
-                <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Yogyakarta</div>
+                <div className="text-[10px] text-muted-foreground uppercase tracking-wider">
+                  University
+                </div>
               </div>
             </div>
           </a>

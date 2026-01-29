@@ -6,105 +6,105 @@
 
 @layer base {
   :root {
-    /* AMIKOM Purple Theme */
+    /* UKTS/Solotech Navy Blue Theme */
     --background: 0 0% 100%;
-    --foreground: 240 10% 15%;
+    --foreground: 220 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 15%;
+    --card-foreground: 220 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 15%;
+    --popover-foreground: 220 25% 15%;
 
-    /* Main Purple - AMIKOM Brand */
-    --primary: 271 68% 35%;
+    /* Main Navy Blue - UKTS Brand */
+    --primary: 225 60% 25%;
     --primary-foreground: 0 0% 100%;
 
-    /* Lighter Purple */
-    --primary-light: 271 60% 45%;
-    --primary-lighter: 271 50% 60%;
-    --primary-dark: 271 75% 25%;
+    /* Lighter Blue variants */
+    --primary-light: 225 55% 35%;
+    --primary-lighter: 225 50% 50%;
+    --primary-dark: 225 65% 18%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --secondary: 220 15% 95%;
+    --secondary-foreground: 220 20% 10%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted: 220 15% 95%;
+    --muted-foreground: 220 10% 46%;
 
     /* Orange Accent for CTA buttons */
     --accent: 24 95% 53%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 271 68% 35%;
+    --border: 220 15% 90%;
+    --input: 220 15% 90%;
+    --ring: 225 60% 25%;
 
     --radius: 0.5rem;
 
     /* Custom Colors */
-    --hero-overlay: 271 68% 35%;
+    --hero-overlay: 225 60% 25%;
     --header-bg: 0 0% 100%;
-    --top-bar-bg: 271 75% 25%;
-    --footer-bg: 240 10% 15%;
+    --top-bar-bg: 225 65% 18%;
+    --footer-bg: 220 25% 15%;
     --footer-foreground: 0 0% 90%;
 
     /* Sidebar */
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-foreground: 220 15% 26%;
+    --sidebar-primary: 220 20% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 220 15% 95%;
+    --sidebar-accent-foreground: 220 20% 10%;
+    --sidebar-border: 220 15% 91%;
+    --sidebar-ring: 225 60% 50%;
   }
 
   .dark {
-    --background: 240 10% 8%;
+    --background: 220 25% 8%;
     --foreground: 0 0% 98%;
 
-    --card: 240 10% 12%;
+    --card: 220 25% 12%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 240 10% 12%;
+    --popover: 220 25% 12%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 271 60% 50%;
+    --primary: 225 55% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 3.7% 15.9%;
+    --secondary: 220 15% 16%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 220 15% 16%;
+    --muted-foreground: 220 10% 65%;
 
     --accent: 24 95% 53%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 271 60% 50%;
+    --border: 220 15% 16%;
+    --input: 220 15% 16%;
+    --ring: 225 55% 45%;
 
-    --hero-overlay: 271 68% 30%;
-    --header-bg: 240 10% 12%;
-    --top-bar-bg: 271 75% 20%;
-    --footer-bg: 240 10% 5%;
+    --hero-overlay: 225 60% 20%;
+    --header-bg: 220 25% 12%;
+    --top-bar-bg: 225 65% 15%;
+    --footer-bg: 220 25% 5%;
     --footer-foreground: 0 0% 85%;
 
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 220 20% 10%;
+    --sidebar-foreground: 220 15% 96%;
+    --sidebar-primary: 225 76% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 220 15% 16%;
+    --sidebar-accent-foreground: 220 15% 96%;
+    --sidebar-border: 220 15% 16%;
+    --sidebar-ring: 225 91% 60%;
   }
 }
 
