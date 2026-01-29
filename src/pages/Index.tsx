@@ -16,7 +16,7 @@ const Index = () => {
       
       <main className="flex-1">
         <HeroSection 
-          title="Profil Universitas Amikom Yogyakarta" 
+          title="Profil Solotech University" 
           breadcrumbs={breadcrumbs}
         />
         <ProfileContent />

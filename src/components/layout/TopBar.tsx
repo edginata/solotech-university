@@ -1,12 +1,12 @@
-import { Phone, Mail } from 'lucide-react';
+import { Phone, Mail, MessageCircle } from 'lucide-react';
 
 const TopBar = () => {
   const quickLinks = [
     { label: 'English', href: '#' },
     { label: 'FAQ', href: '#' },
-    { label: 'Berita Utama', href: '#' },
-    { label: 'Info Kampus', href: '#' },
-    { label: 'Kontak', href: '#' },
+    { label: 'Berita', href: '#' },
+    { label: 'PMB', href: 'https://ukts.ac.id/laman-pmb/' },
+    { label: 'Beasiswa', href: 'https://ukts.ac.id/beasiswa/' },
   ];
 
   return (
@@ -14,14 +14,24 @@ const TopBar = () => {
       <div className="section-container">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-4 text-sm">
-            <a href="tel:+62274884201" className="flex items-center gap-1.5 top-bar-link">
+            <a href="tel:0271637145" className="flex items-center gap-1.5 top-bar-link">
               <Phone className="w-3.5 h-3.5" />
-              <span>(0274) 884201 - 207</span>
+              <span>(0271) 637145</span>
             </a>
             <span className="hidden sm:inline text-primary-foreground/40">|</span>
-            <a href="mailto:amikom@amikom.ac.id" className="flex items-center gap-1.5 top-bar-link">
+            <a href="mailto:pmb@ukts.ac.id" className="flex items-center gap-1.5 top-bar-link">
               <Mail className="w-3.5 h-3.5" />
-              <span>amikom@amikom.ac.id</span>
+              <span>pmb@ukts.ac.id</span>
+            </a>
+            <span className="hidden sm:inline text-primary-foreground/40">|</span>
+            <a 
+              href="https://api.whatsapp.com/send?phone=6285117247527" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 top-bar-link"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">WhatsApp</span>
             </a>
           </div>
           <nav className="flex items-center gap-4">

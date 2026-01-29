@@ -5,32 +5,46 @@ const ProfileContent = () => {
         <div className="max-w-4xl mx-auto">
           {/* Section Title */}
           <h2 className="font-heading font-bold text-2xl md:text-3xl text-primary mb-8">
-            Profil Singkat Universitas Amikom Yogyakarta
+            Profil Singkat Solotech University
           </h2>
 
-          {/* Video Embed */}
-          <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl mb-10">
-            <iframe
-              className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/KMMbKqX7rlE"
-              title="University of AMIKOM Yogyakarta - Creative Economy Park"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+          {/* Video Embed - Note: Using placeholder since no official UKTS video found */}
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl mb-10 bg-muted flex items-center justify-center">
+            <div className="text-center p-8">
+              <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-10 h-10 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+              <p className="text-muted-foreground">Video Profil UKTS</p>
+              <p className="text-sm text-muted-foreground/60 mt-1">Coming Soon</p>
+            </div>
           </div>
 
           {/* Profile Content */}
           <div className="prose prose-lg max-w-none">
+            <h3 className="font-heading font-semibold text-xl text-primary mb-4">
+              Solotech University
+            </h3>
+
             <p className="text-foreground/80 leading-relaxed mb-6">
-              Universitas AMIKOM Yogyakarta merupakan salah satu perguruan tinggi swasta terkemuka di Indonesia yang berfokus pada bidang teknologi informasi dan komunikasi. Didirikan pada tahun 1994, AMIKOM telah berkembang menjadi institusi pendidikan yang diakui secara nasional dan internasional dalam menghasilkan lulusan berkualitas di era digital.
+              Universitas Kristen Teknologi Solo (UKTS) atau Solotech: Solo Technology Christian University, sebelumnya Universitas Kristen Surakarta, sedang bertransformasi menjadi kampus yang berfokus pada tiga kriteria: <strong>teknologi dan entrepreneurship yang ditopang oleh nilai-nilai kristiani</strong>.
             </p>
 
             <p className="text-foreground/80 leading-relaxed mb-6">
-              Dengan visi menjadi universitas unggul yang menghasilkan lulusan berkualitas global, AMIKOM terus berinovasi dalam pengembangan kurikulum dan fasilitas pembelajaran. Kampus ini dilengkapi dengan laboratorium komputer modern, studio multimedia, dan Creative Economy Park yang menjadi pusat pengembangan ekonomi kreatif.
+              Dengan tagline <strong>"Technology for Transformation"</strong>, semua prodi di lingkungan UKTS mengintegrasikan teknologi ke dalam bidang-bidang ilmu yang diajarkan, termasuk di prodi-prodi di dalam Fakultas Ekonomi dan Teologi. Misalnya, di fakultas teologi, terdapat mata kuliah Digital Theology. Dengan demikian, lulusan UKTS diharapkan fasih memakai produk-produk teknologi dalam profesi mereka kelak.
+            </p>
+
+            <h3 className="font-heading font-semibold text-xl text-primary mt-8 mb-4">
+              Sejarah Singkat
+            </h3>
+
+            <p className="text-foreground/80 leading-relaxed mb-6">
+              Universitas Kristen Teknologi Solo (UKTS) adalah nama baru dari Universitas Kristen Surakarta (UKS) yang dikukuhkan dengan Keputusan Menteri Pendidikan, Kebudayaan, dan Teknologi Nomor 725/E/O/2022. Embrio UKTS adalah Institut Agama Kristen Surakarta (IAKS) yang didirikan pada tanggal 24 Agustus 1983.
             </p>
 
             <p className="text-foreground/80 leading-relaxed mb-6">
-              AMIKOM memiliki berbagai program studi unggulan di bidang informatika, sistem informasi, desain komunikasi visual, animasi, dan bisnis digital. Dengan dukungan tenaga pengajar profesional dan kurikulum yang selalu diperbarui sesuai perkembangan industri, lulusan AMIKOM siap bersaing di dunia kerja global.
+              Pembentukan Yayasan Penyelenggara Universitas, yaitu Yayasan Pendidikan Tinggi Kristen Wolter Monginsidi diinisiasi oleh majelis 9 gereja (8 GKJ dan 1 GPIB) dalam komitmen "gereja turut berpartisipasi membangun bangsa melalui jalur pendidikan."
             </p>
 
             <h3 className="font-heading font-semibold text-xl text-primary mt-8 mb-4">
@@ -40,7 +54,7 @@ const ProfileContent = () => {
             <div className="bg-muted/50 rounded-xl p-6 mb-6">
               <h4 className="font-heading font-semibold text-lg text-foreground mb-2">Visi</h4>
               <p className="text-foreground/80 leading-relaxed">
-                Menjadi universitas unggul yang menghasilkan lulusan berkualitas global di bidang teknologi informasi dan ekonomi kreatif.
+                Menjadi universitas unggul berkelas global dengan kekuatan karakter kewirausahaan dan teknologi berlandaskan nilai-nilai kristiani.
               </p>
             </div>
 
@@ -49,33 +63,57 @@ const ProfileContent = () => {
               <ul className="space-y-2 text-foreground/80">
                 <li className="flex items-start gap-2">
                   <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Menyelenggarakan pendidikan tinggi berkualitas yang berfokus pada teknologi informasi dan komunikasi</span>
+                  <span>Menyelenggarakan pendidikan ilmu, teknologi, dan seni yang relevan untuk menghasilkan lulusan berkualitas global yang memiliki pengetahuan keilmuan yang handal, berjiwa kewirausahaan, berkarakter handal teknologi, dan berintegritas berlandaskan nilai-nilai kristiani.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Melaksanakan penelitian yang berkontribusi pada pengembangan ilmu pengetahuan dan teknologi</span>
+                  <span>Menyelenggarakan penelitian dengan mengembangkan budaya inovatif, proaktif, dan kolaboratif untuk menghasilkan karya-karya baru yang bermanfaat bagi gereja dan masyarakat berlandaskan nilai-nilai kristiani.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Mengembangkan pengabdian masyarakat yang memberikan dampak positif bagi masyarakat</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Membangun kerjasama strategis dengan industri dan institusi dalam dan luar negeri</span>
+                  <span>Menyelenggarakan pengabdian kepada masyarakat sebagai wujud komitmen partisipasi untuk berkontribusi pada transformasi gereja dan masyarakat berlandaskan nilai-nilai kristiani.</span>
                 </li>
               </ul>
             </div>
 
             <h3 className="font-heading font-semibold text-xl text-primary mt-8 mb-4">
-              Keunggulan AMIKOM
+              Fakultas & Program Studi
+            </h3>
+
+            <div className="grid md:grid-cols-3 gap-4 mb-8">
+              <div className="bg-card border border-border rounded-xl p-5 hover:shadow-lg transition-shadow">
+                <h5 className="font-heading font-semibold text-foreground mb-2">Fakultas Teologi</h5>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Pendidikan Agama Kristen</li>
+                  <li>• Pastoral Konseling</li>
+                </ul>
+              </div>
+              <div className="bg-card border border-border rounded-xl p-5 hover:shadow-lg transition-shadow">
+                <h5 className="font-heading font-semibold text-foreground mb-2">Fakultas Teknik</h5>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Teknik Informatika</li>
+                  <li>• Teknik Lingkungan</li>
+                </ul>
+              </div>
+              <div className="bg-card border border-border rounded-xl p-5 hover:shadow-lg transition-shadow">
+                <h5 className="font-heading font-semibold text-foreground mb-2">Fakultas Ekonomi</h5>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Manajemen</li>
+                  <li>• Akuntansi</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 className="font-heading font-semibold text-xl text-primary mt-8 mb-4">
+              Keunggulan UKTS
             </h3>
 
             <div className="grid md:grid-cols-2 gap-4 mb-8">
               {[
-                { title: 'Creative Economy Park', desc: 'Pusat pengembangan ekonomi kreatif dan inkubator startup digital' },
-                { title: 'Kurikulum Industri', desc: 'Kurikulum yang selalu diperbarui sesuai kebutuhan industri terkini' },
-                { title: 'Fasilitas Modern', desc: 'Laboratorium komputer dan studio multimedia berstandar internasional' },
-                { title: 'Kerja Sama Global', desc: 'Kemitraan dengan universitas dan perusahaan teknologi terkemuka dunia' },
+                { title: 'Technology for Transformation', desc: 'Integrasi teknologi ke seluruh program studi untuk menghasilkan lulusan siap era digital' },
+                { title: 'Nilai-Nilai Kristiani', desc: 'Pendidikan berbasis karakter kristiani yang membentuk integritas dan pelayanan' },
+                { title: 'Program Beasiswa SPARK', desc: 'Beasiswa hingga 100% untuk mahasiswa bertalenta dan berprestasi' },
+                { title: 'Entrepreneurship', desc: 'Pengembangan jiwa kewirausahaan untuk mencetak lulusan mandiri dan inovatif' },
               ].map((item) => (
                 <div key={item.title} className="bg-card border border-border rounded-xl p-5 hover:shadow-lg transition-shadow">
                   <h5 className="font-heading font-semibold text-foreground mb-2">{item.title}</h5>
@@ -85,7 +123,7 @@ const ProfileContent = () => {
             </div>
 
             <p className="text-foreground/80 leading-relaxed">
-              Sebagai institusi pendidikan yang terus berkembang, Universitas AMIKOM Yogyakarta berkomitmen untuk menghasilkan lulusan yang tidak hanya kompeten secara teknis, tetapi juga memiliki karakter kuat, jiwa kewirausahaan, dan kemampuan beradaptasi dengan perubahan teknologi yang cepat. Bergabunglah dengan ribuan alumni sukses AMIKOM yang kini berkarya di berbagai perusahaan teknologi terkemuka di Indonesia dan dunia.
+              Sebagai institusi pendidikan yang terus bertransformasi, Universitas Kristen Teknologi Solo berkomitmen untuk menghasilkan lulusan yang tidak hanya kompeten secara teknis, tetapi juga memiliki karakter kuat berdasarkan nilai-nilai kristiani, jiwa kewirausahaan, dan kemampuan beradaptasi dengan perubahan teknologi. Bergabunglah dengan UKTS dan jadilah bagian dari transformasi melalui teknologi!
             </p>
           </div>
         </div>
