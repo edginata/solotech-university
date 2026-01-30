@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,11 +17,12 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { label: 'PROFIL', href: '#profil', hasDropdown: true, active: true },
-    { label: 'AKADEMIK', href: '#akademik', hasDropdown: true },
-    { label: 'PENELITIAN', href: '#penelitian' },
-    { label: 'PENGABDIAN', href: '#pengabdian' },
-    { label: 'BEM', href: '#bem' },
+    { label: 'BERANDA', href: '/' },
+    { label: 'PROFIL', href: '/profil', hasDropdown: true },
+    { label: 'AKADEMIK', href: '/akademik', hasDropdown: true },
+    { label: 'PENELITIAN', href: '/penelitian' },
+    { label: 'PENGABDIAN', href: '/pengabdian' },
+    { label: 'PMB', href: '/pmb' },
   ];
 
   return (
@@ -49,23 +52,28 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className={`nav-link flex items-center gap-1 py-2 ${item.active ? 'active text-primary' : ''}`}
-              >
-                {item.label}
-                {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
-              </a>
-            ))}
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.href;
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className={`nav-link flex items-center gap-1 py-2 ${isActive ? 'active text-primary' : ''}`}
+                >
+                  {item.label}
+                  {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right Side Actions */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button className="cta-button">
-              PMB
-            </Button>
+            <a href="/pendaftaran">
+              <Button className="cta-button">
+                DAFTAR
+              </Button>
+            </a>
             <button className="p-2 hover:bg-muted rounded-full transition-colors">
               <Search className="w-5 h-5 text-muted-foreground" />
             </button>
@@ -88,25 +96,30 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="lg:hidden py-4 border-t border-border animate-fade-in">
             <nav className="flex flex-col gap-2">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className={`py-3 px-4 font-semibold text-sm uppercase tracking-wide hover:bg-muted rounded-lg transition-colors ${
-                    item.active ? 'text-primary bg-primary/5' : 'text-foreground'
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <span className="flex items-center justify-between">
-                    {item.label}
-                    {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
-                  </span>
-                </a>
-              ))}
+              {navItems.map((item) => {
+                const isActive = location.pathname === item.href;
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className={`py-3 px-4 font-semibold text-sm uppercase tracking-wide hover:bg-muted rounded-lg transition-colors ${
+                      isActive ? 'text-primary bg-primary/5' : 'text-foreground'
+                    }`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span className="flex items-center justify-between">
+                      {item.label}
+                      {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
+                    </span>
+                  </a>
+                );
+              })}
               <div className="pt-4 px-4">
-                <Button className="cta-button w-full">
-                  PMB
-                </Button>
+                <a href="/pendaftaran">
+                  <Button className="cta-button w-full">
+                    DAFTAR
+                  </Button>
+                </a>
               </div>
             </nav>
           </div>
