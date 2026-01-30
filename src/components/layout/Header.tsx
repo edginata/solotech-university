@@ -3,9 +3,23 @@ import { useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+interface SubMenuItem {
+  label: string;
+  href: string;
+}
+
+interface NavItem {
+  label: string;
+  href: string;
+  hasDropdown?: boolean;
+  subItems?: SubMenuItem[];
+}
+
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileExpandedMenu, setMobileExpandedMenu] = useState<string | null>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -16,14 +30,49 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { label: 'BERANDA', href: '/' },
-    { label: 'PROFIL', href: '/profil', hasDropdown: true },
-    { label: 'AKADEMIK', href: '/akademik', hasDropdown: true },
+    { 
+      label: 'PROFIL', 
+      href: '/profil', 
+      hasDropdown: true,
+      subItems: [
+        { label: 'Tentang UKTS', href: '/profil' },
+        { label: 'Visi & Misi', href: '/profil#visi-misi' },
+        { label: 'Sejarah', href: '/profil#sejarah' },
+        { label: 'Struktur Organisasi', href: '/profil#struktur' },
+        { label: 'Fasilitas', href: '/profil#fasilitas' },
+      ]
+    },
+    { 
+      label: 'AKADEMIK', 
+      href: '/akademik', 
+      hasDropdown: true,
+      subItems: [
+        { label: 'Fakultas Teologi', href: '/akademik#teologi' },
+        { label: 'Fakultas Teknik', href: '/akademik#teknik' },
+        { label: 'Fakultas Ekonomi', href: '/akademik#ekonomi' },
+        { label: 'Kalender Akademik', href: '/akademik#kalender' },
+        { label: 'Portal Mahasiswa', href: 'http://sinkrista.uks.ac.id/' },
+        { label: 'Portal Dosen', href: 'http://sinkrista.uks.ac.id/' },
+      ]
+    },
     { label: 'PENELITIAN', href: '/penelitian' },
     { label: 'PENGABDIAN', href: '/pengabdian' },
     { label: 'PMB', href: '/pmb' },
   ];
+
+  const handleMouseEnter = (label: string) => {
+    setActiveDropdown(label);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveDropdown(null);
+  };
+
+  const toggleMobileSubmenu = (label: string) => {
+    setMobileExpandedMenu(mobileExpandedMenu === label ? null : label);
+  };
 
   return (
     <header
@@ -51,18 +100,53 @@ const Header = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             {navItems.map((item) => {
               const isActive = location.pathname === item.href;
               return (
-                <a
+                <div 
                   key={item.label}
-                  href={item.href}
-                  className={`nav-link flex items-center gap-1 py-2 ${isActive ? 'active text-primary' : ''}`}
+                  className="relative"
+                  onMouseEnter={() => item.hasDropdown && handleMouseEnter(item.label)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  {item.label}
-                  {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
-                </a>
+                  <a
+                    href={item.href}
+                    className={`nav-link flex items-center gap-1 py-2 font-semibold text-sm tracking-wide transition-colors ${
+                      isActive ? 'text-primary' : 'text-foreground hover:text-primary'
+                    }`}
+                  >
+                    {item.label}
+                    {item.hasDropdown && (
+                      <ChevronDown 
+                        className={`w-4 h-4 transition-transform duration-200 ${
+                          activeDropdown === item.label ? 'rotate-180' : ''
+                        }`} 
+                      />
+                    )}
+                  </a>
+
+                  {/* Dropdown Menu */}
+                  {item.hasDropdown && item.subItems && activeDropdown === item.label && (
+                    <div 
+                      className="absolute top-full left-0 mt-0 w-56 bg-background border border-border rounded-lg shadow-xl animate-fade-in z-50"
+                    >
+                      <div className="py-2">
+                        {item.subItems.map((subItem) => (
+                          <a
+                            key={subItem.label}
+                            href={subItem.href}
+                            className="block px-4 py-2.5 text-sm text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+                            target={subItem.href.startsWith('http') ? '_blank' : undefined}
+                            rel={subItem.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                          >
+                            {subItem.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               );
             })}
           </nav>
@@ -95,23 +179,55 @@ const Header = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="lg:hidden py-4 border-t border-border animate-fade-in">
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col gap-1">
               {navItems.map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className={`py-3 px-4 font-semibold text-sm uppercase tracking-wide hover:bg-muted rounded-lg transition-colors ${
-                      isActive ? 'text-primary bg-primary/5' : 'text-foreground'
-                    }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <span className="flex items-center justify-between">
-                      {item.label}
-                      {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
-                    </span>
-                  </a>
+                  <div key={item.label}>
+                    {item.hasDropdown ? (
+                      <>
+                        <button
+                          onClick={() => toggleMobileSubmenu(item.label)}
+                          className={`w-full py-3 px-4 font-semibold text-sm uppercase tracking-wide hover:bg-muted rounded-lg transition-colors flex items-center justify-between ${
+                            isActive ? 'text-primary bg-primary/5' : 'text-foreground'
+                          }`}
+                        >
+                          {item.label}
+                          <ChevronDown 
+                            className={`w-4 h-4 transition-transform duration-200 ${
+                              mobileExpandedMenu === item.label ? 'rotate-180' : ''
+                            }`} 
+                          />
+                        </button>
+                        {mobileExpandedMenu === item.label && item.subItems && (
+                          <div className="ml-4 mt-1 mb-2 border-l-2 border-primary/20 animate-fade-in">
+                            {item.subItems.map((subItem) => (
+                              <a
+                                key={subItem.label}
+                                href={subItem.href}
+                                className="block py-2 px-4 text-sm text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                target={subItem.href.startsWith('http') ? '_blank' : undefined}
+                                rel={subItem.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                              >
+                                {subItem.label}
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <a
+                        href={item.href}
+                        className={`block py-3 px-4 font-semibold text-sm uppercase tracking-wide hover:bg-muted rounded-lg transition-colors ${
+                          isActive ? 'text-primary bg-primary/5' : 'text-foreground'
+                        }`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    )}
+                  </div>
                 );
               })}
               <div className="pt-4 px-4">
