@@ -33,9 +33,7 @@ const searchItems: SearchItem[] = [
   { title: 'Fakultas Ekonomi', description: 'Manajemen dan Akuntansi', href: '/fakultas/ekonomi', category: 'Fakultas' },
   
   // Program Studi
-  { title: 'S1 Pastoral Konseling', description: 'Program studi konseling pastoral', href: '/fakultas/teologi', category: 'Program Studi' },
   { title: 'S1 Pendidikan Agama Kristen', description: 'Program studi PAK', href: '/fakultas/teologi', category: 'Program Studi' },
-  { title: 'S2 Pendidikan Agama Kristen', description: 'Program magister PAK', href: '/fakultas/teologi', category: 'Program Studi' },
   { title: 'S1 Teknik Informatika', description: 'Program studi informatika', href: '/fakultas/teknik', category: 'Program Studi' },
   { title: 'S1 Teknik Lingkungan', description: 'Program studi teknik lingkungan', href: '/fakultas/teknik', category: 'Program Studi' },
   { title: 'S1 Manajemen', description: 'Program studi manajemen', href: '/fakultas/ekonomi', category: 'Program Studi' },

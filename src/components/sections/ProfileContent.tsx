@@ -95,7 +95,7 @@ const ProfileContent = () => {
 
               <div className="grid md:grid-cols-3 gap-4 mb-8">
                 {[
-                  { name: 'Fakultas Teologi', programs: ['S1 Pastoral Konseling', 'S1 Pendidikan Agama Kristen', 'S2 Pendidikan Agama Kristen'] },
+                  { name: 'Fakultas Teologi', programs: ['S1 Pendidikan Agama Kristen'] },
                   { name: 'Fakultas Teknik', programs: ['S1 Teknik Informatika', 'S1 Teknik Lingkungan'] },
                   { name: 'Fakultas Ekonomi', programs: ['S1 Manajemen', 'S1 Akuntansi'] },
                 ].map((faculty, index) => (
