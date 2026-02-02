@@ -42,6 +42,7 @@ const searchItems: SearchItem[] = [
   // Penelitian & Pengabdian
   { title: 'Penelitian', description: 'Kegiatan penelitian dan publikasi', href: '/penelitian', category: 'Lainnya' },
   { title: 'Pengabdian Masyarakat', description: 'Program pengabdian kepada masyarakat', href: '/pengabdian', category: 'Lainnya' },
+  { title: 'Berita & Pengumuman', description: 'Berita terbaru dan pengumuman kampus', href: '/berita', category: 'Lainnya' },
   { title: 'Galeri Foto', description: 'Foto kampus dan kegiatan mahasiswa', href: '/galeri', category: 'Lainnya' },
   
   // PMB
