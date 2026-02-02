@@ -4,7 +4,7 @@ import Footer from '@/components/layout/Footer';
 import HeroSection from '@/components/sections/HeroSection';
 import { ScrollReveal } from '@/hooks/useScrollReveal';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { BookOpen, Clock, Users, Target, Award, FileText, GraduationCap, Monitor, Cpu, Database } from 'lucide-react';
+import { BookOpen, Clock, Users, Target, Award, FileText, GraduationCap, Monitor, Leaf } from 'lucide-react';
 
 const FakultasTeknik = () => {
   const breadcrumbs = [
@@ -31,47 +31,29 @@ const FakultasTeknik = () => {
       konsentrasi: ['Software Engineering', 'Artificial Intelligence', 'Cyber Security'],
     },
     {
-      name: 'S1 Sistem Informasi',
+      name: 'S1 Teknik Lingkungan',
       duration: '4 Tahun (8 Semester)',
       akreditasi: 'B',
       sks: 144,
-      icon: <Database className="w-6 h-6" />,
-      description: 'Program studi yang membekali mahasiswa dengan kemampuan menganalisis, merancang, dan mengelola sistem informasi untuk mendukung proses bisnis organisasi.',
+      icon: <Leaf className="w-6 h-6" />,
+      description: 'Program studi yang mempersiapkan ahli lingkungan dengan kemampuan menganalisis, merancang, dan mengelola sistem pengelolaan lingkungan yang berkelanjutan.',
       kompetensi: [
-        'Mampu menganalisis kebutuhan sistem bisnis',
-        'Menguasai database management',
-        'Memahami business intelligence dan analytics',
-        'Mampu merancang arsitektur enterprise',
-        'Menguasai project management IT',
+        'Mampu menganalisis dampak lingkungan',
+        'Menguasai teknologi pengolahan air dan limbah',
+        'Memahami manajemen lingkungan dan K3',
+        'Mampu merancang sistem pengendalian pencemaran',
+        'Menguasai audit dan sertifikasi lingkungan',
       ],
-      prospekKarir: ['System Analyst', 'Business Analyst', 'Database Administrator', 'ERP Consultant', 'IT Project Manager'],
-      konsentrasi: ['Business Intelligence', 'Enterprise Systems', 'Digital Business'],
-    },
-    {
-      name: 'D3 Teknik Komputer',
-      duration: '3 Tahun (6 Semester)',
-      akreditasi: 'B',
-      sks: 110,
-      icon: <Cpu className="w-6 h-6" />,
-      description: 'Program diploma yang menghasilkan tenaga ahli madya dalam bidang perangkat keras komputer, jaringan, dan sistem embedded dengan pendekatan praktis.',
-      kompetensi: [
-        'Mampu merakit dan memperbaiki komputer',
-        'Menguasai instalasi dan konfigurasi jaringan',
-        'Memahami sistem embedded dan IoT',
-        'Mampu melakukan troubleshooting hardware',
-        'Menguasai administrasi server',
-      ],
-      prospekKarir: ['Network Administrator', 'IT Support', 'Hardware Engineer', 'IoT Developer', 'System Administrator'],
-      konsentrasi: ['Computer Networking', 'Hardware Engineering', 'Internet of Things'],
+      prospekKarir: ['Environmental Engineer', 'HSE Officer', 'Konsultan Lingkungan', 'Auditor Lingkungan', 'Peneliti Lingkungan'],
+      konsentrasi: ['Pengelolaan Limbah', 'Kualitas Udara', 'Sustainable Development'],
     },
   ];
 
   const dosen = [
     { name: 'Dr. Bambang Setiyadi, M.Kom.', bidang: 'Artificial Intelligence', jabatan: 'Dekan' },
     { name: 'Dr. Siti Nurhaliza, M.Eng.', bidang: 'Software Engineering', jabatan: 'Wakil Dekan' },
-    { name: 'Agus Hermawan, S.Kom., M.Cs.', bidang: 'Database Systems', jabatan: 'Kaprodi TI' },
-    { name: 'Dr. Ratna Dewi, M.Kom.', bidang: 'Information Systems', jabatan: 'Kaprodi SI' },
-    { name: 'Hendra Kusuma, S.T., M.T.', bidang: 'Computer Networks', jabatan: 'Kaprodi D3 TK' },
+    { name: 'Agus Hermawan, S.Kom., M.Cs.', bidang: 'Database Systems', jabatan: 'Kaprodi Teknik Informatika' },
+    { name: 'Dr. Ratna Dewi, S.T., M.T.', bidang: 'Environmental Engineering', jabatan: 'Kaprodi Teknik Lingkungan' },
     { name: 'Dr. Budi Santoso, M.Kom.', bidang: 'Cyber Security', jabatan: 'Dosen' },
   ];
 
