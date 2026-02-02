@@ -14,21 +14,6 @@ const FakultasTeologi = () => {
 
   const programs = [
     {
-      name: 'S1 Pastoral Konseling',
-      duration: '4 Tahun (8 Semester)',
-      akreditasi: 'B',
-      sks: 144,
-      description: 'Program studi yang mempersiapkan konselor pastoral profesional dengan pemahaman mendalam tentang teologi dan psikologi untuk melayani gereja dan masyarakat.',
-      kompetensi: [
-        'Mampu memberikan konseling pastoral yang efektif',
-        'Menguasai teori dan praktik psikologi konseling',
-        'Memahami dinamika spiritualitas dan kesehatan mental',
-        'Mampu melakukan pendampingan krisis',
-        'Memiliki kemampuan komunikasi terapeutik',
-      ],
-      prospekKarir: ['Konselor Pastoral', 'Pendeta/Gembala Jemaat', 'Konselor Keluarga', 'Pendamping Rohani', 'Staf Pelayanan Gereja'],
-    },
-    {
       name: 'S1 Pendidikan Agama Kristen',
       duration: '4 Tahun (8 Semester)',
       akreditasi: 'B',
@@ -42,21 +27,6 @@ const FakultasTeologi = () => {
         'Mampu membimbing peserta didik secara holistik',
       ],
       prospekKarir: ['Guru PAK SD/SMP/SMA', 'Dosen', 'Pengembang Kurikulum', 'Koordinator Sekolah Minggu', 'Konsultan Pendidikan'],
-    },
-    {
-      name: 'S2 Pendidikan Agama Kristen',
-      duration: '2 Tahun (4 Semester)',
-      akreditasi: 'B',
-      sks: 42,
-      description: 'Program magister yang mengembangkan keahlian lanjutan dalam pendidikan agama Kristen dengan fokus pada penelitian dan pengembangan kurikulum.',
-      kompetensi: [
-        'Mampu melakukan penelitian pendidikan Kristen',
-        'Menguasai teori-teori pendidikan kontemporer',
-        'Mampu mengembangkan model pembelajaran inovatif',
-        'Memiliki kemampuan kepemimpinan pendidikan',
-        'Mampu menulis karya ilmiah bidang PAK',
-      ],
-      prospekKarir: ['Dosen PAK', 'Peneliti Pendidikan', 'Kepala Sekolah', 'Pengawas Pendidikan', 'Konsultan Pendidikan Kristen'],
     },
   ];
 
