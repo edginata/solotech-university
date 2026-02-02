@@ -74,6 +74,7 @@ const Header = () => {
     },
     { label: 'PENELITIAN', href: '/penelitian' },
     { label: 'PENGABDIAN', href: '/pengabdian' },
+    { label: 'BERITA', href: '/berita' },
     { label: 'GALERI', href: '/galeri' },
     { label: 'PMB', href: '/pmb' },
   ];
