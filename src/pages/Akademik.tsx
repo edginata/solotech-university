@@ -15,9 +15,9 @@ const Akademik = () => {
       name: 'Fakultas Teologi',
       description: 'Mempersiapkan pemimpin rohani yang kompeten dan relevan dengan konteks masyarakat modern.',
       programs: [
-        { name: 'S1 Teologi', duration: '4 Tahun', akreditasi: 'B' },
+        { name: 'S1 Pastoral Konseling', duration: '4 Tahun', akreditasi: 'B' },
         { name: 'S1 Pendidikan Agama Kristen', duration: '4 Tahun', akreditasi: 'B' },
-        { name: 'S1 Musik Gerejawi', duration: '4 Tahun', akreditasi: 'B' },
+        { name: 'S2 Pendidikan Agama Kristen', duration: '2 Tahun', akreditasi: 'B' },
       ],
     },
     {
@@ -25,8 +25,7 @@ const Akademik = () => {
       description: 'Mencetak ahli teknologi yang inovatif dan mampu bersaing di era digital.',
       programs: [
         { name: 'S1 Teknik Informatika', duration: '4 Tahun', akreditasi: 'B' },
-        { name: 'S1 Sistem Informasi', duration: '4 Tahun', akreditasi: 'B' },
-        { name: 'D3 Teknik Komputer', duration: '3 Tahun', akreditasi: 'B' },
+        { name: 'S1 Teknik Lingkungan', duration: '4 Tahun', akreditasi: 'B' },
       ],
     },
     {

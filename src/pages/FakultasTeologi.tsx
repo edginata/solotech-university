@@ -14,19 +14,19 @@ const FakultasTeologi = () => {
 
   const programs = [
     {
-      name: 'S1 Teologi',
+      name: 'S1 Pastoral Konseling',
       duration: '4 Tahun (8 Semester)',
       akreditasi: 'B',
       sks: 144,
-      description: 'Program studi yang mempersiapkan lulusan menjadi teolog yang kompeten dalam pelayanan gereja dan masyarakat dengan pemahaman mendalam tentang Alkitab dan tradisi Kristen.',
+      description: 'Program studi yang mempersiapkan konselor pastoral profesional dengan pemahaman mendalam tentang teologi dan psikologi untuk melayani gereja dan masyarakat.',
       kompetensi: [
-        'Mampu menganalisis dan menafsirkan teks-teks Alkitab',
-        'Menguasai sejarah gereja dan perkembangan teologi',
-        'Memiliki kemampuan berkhotbah dan mengajar',
-        'Mampu memberikan konseling pastoral',
-        'Memahami etika Kristen kontemporer',
+        'Mampu memberikan konseling pastoral yang efektif',
+        'Menguasai teori dan praktik psikologi konseling',
+        'Memahami dinamika spiritualitas dan kesehatan mental',
+        'Mampu melakukan pendampingan krisis',
+        'Memiliki kemampuan komunikasi terapeutik',
       ],
-      prospekKarir: ['Pendeta/Gembala Jemaat', 'Pengajar Teologi', 'Misionaris', 'Konselor Pastoral', 'Penulis Kristiani'],
+      prospekKarir: ['Konselor Pastoral', 'Pendeta/Gembala Jemaat', 'Konselor Keluarga', 'Pendamping Rohani', 'Staf Pelayanan Gereja'],
     },
     {
       name: 'S1 Pendidikan Agama Kristen',
@@ -41,31 +41,31 @@ const FakultasTeologi = () => {
         'Menguasai teknologi pendidikan',
         'Mampu membimbing peserta didik secara holistik',
       ],
-      prospekKarir: ['Guru PAK SD/SMP/SMA', 'Dosen', 'Pengembang Kurikulum', 'Sekolah Minggu Koordinator', 'Konsultan Pendidikan'],
+      prospekKarir: ['Guru PAK SD/SMP/SMA', 'Dosen', 'Pengembang Kurikulum', 'Koordinator Sekolah Minggu', 'Konsultan Pendidikan'],
     },
     {
-      name: 'S1 Musik Gerejawi',
-      duration: '4 Tahun (8 Semester)',
+      name: 'S2 Pendidikan Agama Kristen',
+      duration: '2 Tahun (4 Semester)',
       akreditasi: 'B',
-      sks: 146,
-      description: 'Program studi unik yang menggabungkan keahlian musik dengan pemahaman teologis untuk melayani gereja melalui musik dan penyembahan.',
+      sks: 42,
+      description: 'Program magister yang mengembangkan keahlian lanjutan dalam pendidikan agama Kristen dengan fokus pada penelitian dan pengembangan kurikulum.',
       kompetensi: [
-        'Menguasai teori dan praktik musik',
-        'Mampu memimpin paduan suara dan worship',
-        'Menguasai berbagai instrumen musik',
-        'Memahami teologi musik dan ibadah',
-        'Mampu mengarang dan mengaransemen musik gerejawi',
+        'Mampu melakukan penelitian pendidikan Kristen',
+        'Menguasai teori-teori pendidikan kontemporer',
+        'Mampu mengembangkan model pembelajaran inovatif',
+        'Memiliki kemampuan kepemimpinan pendidikan',
+        'Mampu menulis karya ilmiah bidang PAK',
       ],
-      prospekKarir: ['Music Director Gereja', 'Worship Leader', 'Pengajar Musik', 'Composer Lagu Rohani', 'Konduktor Paduan Suara'],
+      prospekKarir: ['Dosen PAK', 'Peneliti Pendidikan', 'Kepala Sekolah', 'Pengawas Pendidikan', 'Konsultan Pendidikan Kristen'],
     },
   ];
 
   const dosen = [
-    { name: 'Dr. Yohanes Kristianto, M.Th.', bidang: 'Perjanjian Baru', jabatan: 'Dekan' },
+    { name: 'Dr. Yohanes Kristianto, M.Th.', bidang: 'Teologi Pastoral', jabatan: 'Dekan' },
     { name: 'Dr. Maria Susanti, M.Div.', bidang: 'Teologi Sistematika', jabatan: 'Wakil Dekan' },
-    { name: 'Pdt. Dr. Petrus Handoko, M.Th.', bidang: 'Teologi Pastoral', jabatan: 'Kaprodi Teologi' },
-    { name: 'Dr. Elisabeth Rahayu, M.Pd.', bidang: 'Pendidikan Agama Kristen', jabatan: 'Kaprodi PAK' },
-    { name: 'Dr. Samuel Prasetyo, M.Mus.', bidang: 'Musik Gerejawi', jabatan: 'Kaprodi Musik' },
+    { name: 'Pdt. Dr. Petrus Handoko, M.Th.', bidang: 'Pastoral Konseling', jabatan: 'Kaprodi Pastoral Konseling' },
+    { name: 'Dr. Elisabeth Rahayu, M.Pd.', bidang: 'Pendidikan Agama Kristen', jabatan: 'Kaprodi PAK S1' },
+    { name: 'Dr. Samuel Prasetyo, M.Pd.K.', bidang: 'Pendidikan Kristen', jabatan: 'Kaprodi PAK S2' },
   ];
 
   const fasilitas = [
