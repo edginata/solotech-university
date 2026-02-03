@@ -28,8 +28,8 @@ const searchItems: SearchItem[] = [
   
   // Akademik
   { title: 'Akademik', description: 'Program akademik dan kalender', href: '/akademik', category: 'Akademik' },
-  { title: 'Fakultas Teologi', description: 'Teologi, PAK, Musik Gerejawi', href: '/fakultas/teologi', category: 'Fakultas' },
-  { title: 'Fakultas Teknik', description: 'Teknik Informatika, Sistem Informasi', href: '/fakultas/teknik', category: 'Fakultas' },
+  { title: 'Fakultas Teologi', description: 'Pendidikan Agama Kristen', href: '/fakultas/teologi', category: 'Fakultas' },
+  { title: 'Fakultas Teknik', description: 'Teknik Informatika, Teknik Lingkungan', href: '/fakultas/teknik', category: 'Fakultas' },
   { title: 'Fakultas Ekonomi', description: 'Manajemen dan Akuntansi', href: '/fakultas/ekonomi', category: 'Fakultas' },
   
   // Program Studi
@@ -42,8 +42,6 @@ const searchItems: SearchItem[] = [
   // Penelitian & Pengabdian
   { title: 'Penelitian', description: 'Kegiatan penelitian dan publikasi', href: '/penelitian', category: 'Lainnya' },
   { title: 'Pengabdian Masyarakat', description: 'Program pengabdian kepada masyarakat', href: '/pengabdian', category: 'Lainnya' },
-  { title: 'Berita & Pengumuman', description: 'Berita terbaru dan pengumuman kampus', href: '/berita', category: 'Lainnya' },
-  { title: 'Galeri Foto', description: 'Foto kampus dan kegiatan mahasiswa', href: '/galeri', category: 'Lainnya' },
   
   // PMB
   { title: 'Penerimaan Mahasiswa Baru', description: 'Informasi PMB UKTS', href: '/pmb', category: 'PMB' },

@@ -10,9 +10,9 @@ const Footer = () => {
   ];
 
   const academicLinks = [
-    { label: 'Fakultas Teologi', href: '#' },
-    { label: 'Fakultas Teknik', href: '#' },
-    { label: 'Fakultas Ekonomi', href: '#' },
+    { label: 'Fakultas Teologi', href: '/fakultas/teologi' },
+    { label: 'Fakultas Teknik', href: '/fakultas/teknik' },
+    { label: 'Fakultas Ekonomi', href: '/fakultas/ekonomi' },
     { label: 'Portal Dosen', href: 'http://sinkrista.uks.ac.id/' },
     { label: 'Portal Mahasiswa', href: 'http://sinkrista.uks.ac.id/' },
   ];
