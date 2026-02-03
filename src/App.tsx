@@ -13,9 +13,6 @@ import Pendaftaran from "./pages/Pendaftaran";
 import FakultasTeologi from "./pages/FakultasTeologi";
 import FakultasTeknik from "./pages/FakultasTeknik";
 import FakultasEkonomi from "./pages/FakultasEkonomi";
-import Galeri from "./pages/Galeri";
-import Berita from "./pages/Berita";
-import BeritaDetail from "./pages/BeritaDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,9 +34,6 @@ const App = () => (
           <Route path="/fakultas/teologi" element={<FakultasTeologi />} />
           <Route path="/fakultas/teknik" element={<FakultasTeknik />} />
           <Route path="/fakultas/ekonomi" element={<FakultasEkonomi />} />
-          <Route path="/galeri" element={<Galeri />} />
-          <Route path="/berita" element={<Berita />} />
-          <Route path="/berita/:id" element={<BeritaDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
