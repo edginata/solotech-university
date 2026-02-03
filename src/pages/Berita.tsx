@@ -143,43 +143,45 @@ const Berita = () => {
             </ScrollReveal>
             
             <ScrollReveal delay={100}>
-              <Card className="overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300">
-                <div className="grid lg:grid-cols-2">
-                  <div className="relative h-64 lg:h-auto overflow-hidden">
-                    <img 
-                      src={featuredNews.image} 
-                      alt={featuredNews.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent lg:hidden" />
-                  </div>
-                  <CardContent className="p-6 lg:p-8 flex flex-col justify-center">
-                    <Badge className={`w-fit mb-4 ${getCategoryColor(featuredNews.category)}`}>
-                      {featuredNews.category}
-                    </Badge>
-                    <h3 className="font-heading font-bold text-xl lg:text-2xl text-foreground mb-4 group-hover:text-primary transition-colors">
-                      {featuredNews.title}
-                    </h3>
-                    <p className="text-muted-foreground mb-6 line-clamp-3">
-                      {featuredNews.excerpt}
-                    </p>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {featuredNews.date}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {featuredNews.readTime}
-                      </span>
+              <Link to={`/berita/${featuredNews.id}`}>
+                <Card className="overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300">
+                  <div className="grid lg:grid-cols-2">
+                    <div className="relative h-64 lg:h-auto overflow-hidden">
+                      <img 
+                        src={featuredNews.image} 
+                        alt={featuredNews.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent lg:hidden" />
                     </div>
-                    <button className="flex items-center gap-2 text-primary font-medium group-hover:gap-3 transition-all">
-                      Baca Selengkapnya
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </CardContent>
-                </div>
-              </Card>
+                    <CardContent className="p-6 lg:p-8 flex flex-col justify-center">
+                      <Badge className={`w-fit mb-4 ${getCategoryColor(featuredNews.category)}`}>
+                        {featuredNews.category}
+                      </Badge>
+                      <h3 className="font-heading font-bold text-xl lg:text-2xl text-foreground mb-4 group-hover:text-primary transition-colors">
+                        {featuredNews.title}
+                      </h3>
+                      <p className="text-muted-foreground mb-6 line-clamp-3">
+                        {featuredNews.excerpt}
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          {featuredNews.date}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          {featuredNews.readTime}
+                        </span>
+                      </div>
+                      <span className="flex items-center gap-2 text-primary font-medium group-hover:gap-3 transition-all">
+                        Baca Selengkapnya
+                        <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </CardContent>
+                  </div>
+                </Card>
+              </Link>
             </ScrollReveal>
           </div>
         </section>
@@ -198,29 +200,31 @@ const Berita = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   {newsItems.map((news, index) => (
                     <ScrollReveal key={news.id} delay={index * 100}>
-                      <Card className="h-full group cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                        <CardContent className="p-5">
-                          <Badge className={`mb-3 ${getCategoryColor(news.category)}`}>
-                            {news.category}
-                          </Badge>
-                          <h3 className="font-heading font-semibold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                            {news.title}
-                          </h3>
-                          <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                            {news.excerpt}
-                          </p>
-                          <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                            <span className="flex items-center gap-1">
-                              <Calendar className="w-3 h-3" />
-                              {news.date}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-3 h-3" />
-                              {news.readTime}
-                            </span>
-                          </div>
-                        </CardContent>
-                      </Card>
+                      <Link to={`/berita/${news.id}`}>
+                        <Card className="h-full group cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                          <CardContent className="p-5">
+                            <Badge className={`mb-3 ${getCategoryColor(news.category)}`}>
+                              {news.category}
+                            </Badge>
+                            <h3 className="font-heading font-semibold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+                              {news.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                              {news.excerpt}
+                            </p>
+                            <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                              <span className="flex items-center gap-1">
+                                <Calendar className="w-3 h-3" />
+                                {news.date}
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
+                                {news.readTime}
+                              </span>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
                     </ScrollReveal>
                   ))}
                 </div>
