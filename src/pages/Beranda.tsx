@@ -145,7 +145,7 @@ const Beranda = () => {
                           <div className="mb-4">
                             <span className="text-sm text-muted-foreground">WhatsApp</span>
                             <a 
-                              href="https://wa.me/6281234567890" 
+                              href="https://wa.me/6285117247527" 
                               target="_blank" 
                               rel="noopener noreferrer"
                               className="flex items-center gap-3 mt-2 p-3 bg-muted rounded-lg hover:bg-muted/80 transition-colors"
@@ -153,7 +153,7 @@ const Beranda = () => {
                               <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
                                 <Phone className="w-5 h-5 text-white" />
                               </div>
-                              <span className="font-semibold text-foreground">0812-3456-7890</span>
+                              <span className="font-semibold text-foreground">0851-1724-7527</span>
                             </a>
                           </div>
 
