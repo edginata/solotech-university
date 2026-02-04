@@ -3,11 +3,34 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import HeroSection from '@/components/sections/HeroSection';
 import { Card, CardContent } from '@/components/ui/card';
-import { Heart, Users, MapPin, Calendar, HandHeart, Building, GraduationCap } from 'lucide-react';
+import { Heart, Users, MapPin, Calendar, HandHeart, Building, GraduationCap, ArrowRight, User } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ScrollReveal } from '@/hooks/useScrollReveal';
 
 const Pengabdian = () => {
   const breadcrumbs = [
     { label: 'Pengabdian', href: '/pengabdian' },
+  ];
+
+  const projectShowcase = [
+    {
+      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
+      author: 'Mahasiswa Teknik - Alfandi W.S',
+      title: 'Sistem Informasi Pemilihan Presiden Mahasiswa',
+      description: 'Seiring dengan berkembangnya zaman saat ini, kini pekerjaan-pekerjaan yang dahulu dilakukan dengan cara manual dapat dipermudah dengan penerapan dari ilmu informatika.',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=400&fit=crop',
+      author: 'Mahasiswa Teknik - Alfandi W.S',
+      title: 'Teknologi Pendeteksi Dini Hama Tanaman Tomat',
+      description: 'Meningkatkan efisiensi pertanian dan mengurangi dampak serangan hama, memberikan langkah preventif yang cepat dan tepat bagi para petani.',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&h=400&fit=crop',
+      author: 'Mahasiswa dan Dosen UKTS',
+      title: 'Bakti Sosial Di Panti Jompo GKJ Margoyudan',
+      description: 'Salah satu bentuk pengabdian kepada masyarakat, dan wujud dari kasih kepada sesama. Mahasiswa dan Dosen melakukan kegiatan Bakti Sosial di Panti Jompo Margoyudan.',
+    },
   ];
 
   const programs = [
@@ -109,8 +132,50 @@ const Pengabdian = () => {
           </div>
         </section>
 
-        {/* Programs */}
+        {/* Project Showcase Section */}
         <section className="py-12 lg:py-16 bg-muted/50">
+          <div className="section-container">
+            <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-8 text-center">
+              Proyek Pengabdian Masyarakat
+            </h2>
+            <div className="space-y-8">
+              {projectShowcase.map((project, index) => (
+                <ScrollReveal key={index} delay={index * 100}>
+                  <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="grid md:grid-cols-3 gap-0">
+                      <div className="md:col-span-1">
+                        <img 
+                          src={project.image} 
+                          alt={project.title}
+                          className="w-full h-48 md:h-full object-cover"
+                        />
+                      </div>
+                      <div className="md:col-span-2 p-6 flex flex-col justify-center">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                            <User className="w-4 h-4 text-primary" />
+                          </div>
+                          <span className="text-sm text-muted-foreground">{project.author}</span>
+                        </div>
+                        <h3 className="font-heading font-bold text-lg md:text-xl mb-3">{project.title}</h3>
+                        <p className="text-muted-foreground mb-4">{project.description}</p>
+                        <div>
+                          <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                            <ArrowRight className="w-4 h-4 mr-2" />
+                            Selengkapnya
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Programs */}
+        <section className="py-12 lg:py-16">
           <div className="section-container">
             <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-8 text-center">
               Program Unggulan

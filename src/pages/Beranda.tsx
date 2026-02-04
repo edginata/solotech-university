@@ -321,6 +321,67 @@ const Beranda = () => {
           </div>
         </section>
 
+        {/* Alumni Testimonials Section */}
+        <section className="py-16 lg:py-20">
+          <div className="section-container">
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-4">
+                  Testimoni Alumni
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Dengarkan cerita sukses dari para alumni UKTS yang telah berkarya di berbagai bidang.
+                </p>
+              </div>
+            </ScrollReveal>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                {
+                  name: 'Budi Santoso, S.Kom',
+                  role: 'Software Engineer di Gojek',
+                  program: 'Teknik Informatika 2018',
+                  quote: 'UKTS memberikan fondasi yang kuat dalam pemrograman dan nilai-nilai kristiani yang membentuk karakter profesional saya.',
+                  image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
+                },
+                {
+                  name: 'Maria Kristina, S.E.',
+                  role: 'Finance Manager di Bank BCA',
+                  program: 'Akuntansi 2016',
+                  quote: 'Kurikulum yang relevan dengan industri dan dosen yang berpengalaman membantu saya siap menghadapi dunia kerja.',
+                  image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face',
+                },
+                {
+                  name: 'Pdt. Yohanes Prasetya, M.Th.',
+                  role: 'Pendeta di GKJ Solo',
+                  program: 'Pendidikan Agama Kristen 2014',
+                  quote: 'Pendidikan teologi di UKTS membentuk saya menjadi hamba Tuhan yang siap melayani dengan sepenuh hati.',
+                  image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
+                },
+              ].map((testimonial, index) => (
+                <ScrollReveal key={testimonial.name} delay={index * 150}>
+                  <Card className="h-full hover:shadow-lg transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-4 mb-4">
+                        <img 
+                          src={testimonial.image} 
+                          alt={testimonial.name}
+                          className="w-16 h-16 rounded-full object-cover"
+                        />
+                        <div>
+                          <h4 className="font-heading font-semibold">{testimonial.name}</h4>
+                          <p className="text-sm text-primary font-medium">{testimonial.role}</p>
+                          <p className="text-xs text-muted-foreground">{testimonial.program}</p>
+                        </div>
+                      </div>
+                      <p className="text-muted-foreground italic">"{testimonial.quote}"</p>
+                    </CardContent>
+                  </Card>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="py-16 lg:py-20 bg-primary">
           <div className="section-container text-center">
