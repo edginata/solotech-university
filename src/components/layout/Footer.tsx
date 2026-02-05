@@ -1,73 +1,69 @@
-import { MapPin, Phone, Mail, Globe, Facebook, Instagram, Youtube, MessageCircle } from 'lucide-react';
+ import { MapPin, Phone, Mail, Globe, Facebook, Instagram, Youtube, MessageCircle, Twitter } from 'lucide-react';
+ import uktsLogo from '@/assets/ukts-logo.png';
 
 const Footer = () => {
-  const quickLinks = [
-    { label: 'Beranda', href: 'https://ukts.ac.id/' },
-    { label: 'Profil', href: 'https://ukts.ac.id/profil/' },
-    { label: 'PMB', href: 'https://ukts.ac.id/laman-pmb/' },
-    { label: 'Beasiswa', href: 'https://ukts.ac.id/beasiswa/' },
-    { label: 'Penelitian', href: 'https://ukts.ac.id/penelitian/' },
+   const menuLinks = [
+     { label: 'PENDAFTARAN', href: '/pendaftaran' },
+     { label: 'PROFIL UKTS', href: '/profil' },
+     { label: 'LOGIN ADMIN', href: '/admin/login' },
+     { label: 'PORTAL DOSEN', href: 'http://sinkrista.uks.ac.id/' },
+     { label: 'E-LEARNING', href: '#' },
   ];
 
-  const academicLinks = [
-    { label: 'Fakultas Teologi', href: '/fakultas/teologi' },
-    { label: 'Fakultas Teknik', href: '/fakultas/teknik' },
-    { label: 'Fakultas Ekonomi', href: '/fakultas/ekonomi' },
-    { label: 'Portal Dosen', href: 'http://sinkrista.uks.ac.id/' },
-    { label: 'Portal Mahasiswa', href: 'http://sinkrista.uks.ac.id/' },
+   const linksSection = [
+     { label: 'AKADEMIK', href: '/akademik' },
+     { label: 'KEMAHASISWAAN', href: '#' },
+     { label: 'LPPM', href: '/penelitian' },
+     { label: 'KEUANGAN', href: '#' },
+     { label: 'INTERNATIONAL', href: '#' },
   ];
 
   const socialLinks = [
     { icon: Facebook, href: '#', label: 'Facebook' },
+     { icon: Twitter, href: '#', label: 'Twitter' },
     { icon: Instagram, href: '#', label: 'Instagram' },
     { icon: Youtube, href: '#', label: 'YouTube' },
     { icon: MessageCircle, href: 'https://api.whatsapp.com/send?phone=6285117247527', label: 'WhatsApp' },
   ];
 
   return (
-    <footer className="bg-footer text-footer-foreground">
+     <footer className="bg-primary text-primary-foreground">
       <div className="section-container py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* About */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-heading font-bold text-lg">S</span>
-              </div>
-              <div>
-                <div className="font-heading font-bold text-lg">SOLOTECH</div>
-                <div className="text-xs text-footer-foreground/60">University</div>
-              </div>
+             <div className="flex items-center gap-3 mb-6">
+               <img src={uktsLogo} alt="UKTS Logo" className="w-16 h-16 object-contain" />
+               <div className="text-left">
+                 <div className="font-heading font-bold text-lg leading-tight">UNIVERSITAS</div>
+                 <div className="font-heading font-bold text-lg leading-tight">KRISTEN TEKNOLOGI</div>
+                 <div className="font-heading font-bold text-lg leading-tight">SOLO</div>
+               </div>
             </div>
-            <p className="text-sm text-footer-foreground/80 leading-relaxed mb-2">
-              <strong>Universitas Kristen Teknologi Solo</strong>
+             <p className="text-sm text-primary-foreground/80 leading-relaxed mb-2">
+               Diselenggarakan oleh
             </p>
-            <p className="text-sm text-footer-foreground/80 leading-relaxed mb-4">
-              Kampus teknologi dan entrepreneurship yang ditopang oleh nilai-nilai kristiani. Technology for Transformation.
+             <p className="text-sm font-semibold mb-2">Yayasan Kristen Surakarta</p>
+             <p className="text-sm text-primary-foreground/80 leading-relaxed mb-4">
+               Jl. R.W. Monginsidi No. 36-38,<br />
+               Banjarsari, Surakarta,<br />
+               Jawa Tengah 57134
             </p>
-            <div className="flex gap-3">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  className="w-9 h-9 bg-footer-foreground/10 hover:bg-primary rounded-full flex items-center justify-center transition-colors"
-                  aria-label={social.label}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <social.icon className="w-4 h-4" />
-                </a>
-              ))}
-            </div>
+             <div className="space-y-1 text-sm text-primary-foreground/80">
+               <p>Email : pmb@ukts.ac.id</p>
+               <p>Email : info@ukts.ac.id</p>
+               <p>Telp&nbsp;&nbsp;&nbsp;: (0271) 637145</p>
+               <p>Fax&nbsp;&nbsp;&nbsp;&nbsp;: (0271) 637145</p>
+             </div>
           </div>
 
-          {/* Quick Links */}
+           {/* Menu Links */}
           <div>
-            <h4 className="font-heading font-semibold text-lg mb-4">Pintasan</h4>
+             <h4 className="font-heading font-bold text-lg mb-6">MENU</h4>
             <ul className="space-y-2">
-              {quickLinks.map((link) => (
+               {menuLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="footer-link text-sm">
+                   <a href={link.href} className="text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors">
                     {link.label}
                   </a>
                 </li>
@@ -75,13 +71,13 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Academic */}
+           {/* Links */}
           <div>
-            <h4 className="font-heading font-semibold text-lg mb-4">Akademik</h4>
+             <h4 className="font-heading font-bold text-lg mb-6">LINKS</h4>
             <ul className="space-y-2">
-              {academicLinks.map((link) => (
+               {linksSection.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="footer-link text-sm">
+                   <a href={link.href} className="text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors">
                     {link.label}
                   </a>
                 </li>
@@ -89,56 +85,35 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact Info */}
+           {/* Copyright & Social */}
           <div>
-            <h4 className="font-heading font-semibold text-lg mb-4">Kontak</h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-footer-foreground/80">
-                  Jl. R.W. Monginsidi No. 36-38,<br />
-                  Banjarsari, Surakarta,<br />
-                  Jawa Tengah 57134
-                </span>
-              </li>
-              <li>
-                <a href="tel:0271637145" className="flex items-center gap-3 footer-link">
-                  <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-sm">(0271) 637145</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://api.whatsapp.com/send?phone=6285117247527" className="flex items-center gap-3 footer-link">
-                  <MessageCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-sm">0851-1724-7527 (WhatsApp)</span>
-                </a>
-              </li>
-              <li>
-                <a href="mailto:pmb@ukts.ac.id" className="flex items-center gap-3 footer-link">
-                  <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-sm">pmb@ukts.ac.id</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://ukts.ac.id" className="flex items-center gap-3 footer-link">
-                  <Globe className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-sm">www.ukts.ac.id</span>
-                </a>
-              </li>
-            </ul>
+             <p className="text-sm text-primary-foreground/80 mb-2">Copyright © 1993 - 2026</p>
+             <p className="text-sm font-semibold mb-2">UNIVERSITAS KRISTEN TEKNOLOGI SOLO</p>
+             <p className="text-sm text-primary-foreground/80 mb-6">All Rights Reserved</p>
+             
+             <div className="flex gap-2 mt-8">
+               {socialLinks.map((social) => (
+                 <a
+                   key={social.label}
+                   href={social.href}
+                   className="w-10 h-10 bg-primary-foreground/10 hover:bg-accent hover:text-accent-foreground rounded-lg flex items-center justify-center transition-colors"
+                   aria-label={social.label}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                 >
+                   <social.icon className="w-5 h-5" />
+                 </a>
+               ))}
+             </div>
           </div>
         </div>
       </div>
 
       {/* Copyright */}
-      <div className="border-t border-footer-foreground/10">
+       <div className="bg-primary-foreground/10">
         <div className="section-container py-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-footer-foreground/60">
-            <p>© 2024 Universitas Kristen Teknologi Solo (UKTS). All Rights Reserved.</p>
-            <div className="flex gap-4">
-              <a href="#" className="hover:text-footer-foreground transition-colors">Kebijakan Privasi</a>
-              <a href="#" className="hover:text-footer-foreground transition-colors">Syarat & Ketentuan</a>
-            </div>
+           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+             <p className="text-primary-foreground font-semibold">UNIVERSITAS KRISTEN TEKNOLOGI SOLO</p>
           </div>
         </div>
       </div>
