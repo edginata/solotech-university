@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { GraduationCap, Users, BookOpen, Award, ChevronRight, ChevronLeft, ArrowRight, Phone } from 'lucide-react';
 import { ScrollReveal } from '@/hooks/useScrollReveal';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const Beranda = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -322,63 +323,80 @@ const Beranda = () => {
         </section>
 
         {/* Alumni Testimonials Section */}
-        <section className="py-16 lg:py-20">
+        <section className="py-16 lg:py-20 bg-alumni">
           <div className="section-container">
             <ScrollReveal>
-              <div className="text-center mb-12">
-                <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-4">
-                  Testimoni Alumni
+              <div className="flex items-center justify-between mb-10">
+                <h2 className="font-heading font-bold text-2xl md:text-3xl lg:text-4xl text-foreground">
+                  Cerita Sukses Alumni
                 </h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
-                  Dengarkan cerita sukses dari para alumni UKTS yang telah berkarya di berbagai bidang.
-                </p>
               </div>
             </ScrollReveal>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  name: 'Budi Santoso, S.Kom',
-                  role: 'Software Engineer di Gojek',
-                  program: 'Teknik Informatika 2018',
-                  quote: 'UKTS memberikan fondasi yang kuat dalam pemrograman dan nilai-nilai kristiani yang membentuk karakter profesional saya.',
-                  image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
-                },
-                {
-                  name: 'Maria Kristina, S.E.',
-                  role: 'Finance Manager di Bank BCA',
-                  program: 'Akuntansi 2016',
-                  quote: 'Kurikulum yang relevan dengan industri dan dosen yang berpengalaman membantu saya siap menghadapi dunia kerja.',
-                  image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face',
-                },
-                {
-                  name: 'Pdt. Yohanes Prasetya, M.Th.',
-                  role: 'Pendeta di GKJ Solo',
-                  program: 'Pendidikan Agama Kristen 2014',
-                  quote: 'Pendidikan teologi di UKTS membentuk saya menjadi hamba Tuhan yang siap melayani dengan sepenuh hati.',
-                  image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
-                },
-              ].map((testimonial, index) => (
-                <ScrollReveal key={testimonial.name} delay={index * 150}>
-                  <Card className="h-full hover:shadow-lg transition-shadow">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-4 mb-4">
+            
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <div className="absolute -top-16 right-0 flex gap-2">
+                <CarouselPrevious className="static translate-y-0 w-10 h-10 bg-accent hover:bg-accent/90 text-accent-foreground border-0" />
+                <CarouselNext className="static translate-y-0 w-10 h-10 bg-accent hover:bg-accent/90 text-accent-foreground border-0" />
+              </div>
+              <CarouselContent className="-ml-4">
+                {[
+                  {
+                    name: 'IRWAN OYONG',
+                    program: 'S2 Magister Informatika',
+                    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face',
+                  },
+                  {
+                    name: 'ZUPITASARI',
+                    program: 'S1 Sistem Informasi',
+                    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=500&fit=crop&crop=face',
+                  },
+                  {
+                    name: 'WINDA SEKAR DEWI',
+                    program: 'S2 Magister Informatika',
+                    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=500&fit=crop&crop=face',
+                  },
+                  {
+                    name: 'RAKANDHIYA DAANII RACHMANTO',
+                    program: 'S1 Informatika',
+                    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&crop=face',
+                  },
+                  {
+                    name: 'BUDI SANTOSO',
+                    program: 'S1 Teknik Informatika',
+                    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=500&fit=crop&crop=face',
+                  },
+                  {
+                    name: 'MARIA KRISTINA',
+                    program: 'S1 Akuntansi',
+                    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=500&fit=crop&crop=face',
+                  },
+                ].map((alumni, index) => (
+                  <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+                    <div className="group cursor-pointer">
+                      <div className="relative overflow-hidden rounded-xl mb-3 aspect-[4/5]">
                         <img 
-                          src={testimonial.image} 
-                          alt={testimonial.name}
-                          className="w-16 h-16 rounded-full object-cover"
+                          src={alumni.image} 
+                          alt={alumni.name}
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
-                        <div>
-                          <h4 className="font-heading font-semibold">{testimonial.name}</h4>
-                          <p className="text-sm text-primary font-medium">{testimonial.role}</p>
-                          <p className="text-xs text-muted-foreground">{testimonial.program}</p>
-                        </div>
                       </div>
-                      <p className="text-muted-foreground italic">"{testimonial.quote}"</p>
-                    </CardContent>
-                  </Card>
-                </ScrollReveal>
-              ))}
-            </div>
+                      <h4 className="font-heading font-bold text-sm md:text-base text-foreground uppercase tracking-wide">
+                        {alumni.name}
+                      </h4>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {alumni.program}
+                      </p>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </div>
         </section>
 
