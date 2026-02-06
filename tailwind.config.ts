@@ -71,9 +71,6 @@ export default {
         topbar: {
           DEFAULT: "hsl(var(--top-bar-bg))",
         },
-        alumni: {
-          DEFAULT: "hsl(var(--alumni-bg))",
-        },
       },
       borderRadius: {
         lg: "var(--radius)",
