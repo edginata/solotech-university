@@ -11,7 +11,7 @@
  import { supabase } from '@/integrations/supabase/client';
  import { toast } from 'sonner';
  import { LogOut, Users, FileDown, Edit, Trash2, Eye, Search, Plus } from 'lucide-react';
- import uktsLogo from '@/assets/ukts-logo.png';
+  import uktsLogo from '@/assets/gallery/logo-ukts.png';
  
  interface Pendaftar {
    id: string;
@@ -75,7 +75,27 @@
      if (error) {
        toast.error('Gagal memuat data pendaftar');
      } else {
-       setPendaftars(data || []);
+      const remote = data || [];
+      // load local fallback submissions
+      const localRaw = localStorage.getItem('pendaftar_local');
+      const local = localRaw ? JSON.parse(localRaw) : [];
+      // normalize local entries to Pendaftar shape
+      const localNormalized = local.map((l: any) => ({
+        id: l.id,
+        nama: l.nama,
+        email: l.email,
+        telepon: l.telepon,
+        alamat: l.alamat || null,
+        program_studi: l.program_studi,
+        jalur_pendaftaran: null,
+        status: l.status || 'Pending',
+        tanggal_lahir: null,
+        jenis_kelamin: null,
+        asal_sekolah: l.asal_sekolah || null,
+        created_at: l.created_at,
+        updated_at: l.created_at,
+      }));
+      setPendaftars([...localNormalized, ...remote]);
      }
      setLoading(false);
    };

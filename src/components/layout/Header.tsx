@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import SearchDialog from '@/components/SearchDialog';
-import uktsLogo from '@/assets/ukts-logo.png';
+import uktsLogo from '@/assets/gallery/logo-ukts.png';
 
 interface SubMenuItem {
   label: string;
@@ -182,7 +182,7 @@ const Header = () => {
               <Search className="w-5 h-5" />
               <span className="hidden xl:inline">Cari...</span>
               <kbd className="hidden xl:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium">
-                <span className="text-xs">⌘</span>K
+                <span className="text-xs"></span>
               </kbd>
             </button>
           </div>

@@ -9,35 +9,35 @@ import { ScrollReveal } from '@/hooks/useScrollReveal';
 
 const Beranda = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  // local gallery images
+  const uktsJalan = '/src/assets/gallery/uktsjalan.jpeg';
+  const solotechDepan = '/src/assets/gallery/solotechdepan.jpeg';
+  const beasiswaImg = '/src/assets/gallery/beasiswasolotech.jpg';
 
   const slides = [
     {
       id: 1,
-      title: 'Akreditasi Unggul',
-      subtitle: 'UKTS Meraih Akreditasi Unggul dari BAN-PT',
-      description: 'Berdasarkan Surat Keputusan BAN-PT, Universitas Kristen Teknologi Solo telah meraih predikat Akreditasi Unggul.',
-      bgImage: 'https://images.unsplash.com/photo-1562774053-701939374585?w=1920&h=800&fit=crop',
+      title: 'UKTS Menerima',
+      subtitle: 'Akreditasi Unggul dari BAN-PT',
+      description:
+        'Berdasarkan Surat Keputusan BAN-PT, Universitas Kristen Teknologi Solo meraih predikat Akreditasi Unggul.',
+      bgImage: uktsJalan,
     },
     {
       id: 2,
-      title: 'Technology for Transformation',
-      subtitle: 'Selamat Datang di Universitas Kristen Teknologi Solo',
-      description: 'Membangun generasi yang unggul dalam teknologi dengan landasan nilai-nilai kristiani.',
-      bgImage: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920&h=800&fit=crop',
+      title: 'Selamat Datang di UKTS',
+      subtitle: 'Technology for Transformation',
+      description:
+        'Membangun generasi unggul dalam teknologi dengan landasan nilai-nilai kristiani.',
+      bgImage: solotechDepan,
     },
     {
       id: 3,
-      title: 'Pendaftaran Mahasiswa Baru',
-      subtitle: 'Tahun Akademik 2026/2027',
-      description: 'Daftarkan dirimu sekarang dan raih masa depan cemerlang bersama UKTS.',
-      bgImage: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1920&h=800&fit=crop',
-    },
-    {
-      id: 4,
-      title: 'Fasilitas Modern',
-      subtitle: 'Laboratorium dan Perpustakaan Lengkap',
-      description: 'Didukung dengan fasilitas modern untuk mendukung proses pembelajaran.',
-      bgImage: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1920&h=800&fit=crop',
+      title: 'Beasiswa Spark',
+      subtitle: 'Kesempatan Beasiswa untuk Mahasiswa Berprestasi',
+      description:
+        'Program Beasiswa Spark memberikan dukungan biaya studi bagi calon mahasiswa berprestasi. Daftar sekarang untuk kesempatan menerima bantuan pendidikan.',
+      bgImage: beasiswaImg,
     },
   ];
 

@@ -2,9 +2,6 @@ import { Phone, Mail, MessageCircle } from 'lucide-react';
 
 const TopBar = () => {
   const quickLinks = [
-    { label: 'English', href: '#' },
-    { label: 'FAQ', href: '#' },
-    { label: 'Berita', href: '#' },
     { label: 'PMB', href: 'https://ukts.ac.id/laman-pmb/' },
     { label: 'Beasiswa', href: 'https://ukts.ac.id/beasiswa/' },
   ];

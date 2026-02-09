@@ -7,7 +7,7 @@
  import { supabase } from '@/integrations/supabase/client';
  import { toast } from 'sonner';
  import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
- import uktsLogo from '@/assets/ukts-logo.png';
+ import uktsLogo from '@/assets/gallery/logo-ukts.png';
  
  const AdminLogin = () => {
    const navigate = useNavigate();

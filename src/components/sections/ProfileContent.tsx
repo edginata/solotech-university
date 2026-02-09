@@ -12,18 +12,18 @@ const ProfileContent = () => {
             </h2>
           </ScrollReveal>
 
-          {/* Video Embed - Note: Using placeholder since no official UKTS video found */}
+          {/* Video Embed - replace `profilbaru.mp4` with your provided video file in `src/assets/gallery/` */}
           <ScrollReveal delay={100}>
-            <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl mb-10 bg-muted flex items-center justify-center group cursor-pointer hover:shadow-2xl transition-shadow">
-              <div className="text-center p-8">
-                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
-                  <svg className="w-10 h-10 text-primary" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </div>
-                <p className="text-muted-foreground">Video Profil UKTS</p>
-                <p className="text-sm text-muted-foreground/60 mt-1">Coming Soon</p>
-              </div>
+            <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl mb-10 bg-muted flex items-center justify-center">
+                <video
+                  src="/src/assets/videos/videoukts.mp4"
+                  className="w-full h-full object-cover"
+                  controls
+                  playsInline
+                  preload="metadata"
+                >
+                  Your browser does not support the video tag.
+                </video>
             </div>
           </ScrollReveal>
 

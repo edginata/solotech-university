@@ -50,6 +50,18 @@ const Pendaftaran = () => {
        toast.error('Mohon lengkapi data yang wajib diisi');
        return;
      }
+
+    // basic validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error('Format email tidak valid');
+      return;
+    }
+    const phoneClean = formData.telepon.replace(/[^0-9+]/g, '');
+    if (phoneClean.length < 9) {
+      toast.error('Nomor telepon tidak valid');
+      return;
+    }
  
      setLoading(true);
  
@@ -66,7 +78,22 @@ const Pendaftaran = () => {
  
        if (error) {
          console.error('Error submitting:', error);
-         toast.error('Gagal mengirim pendaftaran. Silakan coba lagi.');
+        toast.error('Gagal mengirim ke server, menyimpan sementara secara lokal.');
+        // fallback: save to localStorage so admin can see it
+        const stored = JSON.parse(localStorage.getItem('pendaftar_local') || '[]');
+        const localItem = {
+          id: `local_${Date.now()}`,
+          nama: formData.nama.trim(),
+          email: formData.email.trim(),
+          telepon: formData.telepon.trim(),
+          alamat: formData.alamat.trim() || null,
+          program_studi: formData.program_studi,
+          created_at: new Date().toISOString(),
+          status: 'Pending',
+        };
+        stored.unshift(localItem);
+        localStorage.setItem('pendaftar_local', JSON.stringify(stored));
+        setSubmitted(true);
        } else {
          setSubmitted(true);
          toast.success('Pendaftaran berhasil dikirim!');
@@ -84,7 +111,7 @@ const Pendaftaran = () => {
        <div className="min-h-screen flex flex-col">
          <TopBar />
          <Header />
-         <main className="flex-1">
+         <main className="flex-1 pb-24">
            <HeroSection title="Pendaftaran Berhasil" breadcrumbs={breadcrumbs} />
            <section className="py-12 lg:py-16">
              <div className="section-container">
@@ -116,7 +143,7 @@ const Pendaftaran = () => {
       <TopBar />
       <Header />
       
-      <main className="flex-1">
+      <main className="flex-1 pb-24">
         <HeroSection 
           title="Formulir Pendaftaran" 
           breadcrumbs={breadcrumbs}

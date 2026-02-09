@@ -1,5 +1,5 @@
 import { ChevronRight } from 'lucide-react';
-import heroCampus from '@/assets/hero-campus.jpg';
+import heroCampus from '@/assets/gallery/solotechdepan.jpeg';
 
 interface HeroSectionProps {
   title: string;

@@ -98,7 +98,7 @@ const PMB = () => {
       <TopBar />
       <Header />
       
-      <main className="flex-1">
+      <main className="flex-1 pb-24">
         <HeroSection 
           title="Penerimaan Mahasiswa Baru" 
           breadcrumbs={breadcrumbs}

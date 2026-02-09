@@ -20,13 +20,13 @@ const Pengabdian = () => {
       description: 'Seiring dengan berkembangnya zaman saat ini, kini pekerjaan-pekerjaan yang dahulu dilakukan dengan cara manual dapat dipermudah dengan penerapan dari ilmu informatika.',
     },
     {
-      image: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=400&fit=crop',
+      image: '/src/assets/gallery/tomat.jpg',
       author: 'Mahasiswa Teknik - Alfandi W.S',
       title: 'Teknologi Pendeteksi Dini Hama Tanaman Tomat',
       description: 'Meningkatkan efisiensi pertanian dan mengurangi dampak serangan hama, memberikan langkah preventif yang cepat dan tepat bagi para petani.',
     },
     {
-      image: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&h=400&fit=crop',
+      image: '/src/assets/gallery/baktisosialukts.png',
       author: 'Mahasiswa dan Dosen UKTS',
       title: 'Bakti Sosial Di Panti Jompo GKJ Margoyudan',
       description: 'Salah satu bentuk pengabdian kepada masyarakat, dan wujud dari kasih kepada sesama. Mahasiswa dan Dosen melakukan kegiatan Bakti Sosial di Panti Jompo Margoyudan.',
@@ -160,10 +160,12 @@ const Pengabdian = () => {
                         <h3 className="font-heading font-bold text-lg md:text-xl mb-3">{project.title}</h3>
                         <p className="text-muted-foreground mb-4">{project.description}</p>
                         <div>
-                          <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                            <ArrowRight className="w-4 h-4 mr-2" />
-                            Selengkapnya
-                          </Button>
+                          <a href={`/pengabdian/${index}`}>
+                            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                              <ArrowRight className="w-4 h-4 mr-2" />
+                              Selengkapnya
+                            </Button>
+                          </a>
                         </div>
                       </div>
                     </div>

@@ -1,5 +1,5 @@
  import { MapPin, Phone, Mail, Globe, Facebook, Instagram, Youtube, MessageCircle, Twitter } from 'lucide-react';
- import uktsLogo from '@/assets/ukts-logo.png';
+ import uktsLogo from '@/assets/gallery/logo-ukts.png';
 
 const Footer = () => {
    const menuLinks = [
@@ -26,8 +26,8 @@ const Footer = () => {
     { icon: MessageCircle, href: 'https://api.whatsapp.com/send?phone=6285117247527', label: 'WhatsApp' },
   ];
 
-  return (
-     <footer className="bg-primary text-primary-foreground">
+    return (
+      <footer className="bg-primary text-primary-foreground mt-auto relative z-0">
       <div className="section-container py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* About */}
@@ -110,10 +110,11 @@ const Footer = () => {
       </div>
 
       {/* Copyright */}
-       <div className="bg-primary-foreground/10">
+       <div className="bg-primary-foreground/10 border-t border-primary-foreground/5">
         <div className="section-container py-6">
            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
              <p className="text-primary-foreground font-semibold">UNIVERSITAS KRISTEN TEKNOLOGI SOLO</p>
+             <p className="text-primary-foreground/70 text-sm">Designed with care • UKTS</p>
           </div>
         </div>
       </div>
