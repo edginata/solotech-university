@@ -1,4 +1,5 @@
 import { ScrollReveal } from '@/hooks/useScrollReveal';
+import videoukts from '@/assets/videos/videoukts.mp4';
 
 const ProfileContent = () => {
   return (
@@ -16,7 +17,7 @@ const ProfileContent = () => {
           <ScrollReveal delay={100}>
             <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl mb-10 bg-muted flex items-center justify-center">
                 <video
-                  src="/src/assets/videos/videoukts.mp4"
+                  src={videoukts}
                   className="w-full h-full object-cover"
                   controls
                   playsInline
