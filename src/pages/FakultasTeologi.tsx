@@ -193,7 +193,7 @@ const FakultasTeologi = () => {
                       <Users className="w-10 h-10 text-primary" />
                     </div>
                     <h4 className="font-semibold text-foreground">{d.name}</h4>
-                    <p className="text-sm text-primary">{d.jabatan}</p>
+                    <p className="text-sm text-primary">{d.bidang}</p>
                     <p className="text-sm text-muted-foreground mt-1">{d.bidang}</p>
                   </Card>
                 </ScrollReveal>
