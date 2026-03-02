@@ -21,6 +21,7 @@ export type Database = {
           created_at: string
           email: string
           id: string
+          no_wa_aktif: string | null
           jalur_pendaftaran: string | null
           jenis_kelamin: string | null
           nama: string
@@ -36,6 +37,7 @@ export type Database = {
           created_at?: string
           email: string
           id?: string
+          no_wa_aktif?: string | null
           jalur_pendaftaran?: string | null
           jenis_kelamin?: string | null
           nama: string
@@ -51,6 +53,7 @@ export type Database = {
           created_at?: string
           email?: string
           id?: string
+          no_wa_aktif?: string | null
           jalur_pendaftaran?: string | null
           jenis_kelamin?: string | null
           nama?: string
@@ -58,6 +61,237 @@ export type Database = {
           status?: string
           tanggal_lahir?: string | null
           telepon?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      program_studi: {
+        Row: {
+          id: string
+          name: string
+          description: string | null
+          faculty_id: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          description?: string | null
+          faculty_id?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          description?: string | null
+          faculty_id?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      pengabdian: {
+        Row: {
+          id: string
+          title: string
+          description: string | null
+          author: string | null
+          image_url: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          description?: string | null
+          author?: string | null
+          image_url?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          description?: string | null
+          author?: string | null
+          image_url?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      berita: {
+        Row: {
+          id: string
+          title: string
+          excerpt: string | null
+          content: string | null
+          category: string | null
+          author: string | null
+          image_url: string | null
+          published_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          excerpt?: string | null
+          content?: string | null
+          category?: string | null
+          author?: string | null
+          image_url?: string | null
+          published_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          excerpt?: string | null
+          content?: string | null
+          category?: string | null
+          author?: string | null
+          image_url?: string | null
+          published_at?: string
+        }
+        Relationships: []
+      }
+      kegiatan: {
+        Row: {
+          id: string
+          title: string
+          description: string | null
+          location: string | null
+          start_at: string | null
+          end_at: string | null
+          image_url: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          description?: string | null
+          location?: string | null
+          start_at?: string | null
+          end_at?: string | null
+          image_url?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          description?: string | null
+          location?: string | null
+          start_at?: string | null
+          end_at?: string | null
+          image_url?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      jadwal: {
+        Row: {
+          id: string
+          title: string
+          description: string | null
+          day: string | null
+          time_from: string | null
+          time_to: string | null
+          location: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          description?: string | null
+          day?: string | null
+          time_from?: string | null
+          time_to?: string | null
+          location?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          description?: string | null
+          day?: string | null
+          time_from?: string | null
+          time_to?: string | null
+          location?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      galeri: {
+        Row: {
+          id: string
+          title: string | null
+          description: string | null
+          image_url: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          title?: string | null
+          description?: string | null
+          image_url: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string | null
+          description?: string | null
+          image_url?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
+      faculty: {
+        Row: {
+          id: string
+          name: string
+          description: string | null
+          order_num: number | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          description?: string | null
+          order_num?: number | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          description?: string | null
+          order_num?: number | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      section_metadata: {
+        Row: {
+          id: string
+          section_name: string
+          title: string
+          description: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          section_name: string
+          title: string
+          description?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          section_name?: string
+          title?: string
+          description?: string | null
+          created_at?: string
           updated_at?: string
         }
         Relationships: []

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Search } from 'lucide-react';
+import { Menu, X, ChevronDown, Search, BookOpen, Users, Lightbulb, HandHelping, FilePlus, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import SearchDialog from '@/components/SearchDialog';
 import uktsLogo from '@/assets/gallery/logo-ukts.png';
@@ -8,6 +8,8 @@ import uktsLogo from '@/assets/gallery/logo-ukts.png';
 interface SubMenuItem {
   label: string;
   href: string;
+  icon?: any;
+  description?: string;
 }
 
 interface NavItem {
@@ -15,6 +17,7 @@ interface NavItem {
   href: string;
   hasDropdown?: boolean;
   subItems?: SubMenuItem[];
+  columns?: number;
 }
 
 const Header = () => {
@@ -51,29 +54,31 @@ const Header = () => {
       label: 'PROFIL', 
       href: '/profil', 
       hasDropdown: true,
+      columns: 2,
       subItems: [
-        { label: 'Tentang UKTS', href: '/profil' },
-        { label: 'Visi & Misi', href: '/profil#visi-misi' },
-        { label: 'Sejarah', href: '/profil#sejarah' },
-        { label: 'Struktur Organisasi', href: '/profil#struktur' },
-        { label: 'Fasilitas', href: '/profil#fasilitas' },
+        { label: 'Tentang UKTS', href: '/profil', icon: Users, description: 'Biodata dan sejarah universitas' },
+        { label: 'Visi & Misi', href: '/profil#visi-misi', icon: Lightbulb, description: 'Tujuan dan rencana kami' },
+        { label: 'Sejarah', href: '/profil#sejarah', icon: BookOpen, description: 'Perkembangan dari awal' },
+        { label: 'Struktur Organisasi', href: '/profil#struktur', icon: Users, description: 'Bagan organisasi' },
+        { label: 'Fasilitas', href: '/profil#fasilitas', icon: Zap, description: 'Infrastruktur kampus' },
+        { label: 'Akreditasi', href: '/profil#akreditasi', icon: FilePlus, description: 'Sertifikasi & penghargaan' },
       ]
     },
     { 
       label: 'AKADEMIK', 
       href: '/akademik', 
       hasDropdown: true,
+      columns: 2,
       subItems: [
-        { label: 'Fakultas Teologi', href: '/fakultas/teologi' },
-        { label: 'Fakultas Teknik', href: '/fakultas/teknik' },
-        { label: 'Fakultas Ekonomi', href: '/fakultas/ekonomi' },
-        { label: 'Kalender Akademik', href: '/akademik#kalender' },
-        { label: 'Portal Mahasiswa', href: 'http://sinkrista.uks.ac.id/' },
-        { label: 'Portal Dosen', href: 'http://sinkrista.uks.ac.id/' },
+        { label: 'Fakultas Teologi', href: '/fakultas/teologi', icon: BookOpen, description: 'Program studi teologi' },
+        { label: 'Fakultas Teknik', href: '/fakultas/teknik', icon: Zap, description: 'Program teknik & informatika' },
+        { label: 'Fakultas Ekonomi', href: '/fakultas/ekonomi', icon: Lightbulb, description: 'Program ekonomi bisnis' },
+        { label: 'Kalender Akademik', href: '/akademik#kalender', icon: BookOpen, description: 'Jadwal tahun akademik' },
       ]
     },
     { label: 'PENELITIAN', href: '/penelitian' },
     { label: 'PENGABDIAN', href: '/pengabdian' },
+    { label: 'BEM', href: '/bem' },
     { label: 'PMB', href: '/pmb' },
   ];
 
@@ -143,23 +148,41 @@ const Header = () => {
                     )}
                   </a>
 
-                  {/* Dropdown Menu */}
+                  {/* Mega Dropdown Menu */}
                   {item.hasDropdown && item.subItems && activeDropdown === item.label && (
                     <div 
-                      className="absolute top-full left-0 mt-0 w-56 bg-background border border-border rounded-lg shadow-xl animate-fade-in z-50"
+                      className="absolute top-full left-0 mt-0 min-w-max bg-background border border-border rounded-lg shadow-2xl animate-fade-in z-50"
+                      style={{
+                        width: item.columns === 2 ? '600px' : item.columns === 1 ? '320px' : 'auto'
+                      }}
                     >
-                      <div className="py-2">
-                        {item.subItems.map((subItem) => (
-                          <a
-                            key={subItem.label}
-                            href={subItem.href}
-                            className="block px-4 py-2.5 text-sm text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
-                            target={subItem.href.startsWith('http') ? '_blank' : undefined}
-                            rel={subItem.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                          >
-                            {subItem.label}
-                          </a>
-                        ))}
+                      <div className={`p-6 grid gap-4 ${item.columns === 2 ? 'grid-cols-2' : item.columns === 1 ? 'grid-cols-1' : 'grid-cols-1'}`}>
+                        {item.subItems.map((subItem) => {
+                          const Icon = subItem.icon;
+                          return (
+                            <a
+                              key={subItem.label}
+                              href={subItem.href}
+                              className="group flex gap-3 p-3 rounded-lg hover:bg-primary/5 transition-all duration-200"
+                              target={subItem.href.startsWith('http') ? '_blank' : undefined}
+                              rel={subItem.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                            >
+                              {Icon && (
+                                <Icon className="w-5 h-5 text-primary flex-shrink-0 group-hover:scale-110 transition-transform" />
+                              )}
+                              <div className="flex-1">
+                                <div className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors">
+                                  {subItem.label}
+                                </div>
+                                {subItem.description && (
+                                  <div className="text-xs text-muted-foreground group-hover:text-foreground/70 transition-colors">
+                                    {subItem.description}
+                                  </div>
+                                )}
+                              </div>
+                            </a>
+                          );
+                        })}
                       </div>
                     </div>
                   )}
@@ -227,19 +250,28 @@ const Header = () => {
                           />
                         </button>
                         {mobileExpandedMenu === item.label && item.subItems && (
-                          <div className="ml-4 mt-1 mb-2 border-l-2 border-primary/20 animate-fade-in">
-                            {item.subItems.map((subItem) => (
-                              <a
-                                key={subItem.label}
-                                href={subItem.href}
-                                className="block py-2 px-4 text-sm text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                target={subItem.href.startsWith('http') ? '_blank' : undefined}
-                                rel={subItem.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                              >
-                                {subItem.label}
-                              </a>
-                            ))}
+                          <div className="ml-4 mt-1 mb-2 border-l-2 border-primary/20 animate-fade-in space-y-1">
+                            {item.subItems.map((subItem) => {
+                              const Icon = subItem.icon;
+                              return (
+                                <a
+                                  key={subItem.label}
+                                  href={subItem.href}
+                                  className="block py-2 px-4 text-sm text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors rounded flex gap-2 items-start"
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                  target={subItem.href.startsWith('http') ? '_blank' : undefined}
+                                  rel={subItem.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                                >
+                                  {Icon && <Icon className="w-4 h-4 mt-0.5 flex-shrink-0" />}
+                                  <div>
+                                    <div className="font-medium">{subItem.label}</div>
+                                    {subItem.description && (
+                                      <div className="text-xs text-muted-foreground">{subItem.description}</div>
+                                    )}
+                                  </div>
+                                </a>
+                              );
+                            })}
                           </div>
                         )}
                       </>

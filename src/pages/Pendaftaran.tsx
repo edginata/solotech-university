@@ -1,4 +1,4 @@
- import { useState } from 'react';
+ import { useState, useEffect } from 'react';
  import TopBar from '@/components/layout/TopBar';
  import Header from '@/components/layout/Header';
  import Footer from '@/components/layout/Footer';
@@ -22,6 +22,7 @@ const Pendaftaran = () => {
      nama: '',
      email: '',
      telepon: '',
+     no_wa_aktif: '',
      tanggal_lahir: '',
      alamat: '',
      asal_sekolah: '',
@@ -35,13 +36,23 @@ const Pendaftaran = () => {
    const [loading, setLoading] = useState(false);
    const [submitted, setSubmitted] = useState(false);
 
-  const programs = [
-     { value: 'S1 Teknik Informatika', label: 'S1 Teknik Informatika' },
-     { value: 'S1 Teknik Lingkungan', label: 'S1 Teknik Lingkungan' },
-     { value: 'S1 Manajemen', label: 'S1 Manajemen' },
-     { value: 'S1 Akuntansi', label: 'S1 Akuntansi' },
-     { value: 'S1 Pendidikan Agama Kristen', label: 'S1 Pendidikan Agama Kristen' },
-  ];
+  const [programs, setPrograms] = useState<{ value: string; label: string }[]>([]);
+
+  // load program studi options from supabase
+  useEffect(() => {
+    let mounted = true;
+    const load = async () => {
+      const { data, error } = await supabase.from('program_studi').select('*').order('created_at', { ascending: true });
+      if (error) {
+        console.error('Gagal memuat program studi', error);
+      } else if (mounted) {
+        const items = (data || []).map((p: any) => ({ value: p.name, label: p.name }));
+        setPrograms(items);
+      }
+    };
+    load();
+    return () => { mounted = false; };
+  }, []);
  
    const handleSubmit = async (e: React.FormEvent) => {
      e.preventDefault();
@@ -62,6 +73,14 @@ const Pendaftaran = () => {
       toast.error('Nomor telepon tidak valid');
       return;
     }
+    // optional: validate WhatsApp number format if provided
+    if (formData.no_wa_aktif) {
+      const waClean = formData.no_wa_aktif.replace(/[^0-9+]/g, '');
+      if (waClean.length < 9) {
+        toast.error('Nomor WhatsApp tidak valid');
+        return;
+      }
+    }
  
      setLoading(true);
  
@@ -70,6 +89,7 @@ const Pendaftaran = () => {
          nama: formData.nama.trim(),
          email: formData.email.trim(),
          telepon: formData.telepon.trim(),
+         no_wa_aktif: formData.no_wa_aktif.trim() || null,
          alamat: formData.alamat.trim() || null,
          program_studi: formData.program_studi,
          tanggal_lahir: formData.tanggal_lahir || null,
@@ -85,7 +105,8 @@ const Pendaftaran = () => {
           id: `local_${Date.now()}`,
           nama: formData.nama.trim(),
           email: formData.email.trim(),
-          telepon: formData.telepon.trim(),
+            telepon: formData.telepon.trim(),
+            no_wa_aktif: formData.no_wa_aktif.trim() || null,
           alamat: formData.alamat.trim() || null,
           program_studi: formData.program_studi,
           created_at: new Date().toISOString(),
@@ -214,6 +235,19 @@ const Pendaftaran = () => {
                              required
                            />
                         </div>
+                        <div className="space-y-2 mt-2">
+                          <Label htmlFor="no-wa">No. WhatsApp Aktif (opsional)</Label>
+                          <div className="relative">
+                            <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                             <Input
+                               id="no-wa"
+                               placeholder="628xxxx..."
+                               className="pl-10"
+                               value={formData.no_wa_aktif}
+                               onChange={(e) => setFormData({ ...formData, no_wa_aktif: e.target.value })}
+                             />
+                          </div>
+                        </div>
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="tanggal-lahir">Tanggal Lahir *</Label>
@@ -291,11 +325,17 @@ const Pendaftaran = () => {
                               <SelectValue placeholder="Pilih program studi" />
                             </SelectTrigger>
                             <SelectContent>
-                              {programs.map((program) => (
-                                <SelectItem key={program.value} value={program.value}>
-                                  {program.label}
-                                </SelectItem>
-                              ))}
+                                {programs.length > 0 ? (
+                                  programs.map((program) => (
+                                    <SelectItem key={program.value} value={program.value}>
+                                      {program.label}
+                                    </SelectItem>
+                                  ))
+                                ) : (
+                                  <SelectItem value="no_programs" disabled>
+                                    Tidak ada program studi tersedia
+                                  </SelectItem>
+                                )}
                             </SelectContent>
                           </Select>
                         </div>

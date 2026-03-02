@@ -31,11 +31,19 @@ const FakultasTeologi = () => {
   ];
 
   const dosen = [
-    { name: 'Dr. Yohanes Kristianto, M.Th.', bidang: 'Teologi Pastoral', jabatan: 'Dekan' },
-    { name: 'Dr. Maria Susanti, M.Div.', bidang: 'Teologi Sistematika', jabatan: 'Wakil Dekan' },
-    { name: 'Pdt. Dr. Petrus Handoko, M.Th.', bidang: 'Pastoral Konseling', jabatan: 'Kaprodi Pastoral Konseling' },
-    { name: 'Dr. Elisabeth Rahayu, M.Pd.', bidang: 'Pendidikan Agama Kristen', jabatan: 'Kaprodi PAK S1' },
-    { name: 'Dr. Samuel Prasetyo, M.Pd.K.', bidang: 'Pendidikan Kristen', jabatan: 'Kaprodi PAK S2' },
+    { name: 'Sabda Wahyudi, S.E.,M.Th.', bidang: 'Teologi Pendidikan Agama Kristen' },
+    { name: 'Sri Wening, S.PAK.,M.Th.', bidang: 'Teologi Pendidikan Agama Kristen' },
+    { name: 'Eliana Setyani, S.Psi.,M.Si. ', bidang: 'Teologi Pastoral Konseling' },
+    { name: 'Magdalena Elly Kurniawati,S.Pdk M.Si. ', bidang: 'Teologi Pendidikan Agama Kristen' },
+    { name: 'Budi Widianto, S.Ag.,M.Si', bidang: 'Teologi Pastoral' },
+    { name: 'Justin Niaga Siman Juntak, S.Si.,Teol.,M.Pd.K.', bidang: 'Teologi Pendidikan Agama Kristen' },
+    { name: 'Pramadi Tjahjono, M.Th.', bidang: 'Teologi Pendidikan Agama Kristen' },
+    { name: 'Hida Diyanto,S.Si., M.Si.', bidang: 'Teologi Pendidikan Agama Kristen' },
+    { name: 'Ayub Widhi Rumekso, S.Si.,M.Si.', bidang: 'Teologi Pastoral Konseling' },
+    { name: 'Dr.Kristriyanto, M.Th.', bidang: 'Teologi Pendidikan Agama Kristen' },
+    { name: 'Dr. Uri Christian Sakti Labeti, S.Si.,M.Sn.', bidang: 'Teologi Pastoral Konseling' },
+    { name: 'Danang Kurniawan,S.Si.,M.A.R.S', bidang: 'Teologi Pendidikan Agama Kristen' },
+    { name: 'Dian Paula April Juwan, S.Fil.,M.Phil.', bidang: 'Teologi Pendidikan Agama Kristen' },
   ];
 
   const fasilitas = [

@@ -50,11 +50,21 @@ const FakultasTeknik = () => {
   ];
 
   const dosen = [
-    { name: 'Dr. Bambang Setiyadi, M.Kom.', bidang: 'Artificial Intelligence', jabatan: 'Dekan' },
-    { name: 'Dr. Siti Nurhaliza, M.Eng.', bidang: 'Software Engineering', jabatan: 'Wakil Dekan' },
-    { name: 'Agus Hermawan, S.Kom., M.Cs.', bidang: 'Database Systems', jabatan: 'Kaprodi Teknik Informatika' },
-    { name: 'Dr. Ratna Dewi, S.T., M.T.', bidang: 'Environmental Engineering', jabatan: 'Kaprodi Teknik Lingkungan' },
-    { name: 'Dr. Budi Santoso, M.Kom.', bidang: 'Cyber Security', jabatan: 'Dosen' },
+    { name: 'Bambang Kristiawan, S.Si.,M.Sc.', bidang: 'Teknik Informatika'},
+    { name: 'Retno Palupi, S.Si.,M.Cs.', bidang: 'Teknik Informatika' },
+    { name: 'Omega Rimba Gemilang, M.Kom.', bidang: 'Teknik Informatika' },
+    { name: 'Agus Hariyanto, S.T.,MBA.', bidang: 'Teknik Informatika' },
+    { name: 'Nurul Sutarti, SP.,M.Si.', bidang: 'Teknik Informatika'},
+    { name: 'Cecelia Astrid M. Subroto, B.Sc.,M.M.', bidang: 'Teknik Informatika'},
+    { name: 'Dr. Ir. Eko Widodo, M.T', bidang: 'Teknik Informatika'},
+    { name: 'Dr. Iman Faskayana', bidang: 'Teknik Informatika'},
+    { name: 'Dr. Roberto Akuyuwen, STP.,S.E.,M.Si.', bidang: 'Teknik Informatika'},
+    { name: 'Richardus Indra Gunawan, S.TP.,M.Si.', bidang: 'Teknik Lingkungan'},
+    { name: 'Agerippa Yanuranda Krismani, M.Sc.', bidang: 'Teknik Lingkungan'},
+    { name: 'Elvis Umbu Lolo, S.T.,M.T.', bidang: 'Teknik Lingkungan'},
+    { name: 'Yonathan Suryo Pambudi, S.T.,M.Si.', bidang: 'Teknik Lingkungan'},
+    { name: 'Dra. Cicik Sudaryantiningsih, M.Si.', bidang: 'Teknik Lingkungan'},
+    { name: 'Widianto, S.T.,M.T.', bidang: 'Teknik Lingkungan'},
   ];
 
   const fasilitas = [

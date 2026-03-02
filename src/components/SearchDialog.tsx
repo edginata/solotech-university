@@ -20,6 +20,7 @@ interface SearchItem {
 const searchItems: SearchItem[] = [
   // Beranda
   { title: 'Beranda', description: 'Halaman utama UKTS', href: '/', category: 'Halaman' },
+  { title: 'BEM', description: 'Badan Eksekutif Mahasiswa', href: '/bem', category: 'Halaman' },
   
   // Profil
   { title: 'Tentang UKTS', description: 'Informasi tentang universitas', href: '/profil', category: 'Profil' },

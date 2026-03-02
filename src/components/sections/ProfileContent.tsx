@@ -141,6 +141,64 @@ const ProfileContent = () => {
             </ScrollReveal>
 
             <ScrollReveal>
+              <h3 id="akreditasi" className="font-heading font-semibold text-xl text-primary mt-8 mb-4">
+                Akreditasi & Penghargaan
+              </h3>
+
+              <div className="grid md:grid-cols-3 gap-4 mb-8">
+                {[
+                  { 
+                    title: 'Akreditasi Institusi', 
+                    status: 'Unggul',
+                    issuer: 'BAN-PT',
+                    desc: 'Terakreditasi dengan predikat Unggul oleh Badan Akreditasi Nasional Perguruan Tinggi' 
+                  },
+                  { 
+                    title: 'Program Studi Teologi', 
+                    status: 'Terakreditasi',
+                    issuer: 'LAM Pendidikan Agama',
+                    desc: 'S1 Pendidikan Agama Kristen dengan standar kurikulum internasional' 
+                  },
+                  { 
+                    title: 'Program Teknik', 
+                    status: 'Terakreditasi',
+                    issuer: 'ABET/IABEE',
+                    desc: 'Program Teknik Informatika dan Teknik Lingkungan dengan sertifikasi engineering' 
+                  },
+                  { 
+                    title: 'ISO 9001:2015', 
+                    status: 'Tersertifikasi',
+                    issuer: 'Badan Sertifikasi',
+                    desc: 'Sistem manajemen mutu untuk semua proses akademik dan administratif' 
+                  },
+                  { 
+                    title: 'Green Campus', 
+                    status: 'Bersertifikat',
+                    issuer: 'Kementerian LHK',
+                    desc: 'Komitmen terhadap keberlanjutan lingkungan dan pengembangan kampus hijau' 
+                  },
+                  { 
+                    title: 'International Partnership', 
+                    status: 'Aktif',
+                    issuer: 'Global Universities',
+                    desc: 'Kerjasama dengan 25+ universitas internasional di berbagai negara' 
+                  },
+                ].map((cert, index) => (
+                  <div 
+                    key={cert.title} 
+                    className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-xl p-5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                    style={{ transitionDelay: `${index * 100}ms` }}
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <h5 className="font-heading font-semibold text-foreground flex-1">{cert.title}</h5>
+                      <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded-full whitespace-nowrap ml-2">{cert.status}</span>
+                    </div>
+                    <p className="text-xs text-primary font-semibold mb-2">{cert.issuer}</p>
+                    <p className="text-sm text-muted-foreground">{cert.desc}</p>
+                  </div>
+                ))}
+              </div>
+
               <p className="text-foreground/80 leading-relaxed">
                 Sebagai institusi pendidikan yang terus bertransformasi, Universitas Kristen Teknologi Solo berkomitmen untuk menghasilkan lulusan yang tidak hanya kompeten secara teknis, tetapi juga memiliki karakter kuat berdasarkan nilai-nilai kristiani, jiwa kewirausahaan, dan kemampuan beradaptasi dengan perubahan teknologi. Bergabunglah dengan UKTS dan jadilah bagian dari transformasi melalui teknologi!
               </p>

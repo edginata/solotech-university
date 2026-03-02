@@ -1,13 +1,31 @@
+import { useEffect } from 'react';
 import TopBar from '@/components/layout/TopBar';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import HeroSection from '@/components/sections/HeroSection';
 import ProfileContent from '@/components/sections/ProfileContent';
+import NewsSection from '@/components/sections/NewsSection';
+import KegiatanSection from '@/components/sections/KegiatanSection';
+import JadwalSection from '@/components/sections/JadwalSection';
+import GaleriSection from '@/components/sections/GaleriSection';
+import StatisticsSection from '@/components/sections/StatisticsSection';
+import TestimonialsSection from '@/components/sections/TestimonialsSection';
+import FeaturesSection from '@/components/sections/FeaturesSection';
+import NewsletterSection from '@/components/sections/NewsletterSection';
 
 const Index = () => {
-  const breadcrumbs = [
-    { label: 'Profil', href: '/profil' },
-  ];
+  useEffect(() => {
+    // Scroll ke section jika ada hash di URL
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.getElementById(hash.substring(1));
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -16,10 +34,42 @@ const Index = () => {
       
       <main className="flex-1">
         <HeroSection 
-          title="Profil Solotech University" 
-          breadcrumbs={breadcrumbs}
+          title="Selamat Datang di Solotech University" 
+          subtitle="Pendidikan Berkualitas Global Berlandaskan Nilai Kristiani"
+          cta={{ label: 'Buka PMB 2026', href: '/pmb' }}
         />
+        
         <ProfileContent />
+        
+        <div id="statistik">
+          <StatisticsSection />
+        </div>
+        
+        <div id="berita">
+          <NewsSection />
+        </div>
+
+        <div id="kegiatan">
+          <KegiatanSection />
+        </div>
+
+        <div id="jadwal">
+          <JadwalSection />
+        </div>
+
+        <div id="galeri">
+          <GaleriSection />
+        </div>
+        
+        <div id="akses-cepat">
+          <FeaturesSection />
+        </div>
+        
+        <div id="testimonial">
+          <TestimonialsSection />
+        </div>
+        
+        <NewsletterSection />
       </main>
       
       <Footer />
@@ -28,3 +78,4 @@ const Index = () => {
 };
 
 export default Index;
+

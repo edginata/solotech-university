@@ -17,6 +17,9 @@ import {
   Clock
 } from 'lucide-react';
 
+// poster image asset
+import pmbPoster from '@/assets/gallery/pmbbaru.png';
+
 const PMB = () => {
   const breadcrumbs = [
     { label: 'PMB', href: '/pmb' },
@@ -88,9 +91,7 @@ const PMB = () => {
   ];
 
   const timeline = [
-    { period: 'Gelombang 1', date: 'November - Januari', status: 'Dibuka' },
-    { period: 'Gelombang 2', date: 'Februari - April', status: 'Segera' },
-    { period: 'Gelombang 3', date: 'Mei - Juli', status: 'Segera' },
+    { period: 'Pendaftaran', date: 'November - Juli', status: 'Dibuka' },
   ];
 
   return (
@@ -104,6 +105,19 @@ const PMB = () => {
           breadcrumbs={breadcrumbs}
         />
 
+        {/* Poster terbaru (menggunakan asset lokal) */}
+        <section className="py-12 lg:py-16 bg-muted/10">
+          <div className="section-container">
+            <div className="max-w-3xl mx-auto text-center">
+              <img
+                src={pmbPoster}
+                alt="Poster PMB Baru"
+                className="mx-auto w-full h-auto rounded-lg shadow-md"
+              />
+            </div>
+          </div>
+        </section>
+
         {/* Intro Section */}
         <section className="py-12 lg:py-16">
           <div className="section-container">
@@ -116,9 +130,12 @@ const PMB = () => {
                 untuk bergabung dan menjadi bagian dari komunitas yang berkomitmen pada 
                 transformasi melalui teknologi dan nilai-nilai kristiani.
               </p>
-              <Button className="cta-button text-lg px-8 py-6">
-                Daftar Sekarang
-              </Button>
+              <Button 
+              asChild 
+              className="cta-button text-lg px-8 py-6"
+>
+            <a href="/pendaftaran">Daftar Sekarang</a>
+            </Button>
             </div>
           </div>
         </section>
@@ -127,11 +144,11 @@ const PMB = () => {
         <section className="py-12 bg-primary">
           <div className="section-container">
             <h2 className="font-heading font-bold text-2xl text-primary-foreground mb-8 text-center">
-              Jadwal Pendaftaran 2024/2025
+              Jadwal Pendaftaran 2025/2026
             </h2>
-            <div className="grid md:grid-cols-3 gap-6">
+           <div className="flex justify-center">
               {timeline.map((item) => (
-                <div key={item.period} className="bg-primary-foreground/10 rounded-lg p-6 text-center">
+               <div key={item.period} className="bg-primary-foreground/10 rounded-lg p-6 text-center w-full max-w-sm">
                   <div className="font-heading font-bold text-xl text-primary-foreground mb-2">
                     {item.period}
                   </div>

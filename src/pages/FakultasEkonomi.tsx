@@ -50,11 +50,20 @@ const FakultasEkonomi = () => {
   ];
 
   const dosen = [
-    { name: 'Dr. Antonius Wijaya, M.M.', bidang: 'Manajemen Strategis', jabatan: 'Dekan' },
-    { name: 'Dr. Christina Dewi, M.Ak.', bidang: 'Akuntansi Keuangan', jabatan: 'Wakil Dekan' },
-    { name: 'Robertus Handoko, S.E., M.M.', bidang: 'Marketing Management', jabatan: 'Kaprodi Manajemen' },
-    { name: 'Dr. Yuliana Sari, M.Ak., CA.', bidang: 'Auditing', jabatan: 'Kaprodi Akuntansi' },
-    { name: 'Paulus Santoso, S.E., M.Si.', bidang: 'Perpajakan', jabatan: 'Dosen' },
+    { name: 'Mardanung Patmo Cahjono, SE.,M.Sc.Ak.', bidang: 'Ekonomi Akuntansi' },
+    { name: 'Hernawati Pramesti, S.E.,M.Si.Ak.', bidang: 'Ekonomi Akuntansi' },
+    { name: 'Magdalena Nany, S.E.,M.Si.Ak.', bidang: 'Ekonomi Akuntansi' },
+    { name: 'Mujiyono, S.E.,M.Si.', bidang: 'Ekonomi Akuntansi' },
+    { name: 'Endang Satyawati, S.E.,M.Si.Ak.', bidang: 'Ekonomi Akuntansi' },
+    { name: 'Sandra Galuh Asmarawati, S.E.,Akt.,M.M.', bidang: 'Ekonomi Akuntansi' },
+    { name: 'Basuki Nugroho, S.E.,M.Si.', bidang: 'Ekonomi Manajemen' },
+    { name: 'Dyah Ayu Puri Palupi, S.E.,M.M.', bidang: 'Ekonomi Manajemen' },
+    { name: 'Kristyana Dananti, S.E.,M.Si.', bidang: 'Ekonomi Manajemen' },
+    { name: 'Indah Handaruwati, S.E.,M.M.', bidang: 'Ekonomi Manajemen' },
+    { name: 'Adhita Maharani Dewi, S.E.,M.M.', bidang: 'Ekonomi Manajemen' },
+    { name: 'Dr. Ir. Yahya Agung Kuntadi,M.M.', bidang: 'Ekonomi Manajemen' },
+    { name: 'Dr. Ir. Asto Sunu Subroto, M.M', bidang: 'Ekonomi Manajemen' },
+    { name: 'Dr. Drs. Suprayitno, M.Si.', bidang: 'Ekonomi Manajemen ' },
   ];
 
   const fasilitas = [

@@ -61,7 +61,7 @@ const Beranda = () => {
 
   const stats = [
     { icon: GraduationCap, value: '3', label: 'Fakultas' },
-    { icon: Users, value: '1000+', label: 'Mahasiswa' },
+    { icon: Users, value: '100+', label: 'Mahasiswa' },
     { icon: BookOpen, value: '5', label: 'Program Studi' },
     { icon: Award, value: '30+', label: 'Tahun Pengalaman' },
   ];

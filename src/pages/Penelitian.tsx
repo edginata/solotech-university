@@ -197,7 +197,6 @@ const Penelitian = () => {
                   <div className="space-y-2 text-sm">
                     <p><strong>Email:</strong> lppm@ukts.ac.id</p>
                     <p><strong>Telepon:</strong> (0271) 637145</p>
-                    <p><strong>Lokasi:</strong> Gedung Rektorat Lt. 2</p>
                   </div>
                 </CardContent>
               </Card>

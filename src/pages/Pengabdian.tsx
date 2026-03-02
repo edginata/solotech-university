@@ -6,32 +6,31 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Users, MapPin, Calendar, HandHeart, Building, GraduationCap, ArrowRight, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollReveal } from '@/hooks/useScrollReveal';
+import { useEffect, useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 const Pengabdian = () => {
   const breadcrumbs = [
     { label: 'Pengabdian', href: '/pengabdian' },
   ];
 
-  const projectShowcase = [
-    {
-      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
-      author: 'Mahasiswa Teknik - Alfandi W.S',
-      title: 'Sistem Informasi Pemilihan Presiden Mahasiswa',
-      description: 'Seiring dengan berkembangnya zaman saat ini, kini pekerjaan-pekerjaan yang dahulu dilakukan dengan cara manual dapat dipermudah dengan penerapan dari ilmu informatika.',
-    },
-    {
-      image: '/src/assets/gallery/tomat.jpg',
-      author: 'Mahasiswa Teknik - Alfandi W.S',
-      title: 'Teknologi Pendeteksi Dini Hama Tanaman Tomat',
-      description: 'Meningkatkan efisiensi pertanian dan mengurangi dampak serangan hama, memberikan langkah preventif yang cepat dan tepat bagi para petani.',
-    },
-    {
-      image: '/src/assets/gallery/baktisosialukts.png',
-      author: 'Mahasiswa dan Dosen UKTS',
-      title: 'Bakti Sosial Di Panti Jompo GKJ Margoyudan',
-      description: 'Salah satu bentuk pengabdian kepada masyarakat, dan wujud dari kasih kepada sesama. Mahasiswa dan Dosen melakukan kegiatan Bakti Sosial di Panti Jompo Margoyudan.',
-    },
-  ];
+  const [projectShowcase, setProjectShowcase] = useState<any[]>([]);
+
+  useEffect(() => {
+    let mounted = true;
+    const load = async () => {
+      const { data, error } = await supabase.from('pengabdian').select('*').order('created_at', { ascending: false });
+      if (error) {
+        console.error('Gagal memuat pengabdian', error);
+        toast.error('Gagal memuat konten pengabdian');
+      } else if (mounted) {
+        setProjectShowcase(data || []);
+      }
+    };
+    load();
+    return () => { mounted = false; };
+  }, []);
 
   const programs = [
     {
