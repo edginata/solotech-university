@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Users, FileText, Image, Calendar as CalIcon, LogOut } from 'lucide-react';
 import uktsLogo from '@/assets/gallery/logo-ukts.png';
 
-type SectionKey = 'pendaftar' | 'akademik' | 'pengabdian' | 'penelitian' | 'berita' | 'kegiatan' | 'jadwal' | 'galeri';
+type SectionKey = 'pendaftar' | 'akademik' | 'pengabdian' | 'penelitian' | 'berita' | 'kegiatan' | 'jadwal' | 'galeri' | 'bem';
 
 interface Props {
   selectedSection: SectionKey;

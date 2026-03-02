@@ -219,7 +219,7 @@ const AdminDashboard = () => {
   const createContentItem = async (table: string) => {
     if (!itemForm.title) return toast.error('Judul wajib diisi');
     try {
-      const { data } = await supabase.from(table).insert([itemForm]).select().single();
+      const { data } = await (supabase.from as any)(table).insert([itemForm]).select().single();
       if (table === 'pengabdian') setPengabdianList([...pengabdianList, data]);
       else if (table === 'berita') setBeritaList([...beritaList, data]);
       else if (table === 'kegiatan') setKegiatanList([...kegiatanList, data]);
@@ -238,7 +238,7 @@ const AdminDashboard = () => {
   const updateContentItem = async (table: string, id: string) => {
     if (!editingItem) return;
     try {
-      await supabase.from(table).update(itemForm).eq('id', id);
+      await (supabase.from as any)(table).update(itemForm).eq('id', id);
       // Update local state
       if (table === 'pengabdian') setPengabdianList(pengabdianList.map(i => i.id === id ? {...i, ...itemForm} : i));
       else if (table === 'berita') setBeritaList(beritaList.map(i => i.id === id ? {...i, ...itemForm} : i));
@@ -258,7 +258,7 @@ const AdminDashboard = () => {
   const deleteContentItem = async (table: string, id: string) => {
     if (!confirm('Hapus item ini?')) return;
     try {
-      await supabase.from(table).delete().eq('id', id);
+      await (supabase.from as any)(table).delete().eq('id', id);
       if (table === 'pengabdian') setPengabdianList(pengabdianList.filter(i => i.id !== id));
       else if (table === 'berita') setBeritaList(beritaList.filter(i => i.id !== id));
       else if (table === 'kegiatan') setKegiatanList(kegiatanList.filter(i => i.id !== id));
@@ -569,7 +569,7 @@ const deletePendaftar = async (id: string) => {
               {['kegiatan', 'jadwal'].includes(table) && <div><Label>Lokasi</Label><Input value={itemForm.location || ''} onChange={(e) => setItemForm({...itemForm, location: e.target.value})} /></div>}
               {['jadwal'].includes(table) && <>
                 <div><Label>Hari</Label><Input value={itemForm.day || ''} onChange={(e) => setItemForm({...itemForm, day: e.target.value})} /></div>
-                <div class="grid grid-cols-2 gap-2"><div><Label>Jam Mulai</Label><Input value={itemForm.time_from || ''} onChange={(e) => setItemForm({...itemForm, time_from: e.target.value})} /></div><div><Label>Jam Selesai</Label><Input value={itemForm.time_to || ''} onChange={(e) => setItemForm({...itemForm, time_to: e.target.value})} /></div></div>
+                <div className="grid grid-cols-2 gap-2"><div><Label>Jam Mulai</Label><Input value={itemForm.time_from || ''} onChange={(e) => setItemForm({...itemForm, time_from: e.target.value})} /></div><div><Label>Jam Selesai</Label><Input value={itemForm.time_to || ''} onChange={(e) => setItemForm({...itemForm, time_to: e.target.value})} /></div></div>
               </>}
               <div><Label>Deskripsi</Label><Textarea value={itemForm.description || ''} onChange={(e) => setItemForm({...itemForm, description: e.target.value})} rows={3} /></div>
               {!['jadwal'].includes(table) && <>
