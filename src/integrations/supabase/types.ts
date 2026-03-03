@@ -77,6 +77,39 @@ export type Database = {
         }
         Relationships: []
       }
+      content_pages: {
+        Row: {
+          created_at: string
+          field_key: string
+          field_type: string
+          id: string
+          page_key: string
+          section_key: string
+          updated_at: string
+          value: string | null
+        }
+        Insert: {
+          created_at?: string
+          field_key: string
+          field_type?: string
+          id?: string
+          page_key: string
+          section_key: string
+          updated_at?: string
+          value?: string | null
+        }
+        Update: {
+          created_at?: string
+          field_key?: string
+          field_type?: string
+          id?: string
+          page_key?: string
+          section_key?: string
+          updated_at?: string
+          value?: string | null
+        }
+        Relationships: []
+      }
       faculty: {
         Row: {
           created_at: string
@@ -310,6 +343,27 @@ export type Database = {
           id?: string
           section_name?: string
           title?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          id: string
+          key: string
+          updated_at: string
+          value: string | null
+        }
+        Insert: {
+          id?: string
+          key: string
+          updated_at?: string
+          value?: string | null
+        }
+        Update: {
+          id?: string
+          key?: string
+          updated_at?: string
+          value?: string | null
         }
         Relationships: []
       }

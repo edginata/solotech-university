@@ -42,10 +42,8 @@ const App = () => (
           <Route path="/fakultas/teologi" element={<FakultasTeologi />} />
           <Route path="/fakultas/teknik" element={<FakultasTeknik />} />
           <Route path="/fakultas/ekonomi" element={<FakultasEkonomi />} />
-          <Route path="/admin" element={<Navigate to="/admin/pendaftar" replace />} />
+          <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/dashboard" element={<Navigate to="/admin/pendaftar" replace />} />
-          <Route path="/admin/pendaftar" element={<AdminDashboard />} />
           <Route path="/admin/setup" element={<AdminSetup />} />
           <Route path="/admin/:section" element={<AdminDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
