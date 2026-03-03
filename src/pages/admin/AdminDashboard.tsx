@@ -27,12 +27,12 @@ interface Pendaftar {
   asal_sekolah: string | null; created_at: string; updated_at: string;
 }
 
-type SectionType = 'dashboard' | 'pendaftar' | 'akademik' | 'pengabdian' | 'penelitian' | 'berita' | 'kegiatan' | 'jadwal' | 'galeri' | 'bem' | 'settings';
+type SectionType = 'dashboard' | 'pendaftar' | 'akademik' | 'pengabdian' | 'penelitian' | 'berita' | 'kegiatan' | 'jadwal' | 'bem' | 'settings';
 
 const sectionTitles: Record<SectionType, string> = {
   dashboard: 'Dashboard', pendaftar: 'Data Pendaftar', akademik: 'Program Studi',
   pengabdian: 'Pengabdian', penelitian: 'Penelitian', berita: 'Berita',
-  kegiatan: 'Kegiatan', jadwal: 'Jadwal', galeri: 'Galeri', bem: 'BEM', settings: 'Pengaturan',
+  kegiatan: 'Kegiatan', jadwal: 'Jadwal', bem: 'BEM', settings: 'Pengaturan',
 };
 
 const AdminDashboard = () => {
@@ -75,7 +75,7 @@ const AdminDashboard = () => {
           ]);
           setFaculties(fac || []); setPrograms(prog || []);
         }
-        if (['pengabdian', 'penelitian', 'berita', 'kegiatan', 'jadwal', 'galeri', 'bem'].includes(selectedSection)) {
+        if (['pengabdian', 'penelitian', 'berita', 'kegiatan', 'jadwal', 'bem'].includes(selectedSection)) {
           const table = selectedSection === 'penelitian' ? 'pengabdian' : selectedSection;
           let query = (supabase.from as any)(table).select('*');
           if (selectedSection === 'penelitian') query = query.eq('category', 'penelitian');
@@ -422,7 +422,6 @@ const AdminDashboard = () => {
 
   const renderContentSection = () => {
     const table = selectedSection === 'penelitian' ? 'pengabdian' : selectedSection;
-    const isGaleri = selectedSection === 'galeri';
     const isJadwal = selectedSection === 'jadwal';
 
     return (
@@ -434,22 +433,7 @@ const AdminDashboard = () => {
           </Button>
         </div>
 
-        {isGaleri ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {contentList.map(item => (
-              <Card key={item.id} className="overflow-hidden group relative">
-                <img src={item.image_url} alt={item.title || ''} className="w-full h-40 object-cover" />
-                <div className="p-2">
-                  <p className="text-xs text-muted-foreground truncate">{item.title || 'Tanpa judul'}</p>
-                </div>
-                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
-                  <Button size="icon" variant="secondary" className="h-7 w-7" onClick={() => { setEditingItem(item); setItemForm({ ...item }); setIsEditDialogOpen(true); }}><Edit className="h-3 w-3" /></Button>
-                  <Button size="icon" variant="destructive" className="h-7 w-7" onClick={() => deleteContentItem(table, item.id)}><Trash2 className="h-3 w-3" /></Button>
-                </div>
-              </Card>
-            ))}
-          </div>
-        ) : (
+        {(
           <div className="space-y-3">
             {contentList.map(item => (
               <Card key={item.id} className="p-4">
