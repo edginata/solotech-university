@@ -6,7 +6,6 @@ const Footer = () => {
      { label: 'PENDAFTARAN', href: '/pendaftaran' },
      { label: 'PROFIL UKTS', href: '/profil' },
      { label: 'LOGIN ADMIN', href: '/admin/login' },
-     { label: 'PORTAL DOSEN', href: 'http://sinkrista.uks.ac.id/' },
      { label: 'E-LEARNING', href: '#' },
   ];
 

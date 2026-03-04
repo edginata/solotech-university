@@ -62,7 +62,7 @@ const BeritaKegiatan = () => {
                               {item.category || 'Berita'}
                             </span>
                             <h3 className="font-heading font-bold text-lg mb-3 text-foreground line-clamp-2">{item.title}</h3>
-                            <p className="text-sm text-muted-foreground mb-4 line-clamp-3 flex-1">{item.excerpt}</p>
+                            <p className="text-sm text-muted-foreground mb-4 line-clamp-3 flex-1">{item.excerpt || item.description}</p>
                             <div className="flex gap-4 text-xs text-muted-foreground border-t border-border pt-4">
                               <div className="flex items-center gap-1">
                                 <Calendar className="w-4 h-4" />
@@ -96,8 +96,8 @@ const BeritaKegiatan = () => {
                           )}
                           <div className="p-6 flex flex-col flex-1">
                             <h3 className="font-heading font-bold text-lg mb-2 text-foreground">{item.title}</h3>
-                            {item.description && (
-                              <p className="text-sm text-muted-foreground mb-3 line-clamp-3 flex-1">{item.description}</p>
+                            {(item.description || item.excerpt) && (
+                              <p className="text-sm text-muted-foreground mb-3 line-clamp-3 flex-1">{item.description || item.excerpt}</p>
                             )}
                             <div className="space-y-2 text-sm text-muted-foreground border-t border-border pt-4">
                               <div className="flex items-center gap-2">

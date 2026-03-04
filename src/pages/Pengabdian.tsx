@@ -118,8 +118,8 @@ const Pengabdian = () => {
                   <Card className="overflow-hidden hover:shadow-lg transition-shadow">
                     <div className="grid md:grid-cols-3 gap-0">
                       <div className="md:col-span-1">
-                        <img 
-                          src={project.image} 
+                        <img
+                          src={project.image_url || project.image || project.imageUrl}
                           alt={project.title}
                           className="w-full h-48 md:h-full object-cover"
                         />
