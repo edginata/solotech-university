@@ -85,16 +85,15 @@ const Pendaftaran = () => {
      setLoading(true);
  
      try {
-       const { error } = await supabase.from('pendaftar').insert({
-         nama: formData.nama.trim(),
-         email: formData.email.trim(),
-         telepon: formData.telepon.trim(),
-         no_wa_aktif: formData.no_wa_aktif.trim() || null,
-         alamat: formData.alamat.trim() || null,
-         program_studi: formData.program_studi,
-         tanggal_lahir: formData.tanggal_lahir || null,
-         asal_sekolah: formData.asal_sekolah.trim() || null,
-       });
+        const { error } = await supabase.from('pendaftar').insert({
+          nama: formData.nama.trim(),
+          email: formData.email.trim(),
+          telepon: formData.telepon.trim(),
+          alamat: formData.alamat.trim() || null,
+          program_studi: formData.program_studi,
+          tanggal_lahir: formData.tanggal_lahir || null,
+          asal_sekolah: formData.asal_sekolah.trim() || null,
+        });
  
        if (error) {
          console.error('Error submitting:', error);
@@ -140,16 +139,21 @@ const Pendaftaran = () => {
                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                    <CheckCircle className="w-10 h-10 text-green-600" />
                  </div>
-                 <h2 className="font-heading font-bold text-2xl text-foreground mb-4">
-                   Terima Kasih!
-                 </h2>
-                 <p className="text-muted-foreground mb-6">
-                   Pendaftaran Anda telah berhasil dikirim. Tim kami akan segera menghubungi Anda
-                   melalui email atau telepon yang telah didaftarkan.
-                 </p>
-                 <Button onClick={() => window.location.href = '/'}>
-                   Kembali ke Beranda
-                 </Button>
+                  <h2 className="font-heading font-bold text-2xl text-foreground mb-4">
+                    Terima Kasih!
+                  </h2>
+                  <p className="text-muted-foreground mb-6">
+                    Pendaftaran Anda telah berhasil dikirim. Tim kami akan segera menghubungi Anda
+                    melalui email atau telepon yang telah didaftarkan.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <Button onClick={() => window.location.href = '/pmb'} variant="default">
+                      Lihat Informasi Biaya & Pembayaran
+                    </Button>
+                    <Button onClick={() => window.location.href = '/'} variant="outline">
+                      Kembali ke Beranda
+                    </Button>
+                  </div>
                </div>
              </div>
            </section>
