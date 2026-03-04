@@ -8,7 +8,6 @@ import NewsSection from '@/components/sections/NewsSection';
 import KegiatanSection from '@/components/sections/KegiatanSection';
 import JadwalSection from '@/components/sections/JadwalSection';
 import GaleriSection from '@/components/sections/GaleriSection';
-import StatisticsSection from '@/components/sections/StatisticsSection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import FeaturesSection from '@/components/sections/FeaturesSection';
 import NewsletterSection from '@/components/sections/NewsletterSection';
@@ -40,10 +39,6 @@ const Index = () => {
         />
         
         <ProfileContent />
-        
-        <div id="statistik">
-          <StatisticsSection />
-        </div>
         
         <div id="berita">
           <NewsSection />

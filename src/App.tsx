@@ -10,6 +10,7 @@ import Akademik from "./pages/Akademik";
 import Penelitian from "./pages/Penelitian";
 import Pengabdian from "./pages/Pengabdian";
 import PengabdianDetail from "./pages/PengabdianDetail";
+import BeritaKegiatan from "./pages/BeritaKegiatan";
 import PMB from "./pages/PMB";
 import Pendaftaran from "./pages/Pendaftaran";
 import BEM from "./pages/BEM";
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/pengabdian" element={<Pengabdian />} />
           <Route path="/pengabdian/:id" element={<PengabdianDetail />} />
           <Route path="/pmb" element={<PMB />} />
+          <Route path="/berita-kegiatan" element={<BeritaKegiatan />} />
           <Route path="/pendaftaran" element={<Pendaftaran />} />
           <Route path="/bem" element={<BEM />} />
           <Route path="/fakultas/teologi" element={<FakultasTeologi />} />

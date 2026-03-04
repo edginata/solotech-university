@@ -17,10 +17,19 @@ import {
   Clock
 } from 'lucide-react';
 
-// poster image asset
-import pmbPoster from '@/assets/gallery/pmbbaru.png';
+// fallback poster image
+import pmbPosterFallback from '@/assets/gallery/pmbbaru.png';
+import { useEffect, useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 
 const PMB = () => {
+  const [posterUrl, setPosterUrl] = useState<string>(pmbPosterFallback);
+
+  useEffect(() => {
+    supabase.from('site_settings').select('value').eq('key', 'pmb_poster_url').maybeSingle().then(({ data }) => {
+      if (data?.value) setPosterUrl(data.value);
+    });
+  }, []);
   const breadcrumbs = [
     { label: 'PMB', href: '/pmb' },
   ];
@@ -110,7 +119,7 @@ const PMB = () => {
           <div className="section-container">
             <div className="max-w-3xl mx-auto text-center">
               <img
-                src={pmbPoster}
+                src={posterUrl}
                 alt="Poster PMB Baru"
                 className="mx-auto w-full h-auto rounded-lg shadow-md"
               />
