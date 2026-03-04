@@ -47,6 +47,7 @@ const AdminDashboard = () => {
   const [programs, setPrograms] = useState<any[]>([]);
   const [contentList, setContentList] = useState<any[]>([]);
   const [pmbOpen, setPmbOpen] = useState(true);
+  const [pmbPosterUrl, setPmbPosterUrl] = useState('');
 
   // ── UI states ──
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,8 +84,12 @@ const AdminDashboard = () => {
           setContentList(data || []);
         }
         if (selectedSection === 'settings') {
-          const { data } = await supabase.from('site_settings').select('*').eq('key', 'pmb_open').single();
-          setPmbOpen(data?.value === 'true');
+          const [pmbRes, posterRes] = await Promise.all([
+            supabase.from('site_settings').select('*').eq('key', 'pmb_open').maybeSingle(),
+            supabase.from('site_settings').select('*').eq('key', 'pmb_poster_url').maybeSingle(),
+          ]);
+          setPmbOpen(pmbRes.data?.value === 'true');
+          setPmbPosterUrl(posterRes.data?.value || '');
         }
       } catch (err) { console.error('Fetch error:', err); }
     };
@@ -485,6 +490,26 @@ const AdminDashboard = () => {
     );
   };
 
+  const handlePosterUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const ext = file.name.split('.').pop();
+    const path = `pmb/poster_${Date.now()}.${ext}`;
+    const { error: upErr } = await supabase.storage.from('media').upload(path, file, { upsert: true });
+    if (upErr) { toast.error('Gagal upload poster'); return; }
+    const { data: urlData } = supabase.storage.from('media').getPublicUrl(path);
+    const url = urlData.publicUrl;
+    // upsert setting
+    const { data: existing } = await supabase.from('site_settings').select('id').eq('key', 'pmb_poster_url').maybeSingle();
+    if (existing) {
+      await supabase.from('site_settings').update({ value: url }).eq('key', 'pmb_poster_url');
+    } else {
+      await supabase.from('site_settings').insert({ key: 'pmb_poster_url', value: url });
+    }
+    setPmbPosterUrl(url);
+    toast.success('Poster PMB berhasil diperbarui');
+  };
+
   const renderSettings = () => (
     <div className="space-y-6 max-w-lg">
       <Card>
@@ -499,6 +524,26 @@ const AdminDashboard = () => {
               <p className="text-xs text-muted-foreground">{pmbOpen ? 'Form pendaftaran aktif' : 'Form pendaftaran tidak aktif'}</p>
             </div>
             <Switch checked={pmbOpen} onCheckedChange={togglePMB} />
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Poster PMB</CardTitle>
+          <CardDescription>Upload gambar poster PMB yang ditampilkan di halaman PMB</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {pmbPosterUrl && (
+            <img src={pmbPosterUrl} alt="Poster PMB" className="w-full max-w-xs rounded-lg border" />
+          )}
+          <div>
+            <Label htmlFor="poster-upload" className="cursor-pointer">
+              <div className="flex items-center gap-2 text-sm text-primary hover:underline">
+                <Upload className="w-4 h-4" /> Ganti Poster
+              </div>
+            </Label>
+            <input id="poster-upload" type="file" accept="image/*" className="hidden" onChange={handlePosterUpload} />
           </div>
         </CardContent>
       </Card>

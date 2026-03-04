@@ -103,7 +103,9 @@ const NewsSection = () => {
 
         <ScrollReveal>
           <div className="text-center">
-            <Button variant="outline" size="lg" className="hover:bg-primary hover:text-primary-foreground">Lihat Semua Berita</Button>
+            <a href="/berita-kegiatan">
+              <Button variant="outline" size="lg" className="hover:bg-primary hover:text-primary-foreground">Lihat Semua Berita</Button>
+            </a>
           </div>
         </ScrollReveal>
       </div>

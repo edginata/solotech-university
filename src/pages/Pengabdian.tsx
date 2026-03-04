@@ -3,8 +3,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import HeroSection from '@/components/sections/HeroSection';
 import { Card, CardContent } from '@/components/ui/card';
-import { Heart, Users, MapPin, Calendar, HandHeart, Building, GraduationCap, ArrowRight, User } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Heart, HandHeart, Building, GraduationCap, User } from 'lucide-react';
 import { ScrollReveal } from '@/hooks/useScrollReveal';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
@@ -55,32 +54,8 @@ const Pengabdian = () => {
     },
   ];
 
-  const recentActivities = [
-    {
-      title: 'Pelatihan Digital Marketing untuk UMKM',
-      location: 'Kecamatan Banjarsari, Surakarta',
-      date: 'Desember 2023',
-      participants: '50 Peserta',
-    },
-    {
-      title: 'Workshop Pembuatan Website Gereja',
-      location: 'Sinode GKJ Solo',
-      date: 'November 2023',
-      participants: '30 Peserta',
-    },
-    {
-      title: 'Bakti Sosial dan Pemeriksaan Kesehatan',
-      location: 'Desa Gondang, Sragen',
-      date: 'Oktober 2023',
-      participants: '200 Warga',
-    },
-    {
-      title: 'Pelatihan Komputer Dasar untuk Lansia',
-      location: 'Panti Wredha Surakarta',
-      date: 'September 2023',
-      participants: '25 Peserta',
-    },
-  ];
+
+
 
   const impacts = [
     { value: '500+', label: 'Masyarakat Terdampak' },
@@ -158,14 +133,6 @@ const Pengabdian = () => {
                         </div>
                         <h3 className="font-heading font-bold text-lg md:text-xl mb-3">{project.title}</h3>
                         <p className="text-muted-foreground mb-4">{project.description}</p>
-                        <div>
-                          <a href={`/pengabdian/${index}`}>
-                            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                              <ArrowRight className="w-4 h-4 mr-2" />
-                              Selengkapnya
-                            </Button>
-                          </a>
-                        </div>
                       </div>
                     </div>
                   </Card>
@@ -197,37 +164,6 @@ const Pengabdian = () => {
           </div>
         </section>
 
-        {/* Recent Activities */}
-        <section className="py-12 lg:py-16">
-          <div className="section-container">
-            <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-8 text-center">
-              Kegiatan Terbaru
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {recentActivities.map((activity, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
-                    <h3 className="font-heading font-semibold text-lg mb-3">{activity.title}</h3>
-                    <div className="space-y-2 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-primary" />
-                        {activity.location}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-primary" />
-                        {activity.date}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4 text-primary" />
-                        {activity.participants}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* Partnership */}
         <section className="py-12 lg:py-16 bg-muted/50">
