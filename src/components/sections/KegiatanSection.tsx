@@ -36,22 +36,41 @@ const KegiatanSection = () => {
           {items.map((it) => (
             <ScrollReveal key={it.id}>
               <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                {it.image_url && (
+                  <div className="h-40 overflow-hidden">
+                    <img src={it.image_url} alt={it.title} className="w-full h-full object-cover" />
+                  </div>
+                )}
                 <div className="p-4">
                   <h3 className="font-heading font-semibold text-lg mb-2">{it.title}</h3>
-                  <div className="text-sm text-muted-foreground mb-3">{it.location || '-'}</div>
-                  <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
+                  {it.description && (
+                    <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{it.description}</p>
+                  )}
+                  <div className="flex items-center gap-3 text-sm text-muted-foreground mb-2">
                     <Calendar className="w-4 h-4" />
                     {it.start_at ? new Date(it.start_at).toLocaleString('id-ID') : '-'}
                   </div>
-                  <a href="#" className="inline-flex items-center gap-2 text-primary font-semibold text-sm">
-                    Lihat Detail
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
+                  {it.location && (
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground mb-3">
+                      <MapPin className="w-4 h-4" />
+                      {it.location}
+                    </div>
+                  )}
                 </div>
               </Card>
             </ScrollReveal>
           ))}
         </div>
+
+        <ScrollReveal>
+          <div className="text-center mt-8">
+            <a href="/berita-kegiatan">
+              <Button variant="outline" size="lg" className="hover:bg-primary hover:text-primary-foreground">
+                Lihat Semua Kegiatan
+              </Button>
+            </a>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

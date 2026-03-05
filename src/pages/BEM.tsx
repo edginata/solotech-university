@@ -2,20 +2,25 @@ import TopBar from '@/components/layout/TopBar';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import HeroSection from '@/components/sections/HeroSection';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Users } from 'lucide-react';
 import { ScrollReveal } from '@/hooks/useScrollReveal';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-
-// local video asset
+import { supabase } from '@/integrations/supabase/client';
 import localVideo from '@/assets/videos/2022.mp4';
 
 const BEM: React.FC = () => {
-  const breadcrumbs = [
-    { label: 'BEM', href: '/bem' },
-  ];
+  const breadcrumbs = [{ label: 'BEM', href: '/bem' }];
+  const [bemItems, setBemItems] = useState<any[]>([]);
 
+  useEffect(() => {
+    let mounted = true;
+    supabase.from('bem').select('*').order('created_at', { ascending: false }).then(({ data }) => {
+      if (mounted && data) setBemItems(data);
+    });
+    return () => { mounted = false; };
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -39,8 +44,31 @@ const BEM: React.FC = () => {
               </div>
             </ScrollReveal>
 
-            {/* stack cards vertically instead of side-by-side */}
             <div className="flex flex-col gap-8">
+              {/* BEM items from database */}
+              {bemItems.length > 0 && (
+                <ScrollReveal>
+                  <h2 className="font-heading font-bold text-2xl text-foreground mb-4">Kegiatan BEM</h2>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {bemItems.map((item) => (
+                      <Card key={item.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                        {item.image_url && (
+                          <div className="h-48 overflow-hidden">
+                            <img src={item.image_url} alt={item.title} className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                        <div className="p-5">
+                          <h3 className="font-heading font-semibold text-lg mb-2">{item.title}</h3>
+                          {item.description && (
+                            <p className="text-sm text-muted-foreground">{item.description}</p>
+                          )}
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </ScrollReveal>
+              )}
+
               <ScrollReveal>
                 <Card className="p-6 w-full">
                   <h2 className="font-heading font-bold text-2xl text-foreground mb-4">Kegiatan & Program Kerja</h2>
@@ -50,7 +78,6 @@ const BEM: React.FC = () => {
                     <li>Event kampus: seminar, lomba, dan bakti sosial</li>
                     <li>Kolaborasi dengan UKM, fakultas, dan komunitas lokal</li>
                   </ul>
-
                   <div className="mt-6">
                     <a href="https://instagram.com/bem_ukts" target="_blank" rel="noopener noreferrer">
                       <Button className="bg-primary">Kunjungi Instagram @bem_ukts</Button>
@@ -62,16 +89,9 @@ const BEM: React.FC = () => {
               <ScrollReveal>
                 <Card className="p-6 w-full">
                   <h2 className="font-heading font-bold text-2xl text-foreground mb-4">Video Profil / Kegiatan</h2>
-
-                  {/* local video player */}
-                  <video
-                    controls
-                    className="w-full rounded-md"
-                    src={localVideo}
-                  >
+                  <video controls className="w-full rounded-md" src={localVideo}>
                     Your browser does not support the video tag.
                   </video>
-
                 </Card>
               </ScrollReveal>
             </div>

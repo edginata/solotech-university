@@ -91,7 +91,7 @@ const NewsSection = () => {
                     </div>
                   </div>
 
-                  <a href={item.link || '#'} className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all">
+                  <a href="/berita-kegiatan" className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all">
                     Baca Selengkapnya
                     <ArrowRight className="w-4 h-4" />
                   </a>

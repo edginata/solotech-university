@@ -7,14 +7,14 @@ import ProfileContent from '@/components/sections/ProfileContent';
 import NewsSection from '@/components/sections/NewsSection';
 import KegiatanSection from '@/components/sections/KegiatanSection';
 import JadwalSection from '@/components/sections/JadwalSection';
-import GaleriSection from '@/components/sections/GaleriSection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import FeaturesSection from '@/components/sections/FeaturesSection';
 import NewsletterSection from '@/components/sections/NewsletterSection';
 
+const currentYear = new Date().getFullYear();
+
 const Index = () => {
   useEffect(() => {
-    // Scroll ke section jika ada hash di URL
     const hash = window.location.hash;
     if (hash) {
       const element = document.getElementById(hash.substring(1));
@@ -35,7 +35,7 @@ const Index = () => {
         <HeroSection 
           title="Selamat Datang di Solotech University" 
           subtitle="Pendidikan Berkualitas Global Berlandaskan Nilai Kristiani"
-          cta={{ label: 'Buka PMB 2026', href: '/pmb' }}
+          cta={{ label: `Buka PMB ${currentYear}`, href: '/pmb' }}
         />
         
         <ProfileContent />
@@ -52,10 +52,6 @@ const Index = () => {
           <JadwalSection />
         </div>
 
-        <div id="galeri">
-          <GaleriSection />
-        </div>
-        
         <div id="akses-cepat">
           <FeaturesSection />
         </div>
@@ -73,4 +69,3 @@ const Index = () => {
 };
 
 export default Index;
-
