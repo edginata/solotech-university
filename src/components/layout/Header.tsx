@@ -76,6 +76,7 @@ const Header = () => {
         { label: 'Kalender Akademik', href: '/akademik#kalender', icon: BookOpen, description: 'Jadwal tahun akademik' },
       ]
     },
+    { label: 'BERITA & KEGIATAN', href: '/berita-kegiatan' },
     { label: 'PENELITIAN', href: '/penelitian' },
     { label: 'PENGABDIAN', href: '/pengabdian' },
     { label: 'BEM', href: '/bem' },
@@ -122,7 +123,7 @@ const Header = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-5">
             {navItems.map((item) => {
               const isActive = location.pathname === item.href;
               return (
@@ -134,14 +135,14 @@ const Header = () => {
                 >
                   <a
                     href={item.href}
-                    className={`nav-link flex items-center gap-1 py-2 font-semibold text-sm tracking-wide transition-colors ${
+                    className={`nav-link flex items-center gap-1 py-2 font-semibold text-xs tracking-wide transition-colors ${
                       isActive ? 'text-primary' : 'text-foreground hover:text-primary'
                     }`}
                   >
                     {item.label}
                     {item.hasDropdown && (
                       <ChevronDown 
-                        className={`w-4 h-4 transition-transform duration-200 ${
+                        className={`w-3.5 h-3.5 transition-transform duration-200 ${
                           activeDropdown === item.label ? 'rotate-180' : ''
                         }`} 
                       />
@@ -156,7 +157,7 @@ const Header = () => {
                         width: item.columns === 2 ? '600px' : item.columns === 1 ? '320px' : 'auto'
                       }}
                     >
-                      <div className={`p-6 grid gap-4 ${item.columns === 2 ? 'grid-cols-2' : item.columns === 1 ? 'grid-cols-1' : 'grid-cols-1'}`}>
+                      <div className={`p-6 grid gap-4 ${item.columns === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
                         {item.subItems.map((subItem) => {
                           const Icon = subItem.icon;
                           return (
@@ -205,7 +206,7 @@ const Header = () => {
               <Search className="w-5 h-5" />
               <span className="hidden xl:inline">Cari...</span>
               <kbd className="hidden xl:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium">
-                <span className="text-xs"></span>
+                <span className="text-xs">⌘K</span>
               </kbd>
             </button>
           </div>

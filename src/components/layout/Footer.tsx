@@ -1,5 +1,7 @@
- import { MapPin, Phone, Mail, Globe, Facebook, Instagram, Youtube, MessageCircle, Twitter } from 'lucide-react';
- import uktsLogo from '@/assets/gallery/logo-ukts.png';
+import { MapPin, Phone, Mail, Globe, Facebook, Instagram, Youtube, MessageCircle, Twitter } from 'lucide-react';
+import uktsLogo from '@/assets/gallery/logo-ukts.png';
+
+const currentYear = new Date().getFullYear();
 
 const Footer = () => {
    const menuLinks = [
@@ -86,7 +88,7 @@ const Footer = () => {
 
            {/* Copyright & Social */}
           <div>
-             <p className="text-sm text-primary-foreground/80 mb-2">Copyright © 1993 - 2026</p>
+             <p className="text-sm text-primary-foreground/80 mb-2">Copyright © 1993 - {currentYear}</p>
              <p className="text-sm font-semibold mb-2">UNIVERSITAS KRISTEN TEKNOLOGI SOLO</p>
              <p className="text-sm text-primary-foreground/80 mb-6">All Rights Reserved</p>
              

@@ -8,54 +8,28 @@ import { ScrollReveal } from '@/hooks/useScrollReveal';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const Pengabdian = () => {
-  const breadcrumbs = [
-    { label: 'Pengabdian', href: '/pengabdian' },
-  ];
-
+  const breadcrumbs = [{ label: 'Pengabdian', href: '/pengabdian' }];
   const [projectShowcase, setProjectShowcase] = useState<any[]>([]);
 
   useEffect(() => {
     let mounted = true;
-    const load = async () => {
-      const { data, error } = await supabase.from('pengabdian').select('*').order('created_at', { ascending: false });
-      if (error) {
-        console.error('Gagal memuat pengabdian', error);
-        toast.error('Gagal memuat konten pengabdian');
-      } else if (mounted) {
-        setProjectShowcase(data || []);
-      }
-    };
-    load();
+    supabase.from('pengabdian').select('*').eq('category', 'pengabdian').order('created_at', { ascending: false })
+      .then(({ data, error }) => {
+        if (error) { toast.error('Gagal memuat konten pengabdian'); }
+        else if (mounted) setProjectShowcase(data || []);
+      });
     return () => { mounted = false; };
   }, []);
 
   const programs = [
-    {
-      icon: HandHeart,
-      title: 'Pemberdayaan Masyarakat',
-      description: 'Program pelatihan dan pendampingan untuk meningkatkan kapasitas masyarakat dalam bidang teknologi dan kewirausahaan.',
-    },
-    {
-      icon: GraduationCap,
-      title: 'Pendidikan Masyarakat',
-      description: 'Kegiatan edukasi berupa seminar, workshop, dan pelatihan untuk masyarakat umum.',
-    },
-    {
-      icon: Building,
-      title: 'Kemitraan Industri',
-      description: 'Kerjasama dengan industri dan instansi dalam bentuk konsultasi dan pendampingan.',
-    },
-    {
-      icon: Heart,
-      title: 'Pelayanan Gerejawi',
-      description: 'Dukungan bagi gereja-gereja dalam pengembangan program pelayanan dan manajemen.',
-    },
+    { icon: HandHeart, title: 'Pemberdayaan Masyarakat', description: 'Program pelatihan dan pendampingan untuk meningkatkan kapasitas masyarakat.' },
+    { icon: GraduationCap, title: 'Pendidikan Masyarakat', description: 'Kegiatan edukasi berupa seminar, workshop, dan pelatihan.' },
+    { icon: Building, title: 'Kemitraan Industri', description: 'Kerjasama dengan industri dan instansi dalam bentuk konsultasi.' },
+    { icon: Heart, title: 'Pelayanan Gerejawi', description: 'Dukungan bagi gereja-gereja dalam pengembangan program pelayanan.' },
   ];
-
-
-
 
   const impacts = [
     { value: '500+', label: 'Masyarakat Terdampak' },
@@ -66,33 +40,22 @@ const Pengabdian = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <TopBar />
-      <Header />
-      
+      <TopBar /><Header />
       <main className="flex-1">
-        <HeroSection 
-          title="Pengabdian Masyarakat" 
-          breadcrumbs={breadcrumbs}
-        />
+        <HeroSection title="Pengabdian Masyarakat" breadcrumbs={breadcrumbs} />
 
-        {/* Intro Section */}
         <section className="py-12 lg:py-16">
           <div className="section-container">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-6">
-                Pengabdian kepada Masyarakat
-              </h2>
+              <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-6">Pengabdian kepada Masyarakat</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Sebagai wujud Tri Dharma Perguruan Tinggi, UKTS aktif melaksanakan berbagai program 
-                pengabdian kepada masyarakat. Kegiatan ini merupakan bentuk kontribusi nyata kampus 
-                untuk pemberdayaan dan peningkatan kualitas hidup masyarakat, terutama di wilayah 
-                Surakarta dan sekitarnya.
+                pengabdian kepada masyarakat untuk pemberdayaan dan peningkatan kualitas hidup masyarakat.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Impact Stats */}
         <section className="py-12 bg-primary">
           <div className="section-container">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -106,48 +69,48 @@ const Pengabdian = () => {
           </div>
         </section>
 
-        {/* Project Showcase Section */}
-        <section className="py-12 lg:py-16 bg-muted/50">
-          <div className="section-container">
-            <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-8 text-center">
-              Proyek Pengabdian Masyarakat
-            </h2>
-            <div className="space-y-8">
-              {projectShowcase.map((project, index) => (
-                <ScrollReveal key={index} delay={index * 100}>
-                  <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                    <div className="grid md:grid-cols-3 gap-0">
-                      <div className="md:col-span-1">
-                        <img
-                          src={project.image_url || project.image || project.imageUrl}
-                          alt={project.title}
-                          className="w-full h-48 md:h-full object-cover"
-                        />
-                      </div>
-                      <div className="md:col-span-2 p-6 flex flex-col justify-center">
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                            <User className="w-4 h-4 text-primary" />
-                          </div>
-                          <span className="text-sm text-muted-foreground">{project.author}</span>
-                        </div>
-                        <h3 className="font-heading font-bold text-lg md:text-xl mb-3">{project.title}</h3>
-                        <p className="text-muted-foreground mb-4">{project.description}</p>
-                      </div>
-                    </div>
-                  </Card>
-                </ScrollReveal>
-              ))}
+        {/* Project Showcase - only pengabdian category */}
+        {projectShowcase.length > 0 && (
+          <section className="py-12 lg:py-16 bg-muted/50">
+            <div className="section-container">
+              <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-8 text-center">Proyek Pengabdian Masyarakat</h2>
+              <div className="space-y-8">
+                <TooltipProvider>
+                  {projectShowcase.map((project, index) => (
+                    <ScrollReveal key={index} delay={index * 100}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+                            <div className="grid md:grid-cols-3 gap-0">
+                              {project.image_url && (
+                                <div className="md:col-span-1">
+                                  <img src={project.image_url} alt={project.title} className="w-full h-48 md:h-full object-cover" />
+                                </div>
+                              )}
+                              <div className={`${project.image_url ? 'md:col-span-2' : 'md:col-span-3'} p-6 flex flex-col justify-center`}>
+                                <h3 className="font-heading font-bold text-lg md:text-xl mb-3">{project.title}</h3>
+                                <p className="text-muted-foreground line-clamp-3">{project.description}</p>
+                              </div>
+                            </div>
+                          </Card>
+                        </TooltipTrigger>
+                        {project.description && (
+                          <TooltipContent side="bottom" className="max-w-md text-sm">
+                            {project.description}
+                          </TooltipContent>
+                        )}
+                      </Tooltip>
+                    </ScrollReveal>
+                  ))}
+                </TooltipProvider>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* Programs */}
         <section className="py-12 lg:py-16">
           <div className="section-container">
-            <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-8 text-center">
-              Program Unggulan
-            </h2>
+            <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-8 text-center">Program Unggulan</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {programs.map((program) => (
                 <Card key={program.title} className="text-center hover:shadow-lg transition-shadow">
@@ -164,18 +127,12 @@ const Pengabdian = () => {
           </div>
         </section>
 
-
-        {/* Partnership */}
         <section className="py-12 lg:py-16 bg-muted/50">
           <div className="section-container">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-6">
-                Bermitra dengan UKTS
-              </h2>
+              <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-6">Bermitra dengan UKTS</h2>
               <p className="text-muted-foreground leading-relaxed mb-8">
-                UKTS terbuka untuk kerjasama pengabdian masyarakat dengan berbagai pihak, termasuk 
-                pemerintah, perusahaan, LSM, dan komunitas. Mari bersama-sama memberikan dampak 
-                positif bagi masyarakat.
+                UKTS terbuka untuk kerjasama pengabdian masyarakat dengan berbagai pihak.
               </p>
               <Card className="max-w-md mx-auto">
                 <CardContent className="p-6 text-left">
@@ -192,7 +149,6 @@ const Pengabdian = () => {
           </div>
         </section>
       </main>
-      
       <Footer />
     </div>
   );
