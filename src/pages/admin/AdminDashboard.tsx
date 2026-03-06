@@ -80,6 +80,7 @@ const AdminDashboard = () => {
           const table = selectedSection === 'penelitian' ? 'pengabdian' : selectedSection;
           let query = (supabase.from as any)(table).select('*');
           if (selectedSection === 'penelitian') query = query.eq('category', 'penelitian');
+          if (selectedSection === 'pengabdian') query = query.eq('category', 'pengabdian');
           const { data } = await query.order('created_at', { ascending: false });
           setContentList(data || []);
         }
