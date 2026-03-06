@@ -6,40 +6,57 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { GraduationCap, Users, BookOpen, Award, ChevronRight, ChevronLeft, ArrowRight, Phone } from 'lucide-react';
 import { ScrollReveal } from '@/hooks/useScrollReveal';
+import { supabase } from '@/integrations/supabase/client';
+
+// Fallback local images (ES module imports)
+import uktsJalanImg from '@/assets/gallery/uktsjalan.jpeg';
+import solotechDepanImg from '@/assets/gallery/solotechdepan.jpeg';
+import beasiswaImg from '@/assets/gallery/beasiswasolotech.jpg';
+
+const defaultSlides = [
+  {
+    id: 1,
+    title: 'UKTS Menerima',
+    subtitle: 'Akreditasi Unggul dari BAN-PT',
+    description: 'Berdasarkan Surat Keputusan BAN-PT, Universitas Kristen Teknologi Solo meraih predikat Akreditasi Unggul.',
+    bgImage: uktsJalanImg,
+  },
+  {
+    id: 2,
+    title: 'Selamat Datang di UKTS',
+    subtitle: 'Technology for Transformation',
+    description: 'Membangun generasi unggul dalam teknologi dengan landasan nilai-nilai kristiani.',
+    bgImage: solotechDepanImg,
+  },
+  {
+    id: 3,
+    title: 'Beasiswa Spark',
+    subtitle: 'Kesempatan Beasiswa untuk Mahasiswa Berprestasi',
+    description: 'Program Beasiswa Spark memberikan dukungan biaya studi bagi calon mahasiswa berprestasi. Daftar sekarang untuk kesempatan menerima bantuan pendidikan.',
+    bgImage: beasiswaImg,
+  },
+];
 
 const Beranda = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  // local gallery images
-  const uktsJalan = '/src/assets/gallery/uktsjalan.jpeg';
-  const solotechDepan = '/src/assets/gallery/solotechdepan.jpeg';
-  const beasiswaImg = '/src/assets/gallery/beasiswasolotech.jpg';
+  const [slides, setSlides] = useState(defaultSlides);
 
-  const slides = [
-    {
-      id: 1,
-      title: 'UKTS Menerima',
-      subtitle: 'Akreditasi Unggul dari BAN-PT',
-      description:
-        'Berdasarkan Surat Keputusan BAN-PT, Universitas Kristen Teknologi Solo meraih predikat Akreditasi Unggul.',
-      bgImage: uktsJalan,
-    },
-    {
-      id: 2,
-      title: 'Selamat Datang di UKTS',
-      subtitle: 'Technology for Transformation',
-      description:
-        'Membangun generasi unggul dalam teknologi dengan landasan nilai-nilai kristiani.',
-      bgImage: solotechDepan,
-    },
-    {
-      id: 3,
-      title: 'Beasiswa Spark',
-      subtitle: 'Kesempatan Beasiswa untuk Mahasiswa Berprestasi',
-      description:
-        'Program Beasiswa Spark memberikan dukungan biaya studi bagi calon mahasiswa berprestasi. Daftar sekarang untuk kesempatan menerima bantuan pendidikan.',
-      bgImage: beasiswaImg,
-    },
-  ];
+  // Fetch carousel images from galeri table
+  useEffect(() => {
+    supabase.from('galeri').select('*').order('created_at', { ascending: false }).limit(6)
+      .then(({ data }) => {
+        if (data && data.length > 0) {
+          const dbSlides = data.map((item, i) => ({
+            id: i + 1,
+            title: item.title || defaultSlides[i % defaultSlides.length]?.title || 'UKTS',
+            subtitle: defaultSlides[i % defaultSlides.length]?.subtitle || '',
+            description: defaultSlides[i % defaultSlides.length]?.description || '',
+            bgImage: item.image_url,
+          }));
+          setSlides(dbSlides);
+        }
+      });
+  }, []);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
