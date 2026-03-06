@@ -81,37 +81,6 @@ const ProfileContent = () => {
               </div>
             </ScrollReveal>
 
-            {/* Kegiatan Kampus */}
-            {kegiatan.length > 0 && (
-              <ScrollReveal>
-                <h3 className="font-heading font-semibold text-xl text-primary mt-8 mb-4">Kegiatan Kampus</h3>
-                <div className="grid md:grid-cols-2 gap-4 mb-8">
-                  {kegiatan.map((item) => (
-                    <Card key={item.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                      {item.image_url && (
-                        <div className="h-40 overflow-hidden">
-                          <img src={item.image_url} alt={item.title} className="w-full h-full object-cover" />
-                        </div>
-                      )}
-                      <div className="p-4">
-                        <h5 className="font-heading font-semibold text-foreground mb-2">{item.title}</h5>
-                        {item.description && <p className="text-sm text-muted-foreground mb-2 line-clamp-2">{item.description}</p>}
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                          <Calendar className="w-3.5 h-3.5" />
-                          {item.start_at ? new Date(item.start_at).toLocaleDateString('id-ID') : '-'}
-                        </div>
-                        {item.location && (
-                          <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
-                            <MapPin className="w-3.5 h-3.5" />
-                            {item.location}
-                          </div>
-                        )}
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </ScrollReveal>
-            )}
 
             <ScrollReveal>
               <h3 id="struktur" className="font-heading font-semibold text-xl text-primary mt-8 mb-4">Fakultas & Program Studi</h3>

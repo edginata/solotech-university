@@ -548,6 +548,26 @@ const AdminDashboard = () => {
           </div>
         </CardContent>
       </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Foto Carousel</CardTitle>
+          <CardDescription>Kelola foto yang tampil di carousel halaman utama (dari tabel Galeri)</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <CarouselManager uploadImage={uploadImage} />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Video</CardTitle>
+          <CardDescription>Kelola URL video untuk halaman BEM dan Profil</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <VideoSettingsManager />
+        </CardContent>
+      </Card>
     </div>
   );
 
