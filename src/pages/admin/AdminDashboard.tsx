@@ -434,7 +434,7 @@ const AdminDashboard = () => {
       <div className="space-y-4">
         <div className="flex justify-between items-center">
           <p className="text-muted-foreground">{contentList.length} item</p>
-          <Button onClick={() => { setItemForm(selectedSection === 'penelitian' ? { category: 'penelitian' } : {}); setIsAddDialogOpen(true); }} className="gap-1">
+          <Button onClick={() => { setItemForm(selectedSection === 'penelitian' ? { category: 'penelitian' } : selectedSection === 'pengabdian' ? { category: 'pengabdian' } : {}); setIsAddDialogOpen(true); }} className="gap-1">
             <Plus className="h-4 w-4" />Tambah
           </Button>
         </div>
