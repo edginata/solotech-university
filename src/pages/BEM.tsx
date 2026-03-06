@@ -13,11 +13,16 @@ import localVideo from '@/assets/videos/2022.mp4';
 const BEM: React.FC = () => {
   const breadcrumbs = [{ label: 'BEM', href: '/bem' }];
   const [bemItems, setBemItems] = useState<any[]>([]);
+  const [videoUrl, setVideoUrl] = useState('');
 
   useEffect(() => {
     let mounted = true;
-    supabase.from('bem').select('*').order('created_at', { ascending: false }).then(({ data }) => {
+    Promise.all([
+      supabase.from('bem').select('*').order('created_at', { ascending: false }),
+      supabase.from('site_settings').select('*').eq('key', 'bem_video_url').maybeSingle(),
+    ]).then(([{ data }, { data: vid }]) => {
       if (mounted && data) setBemItems(data);
+      if (mounted) setVideoUrl(vid?.value || '');
     });
     return () => { mounted = false; };
   }, []);
