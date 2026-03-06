@@ -1,8 +1,6 @@
 import { ScrollReveal } from '@/hooks/useScrollReveal';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { Card } from '@/components/ui/card';
-import { Calendar, MapPin } from 'lucide-react';
 import videoukts from '@/assets/videos/videoukts.mp4';
 
 const ProfileContent = () => {

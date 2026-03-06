@@ -634,4 +634,107 @@ const ContentFormDialog = ({ open, onOpenChange, title, form, setForm, isJadwal,
   </Dialog>
 );
 
+
+// ── Carousel Manager ──
+const CarouselManager = ({ uploadImage }: { uploadImage: (f: File) => Promise<string | null> }) => {
+  const [items, setItems] = useState<any[]>([]);
+  useEffect(() => {
+    supabase.from('galeri').select('*').order('created_at', { ascending: false }).then(({ data }) => setItems(data || []));
+  }, []);
+
+  const handleAdd = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = await uploadImage(file);
+    if (!url) return;
+    const { data } = await supabase.from('galeri').insert({ image_url: url, title: file.name }).select().single();
+    if (data) { setItems([data, ...items]); toast.success('Foto ditambahkan'); }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Hapus foto ini?')) return;
+    await supabase.from('galeri').delete().eq('id', id);
+    setItems(items.filter(i => i.id !== id));
+    toast.success('Foto dihapus');
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="grid grid-cols-3 gap-2">
+        {items.map(item => (
+          <div key={item.id} className="relative group">
+            <img src={item.image_url} alt={item.title || ''} className="w-full h-24 object-cover rounded-lg" />
+            <button onClick={() => handleDelete(item.id)} className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full w-5 h-5 text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">×</button>
+          </div>
+        ))}
+      </div>
+      <div>
+        <Label htmlFor="carousel-upload" className="cursor-pointer">
+          <div className="flex items-center gap-2 text-sm text-primary hover:underline"><Upload className="w-4 h-4" /> Tambah Foto</div>
+        </Label>
+        <input id="carousel-upload" type="file" accept="image/*" className="hidden" onChange={handleAdd} />
+      </div>
+    </div>
+  );
+};
+
+// ── Video Settings Manager ──
+const VideoSettingsManager = () => {
+  const [bemVideo, setBemVideo] = useState('');
+  const [profileVideo, setProfileVideo] = useState('');
+
+  useEffect(() => {
+    Promise.all([
+      supabase.from('site_settings').select('*').eq('key', 'bem_video_url').maybeSingle(),
+      supabase.from('site_settings').select('*').eq('key', 'profile_video_url').maybeSingle(),
+    ]).then(([b, p]) => {
+      setBemVideo(b.data?.value || '');
+      setProfileVideo(p.data?.value || '');
+    });
+  }, []);
+
+  const upsertSetting = async (key: string, value: string) => {
+    const { data: existing } = await supabase.from('site_settings').select('id').eq('key', key).maybeSingle();
+    if (existing) {
+      await supabase.from('site_settings').update({ value }).eq('key', key);
+    } else {
+      await supabase.from('site_settings').insert({ key, value });
+    }
+  };
+
+  const handleUpload = async (key: string, setter: (v: string) => void, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const path = `videos/${Date.now()}-${file.name}`;
+    const { error } = await supabase.storage.from('media').upload(path, file, { upsert: true });
+    if (error) { toast.error('Gagal upload video'); return; }
+    const { data } = supabase.storage.from('media').getPublicUrl(path);
+    await upsertSetting(key, data.publicUrl);
+    setter(data.publicUrl);
+    toast.success('Video berhasil diperbarui');
+  };
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <Label className="text-sm font-medium">Video BEM</Label>
+        <p className="text-xs text-muted-foreground mb-2">{bemVideo ? 'Video sudah diupload' : 'Belum ada video (menggunakan default)'}</p>
+        <Label htmlFor="bem-video-upload" className="cursor-pointer">
+          <div className="flex items-center gap-2 text-sm text-primary hover:underline"><Upload className="w-4 h-4" /> Upload Video BEM</div>
+        </Label>
+        <input id="bem-video-upload" type="file" accept="video/*" className="hidden" onChange={(e) => handleUpload('bem_video_url', setBemVideo, e)} />
+      </div>
+      <div>
+        <Label className="text-sm font-medium">Video Profil</Label>
+        <p className="text-xs text-muted-foreground mb-2">{profileVideo ? 'Video sudah diupload' : 'Belum ada video (menggunakan default)'}</p>
+        <Label htmlFor="profile-video-upload" className="cursor-pointer">
+          <div className="flex items-center gap-2 text-sm text-primary hover:underline"><Upload className="w-4 h-4" /> Upload Video Profil</div>
+        </Label>
+        <input id="profile-video-upload" type="file" accept="video/*" className="hidden" onChange={(e) => handleUpload('profile_video_url', setProfileVideo, e)} />
+      </div>
+    </div>
+  );
+};
+
 export default AdminDashboard;
+
