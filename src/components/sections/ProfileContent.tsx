@@ -4,11 +4,11 @@ import { supabase } from '@/integrations/supabase/client';
 import videoukts from '@/assets/videos/videoukts.mp4';
 
 const ProfileContent = () => {
-  const [kegiatan, setKegiatan] = useState<any[]>([]);
+  const [videoUrl, setVideoUrl] = useState('');
 
   useEffect(() => {
-    supabase.from('kegiatan').select('*').order('start_at', { ascending: false }).limit(4)
-      .then(({ data }) => setKegiatan(data || []));
+    supabase.from('site_settings').select('*').eq('key', 'profile_video_url').maybeSingle()
+      .then(({ data }) => setVideoUrl(data?.value || ''));
   }, []);
 
   return (
