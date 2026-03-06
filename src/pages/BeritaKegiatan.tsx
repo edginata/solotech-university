@@ -4,14 +4,17 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import HeroSection from '@/components/sections/HeroSection';
 import { Card } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollReveal } from '@/hooks/useScrollReveal';
 import { supabase } from '@/integrations/supabase/client';
-import { Calendar, User, MapPin, ArrowRight } from 'lucide-react';
+import { Calendar, User, MapPin } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const BeritaKegiatan = () => {
   const [berita, setBerita] = useState<any[]>([]);
   const [kegiatan, setKegiatan] = useState<any[]>([]);
+  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [detailType, setDetailType] = useState<'berita' | 'kegiatan'>('berita');
 
   useEffect(() => {
     const loadBerita = supabase.from('berita').select('*').order('published_at', { ascending: false });
@@ -24,6 +27,11 @@ const BeritaKegiatan = () => {
   }, []);
 
   const breadcrumbs = [{ label: 'Berita & Kegiatan', href: '/berita-kegiatan' }];
+
+  const openDetail = (item: any, type: 'berita' | 'kegiatan') => {
+    setSelectedItem(item);
+    setDetailType(type);
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -47,7 +55,10 @@ const BeritaKegiatan = () => {
                   <div className="grid md:grid-cols-3 gap-6">
                     {berita.map((item, i) => (
                       <ScrollReveal key={item.id} delay={i * 80}>
-                        <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
+                        <Card
+                          className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col cursor-pointer"
+                          onClick={() => openDetail(item, 'berita')}
+                        >
                           {item.image_url ? (
                             <div className="h-48 overflow-hidden">
                               <img src={item.image_url} alt={item.title} className="w-full h-full object-cover" />
@@ -88,7 +99,10 @@ const BeritaKegiatan = () => {
                   <div className="grid md:grid-cols-3 gap-6">
                     {kegiatan.map((item, i) => (
                       <ScrollReveal key={item.id} delay={i * 80}>
-                        <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
+                        <Card
+                          className="overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col cursor-pointer"
+                          onClick={() => openDetail(item, 'kegiatan')}
+                        >
                           {item.image_url && (
                             <div className="h-48 overflow-hidden">
                               <img src={item.image_url} alt={item.title} className="w-full h-full object-cover" />
@@ -122,6 +136,68 @@ const BeritaKegiatan = () => {
           </div>
         </section>
       </main>
+
+      {/* Detail Dialog */}
+      <Dialog open={!!selectedItem} onOpenChange={(open) => { if (!open) setSelectedItem(null); }}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-heading">{selectedItem?.title}</DialogTitle>
+          </DialogHeader>
+          {selectedItem && (
+            <div className="space-y-4">
+              {selectedItem.image_url && (
+                <div className="rounded-lg overflow-hidden">
+                  <img src={selectedItem.image_url} alt={selectedItem.title} className="w-full object-cover max-h-80" />
+                </div>
+              )}
+              <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                {detailType === 'berita' && (
+                  <>
+                    {selectedItem.category && (
+                      <span className="inline-block bg-primary/10 text-primary text-xs font-semibold px-3 py-1 rounded-full">
+                        {selectedItem.category}
+                      </span>
+                    )}
+                    <div className="flex items-center gap-1">
+                      <Calendar className="w-4 h-4" />
+                      {selectedItem.published_at ? new Date(selectedItem.published_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : '-'}
+                    </div>
+                    {selectedItem.author && (
+                      <div className="flex items-center gap-1">
+                        <User className="w-4 h-4" />
+                        {selectedItem.author}
+                      </div>
+                    )}
+                  </>
+                )}
+                {detailType === 'kegiatan' && (
+                  <>
+                    <div className="flex items-center gap-1">
+                      <Calendar className="w-4 h-4 text-primary" />
+                      {selectedItem.start_at ? new Date(selectedItem.start_at).toLocaleString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-'}
+                    </div>
+                    {selectedItem.location && (
+                      <div className="flex items-center gap-1">
+                        <MapPin className="w-4 h-4 text-primary" />
+                        {selectedItem.location}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+              <div className="text-foreground/80 leading-relaxed whitespace-pre-line">
+                {selectedItem.description || selectedItem.excerpt || 'Tidak ada deskripsi.'}
+              </div>
+              {selectedItem.link && (
+                <a href={selectedItem.link} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline text-sm">
+                  Baca selengkapnya →
+                </a>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
       <Footer />
     </div>
   );
