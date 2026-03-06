@@ -94,7 +94,7 @@ const BEM: React.FC = () => {
               <ScrollReveal>
                 <Card className="p-6 w-full">
                   <h2 className="font-heading font-bold text-2xl text-foreground mb-4">Video Profil / Kegiatan</h2>
-                  <video controls className="w-full rounded-md" src={localVideo}>
+                  <video controls className="w-full rounded-md" src={videoUrl || localVideo}>
                     Your browser does not support the video tag.
                   </video>
                 </Card>

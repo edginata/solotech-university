@@ -25,7 +25,7 @@ const ProfileContent = () => {
           {/* Video */}
           <ScrollReveal delay={100}>
             <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl mb-10 bg-muted flex items-center justify-center">
-                <video src={videoukts} className="w-full h-full object-cover" controls playsInline preload="metadata">
+                <video src={videoUrl || videoukts} className="w-full h-full object-cover" controls playsInline preload="metadata">
                   Your browser does not support the video tag.
                 </video>
             </div>
