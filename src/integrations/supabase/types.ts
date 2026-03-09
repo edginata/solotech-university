@@ -364,22 +364,28 @@ export type Database = {
       }
       program_studi: {
         Row: {
+          akreditasi: string | null
           created_at: string
           description: string | null
+          durasi: string | null
           faculty_id: string | null
           id: string
           name: string
         }
         Insert: {
+          akreditasi?: string | null
           created_at?: string
           description?: string | null
+          durasi?: string | null
           faculty_id?: string | null
           id?: string
           name: string
         }
         Update: {
+          akreditasi?: string | null
           created_at?: string
           description?: string | null
+          durasi?: string | null
           faculty_id?: string | null
           id?: string
           name?: string
