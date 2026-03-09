@@ -44,6 +44,39 @@ export type Database = {
         }
         Relationships: []
       }
+      alumni: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          id: string
+          message: string | null
+          name: string
+          order_num: number | null
+          rating: number | null
+          role: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          id?: string
+          message?: string | null
+          name: string
+          order_num?: number | null
+          rating?: number | null
+          role?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          id?: string
+          message?: string | null
+          name?: string
+          order_num?: number | null
+          rating?: number | null
+          role?: string | null
+        }
+        Relationships: []
+      }
       bem: {
         Row: {
           created_at: string
