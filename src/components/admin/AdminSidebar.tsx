@@ -25,6 +25,7 @@ import {
   Image,
   Award,
   ShieldCheck,
+  UserCheck,
   LogOut,
   Settings,
 } from 'lucide-react';
