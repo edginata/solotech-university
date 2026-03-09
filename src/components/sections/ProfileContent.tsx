@@ -5,10 +5,12 @@ import videoukts from '@/assets/videos/videoukts.mp4';
 
 const ProfileContent = () => {
   const [videoUrl, setVideoUrl] = useState('');
+  const [akreditasiList, setAkreditasiList] = useState<any[]>([]);
 
   useEffect(() => {
     supabase.from('site_settings').select('*').eq('key', 'profile_video_url').maybeSingle()
       .then(({ data }) => setVideoUrl(data?.value || ''));
+    supabase.from('akreditasi').select('*').order('order_num').then(({ data }) => setAkreditasiList(data || []));
   }, []);
 
   return (

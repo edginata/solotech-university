@@ -710,6 +710,89 @@ const CarouselManager = ({ uploadImage }: { uploadImage: (f: File) => Promise<st
   );
 };
 
+// ── Akreditasi Manager ──
+const AkreditasiManager = () => {
+  const [items, setItems] = useState<any[]>([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState<any>(null);
+  const [form, setForm] = useState({ title: '', status: '', issuer: '', description: '', order_num: 0 });
+
+  useEffect(() => {
+    supabase.from('akreditasi').select('*').order('order_num').then(({ data }) => setItems(data || []));
+  }, []);
+
+  const openAdd = () => { setEditingItem(null); setForm({ title: '', status: '', issuer: '', description: '', order_num: items.length + 1 }); setIsDialogOpen(true); };
+  const openEdit = (item: any) => { setEditingItem(item); setForm({ title: item.title, status: item.status || '', issuer: item.issuer || '', description: item.description || '', order_num: item.order_num || 0 }); setIsDialogOpen(true); };
+
+  const handleSave = async () => {
+    if (!form.title) return toast.error('Judul wajib diisi');
+    if (editingItem) {
+      await supabase.from('akreditasi').update(form).eq('id', editingItem.id);
+      setItems(items.map(i => i.id === editingItem.id ? { ...i, ...form } : i));
+      toast.success('Akreditasi diperbarui');
+    } else {
+      const { data } = await supabase.from('akreditasi').insert([form]).select().single();
+      if (data) setItems([...items, data]);
+      toast.success('Akreditasi ditambahkan');
+    }
+    setIsDialogOpen(false); setEditingItem(null);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Hapus akreditasi ini?')) return;
+    await supabase.from('akreditasi').delete().eq('id', id);
+    setItems(items.filter(i => i.id !== id));
+    toast.success('Akreditasi dihapus');
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <p className="text-muted-foreground">{items.length} item akreditasi</p>
+        <Button onClick={openAdd} className="gap-1"><Plus className="h-4 w-4" />Tambah</Button>
+      </div>
+      <div className="space-y-3">
+        {items.map(item => (
+          <Card key={item.id} className="p-4">
+            <div className="flex gap-4 items-start">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <h4 className="font-medium text-sm">{item.title}</h4>
+                  <Badge variant="secondary" className="text-xs">{item.status}</Badge>
+                </div>
+                <p className="text-xs text-primary font-medium">{item.issuer}</p>
+                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{item.description}</p>
+              </div>
+              <div className="flex gap-1 shrink-0">
+                <Button size="icon" variant="ghost" onClick={() => openEdit(item)}><Edit className="h-4 w-4" /></Button>
+                <Button size="icon" variant="ghost" className="text-destructive" onClick={() => handleDelete(item.id)}><Trash2 className="h-4 w-4" /></Button>
+              </div>
+            </div>
+          </Card>
+        ))}
+        {items.length === 0 && <p className="text-center py-8 text-muted-foreground">Belum ada data akreditasi</p>}
+      </div>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>{editingItem ? 'Edit' : 'Tambah'} Akreditasi</DialogTitle></DialogHeader>
+          <div className="space-y-3">
+            <div><Label>Judul</Label><Input value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} placeholder="Contoh: Akreditasi Institusi" /></div>
+            <div><Label>Status</Label><Input value={form.status} onChange={e => setForm({ ...form, status: e.target.value })} placeholder="Contoh: Unggul, Terakreditasi" /></div>
+            <div><Label>Penerbit</Label><Input value={form.issuer} onChange={e => setForm({ ...form, issuer: e.target.value })} placeholder="Contoh: BAN-PT" /></div>
+            <div><Label>Deskripsi</Label><Textarea value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} rows={2} /></div>
+            <div><Label>Urutan</Label><Input type="number" value={form.order_num} onChange={e => setForm({ ...form, order_num: parseInt(e.target.value) || 0 })} /></div>
+            <div className="flex gap-2 justify-end pt-2">
+              <Button variant="outline" onClick={() => setIsDialogOpen(false)}>Batal</Button>
+              <Button onClick={handleSave}>Simpan</Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+};
+
 // ── Video Settings Manager ──
 const VideoSettingsManager = () => {
   const [bemVideo, setBemVideo] = useState('');
