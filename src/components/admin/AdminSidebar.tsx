@@ -24,6 +24,7 @@ import {
   Calendar,
   Image,
   Award,
+  ShieldCheck,
   LogOut,
   Settings,
 } from 'lucide-react';
