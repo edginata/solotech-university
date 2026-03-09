@@ -140,9 +140,6 @@ const Beranda = () => {
                     {/* Left Content */}
                     <div className="lg:col-span-2 text-primary-foreground">
                       <div className="max-w-2xl">
-                        <span className="inline-block px-4 py-1 bg-accent text-accent-foreground text-sm font-semibold rounded-full mb-4 animate-fade-in">
-                          {slide.title}
-                        </span>
                         <h1 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl mb-4 animate-fade-in" style={{ animationDelay: '0.1s' }}>
                           {slide.subtitle}
                         </h1>
