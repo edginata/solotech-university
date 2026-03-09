@@ -14,6 +14,7 @@ import BeritaKegiatan from "./pages/BeritaKegiatan";
 import PMB from "./pages/PMB";
 import Pendaftaran from "./pages/Pendaftaran";
 import BEM from "./pages/BEM";
+import Alumni from "./pages/Alumni";
 import FakultasTeologi from "./pages/FakultasTeologi";
 import FakultasTeknik from "./pages/FakultasTeknik";
 import FakultasEkonomi from "./pages/FakultasEkonomi";
@@ -40,7 +41,8 @@ const App = () => (
           <Route path="/pmb" element={<PMB />} />
           <Route path="/berita-kegiatan" element={<BeritaKegiatan />} />
           <Route path="/pendaftaran" element={<Pendaftaran />} />
-          <Route path="/bem" element={<BEM />} />
+            <Route path="/bem" element={<BEM />} />
+            <Route path="/alumni" element={<Alumni />} />
           <Route path="/fakultas/teologi" element={<FakultasTeologi />} />
           <Route path="/fakultas/teknik" element={<FakultasTeknik />} />
           <Route path="/fakultas/ekonomi" element={<FakultasEkonomi />} />
