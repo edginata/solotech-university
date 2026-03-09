@@ -24,6 +24,7 @@ import {
   Calendar,
   Image,
   Award,
+  ShieldCheck,
   LogOut,
   Settings,
 } from 'lucide-react';
@@ -38,7 +39,7 @@ const menuItems = [
   { title: 'Penelitian', url: '/admin/penelitian', icon: FlaskConical },
   { title: 'Pengabdian', url: '/admin/pengabdian', icon: HandHeart },
   { title: 'BEM', url: '/admin/bem', icon: Award },
-  
+  { title: 'Akreditasi', url: '/admin/akreditasi', icon: ShieldCheck },
   { title: 'Jadwal', url: '/admin/jadwal', icon: BookOpen },
   { title: 'Pengaturan', url: '/admin/settings', icon: Settings },
 ];

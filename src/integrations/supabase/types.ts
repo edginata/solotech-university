@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      akreditasi: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          issuer: string | null
+          order_num: number | null
+          status: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          issuer?: string | null
+          order_num?: number | null
+          status?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          issuer?: string | null
+          order_num?: number | null
+          status?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
       bem: {
         Row: {
           created_at: string
