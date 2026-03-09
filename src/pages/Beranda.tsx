@@ -46,15 +46,14 @@ const Beranda = () => {
     supabase.from('galeri').select('*').order('created_at', { ascending: false }).limit(6)
       .then(({ data }) => {
         if (data && data.length > 0) {
-          const dbSlides = data.map((item, i) => {
+          const dbSlides = data.map((item: any, i: number) => {
             const fallback = defaultSlides[i % defaultSlides.length];
-            // Use DB title only if it's descriptive (not a filename)
             const isFilename = item.title && /\.\w{2,4}$/.test(item.title);
             return {
               id: i + 1,
               title: (!item.title || isFilename) ? (fallback?.title || 'UKTS') : item.title,
-              subtitle: fallback?.subtitle || '',
-              description: fallback?.description || '',
+              subtitle: item.subtitle || fallback?.subtitle || '',
+              description: item.description || fallback?.description || '',
               bgImage: item.image_url,
             };
           });
