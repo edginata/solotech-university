@@ -711,6 +711,99 @@ const CarouselManager = ({ uploadImage }: { uploadImage: (f: File) => Promise<st
   );
 };
 
+// ── Alumni Manager ──
+const AlumniManager = ({ uploadImage }: { uploadImage: (f: File) => Promise<string | null> }) => {
+  const [items, setItems] = useState<any[]>([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState<any>(null);
+  const [form, setForm] = useState({ name: '', role: '', message: '', rating: 5, avatar_url: '', order_num: 0 });
+
+  useEffect(() => {
+    supabase.from('alumni').select('*').order('order_num').then(({ data }) => setItems(data || []));
+  }, []);
+
+  const openAdd = () => { setEditingItem(null); setForm({ name: '', role: '', message: '', rating: 5, avatar_url: '', order_num: items.length + 1 }); setIsDialogOpen(true); };
+  const openEdit = (item: any) => { setEditingItem(item); setForm({ name: item.name, role: item.role || '', message: item.message || '', rating: item.rating || 5, avatar_url: item.avatar_url || '', order_num: item.order_num || 0 }); setIsDialogOpen(true); };
+
+  const handleSave = async () => {
+    if (!form.name) return toast.error('Nama wajib diisi');
+    if (editingItem) {
+      await supabase.from('alumni').update(form).eq('id', editingItem.id);
+      setItems(items.map(i => i.id === editingItem.id ? { ...i, ...form } : i));
+      toast.success('Alumni diperbarui');
+    } else {
+      const { data } = await supabase.from('alumni').insert([form]).select().single();
+      if (data) setItems([...items, data]);
+      toast.success('Alumni ditambahkan');
+    }
+    setIsDialogOpen(false); setEditingItem(null);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Hapus alumni ini?')) return;
+    await supabase.from('alumni').delete().eq('id', id);
+    setItems(items.filter(i => i.id !== id));
+    toast.success('Alumni dihapus');
+  };
+
+  const getInitials = (name: string) => name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+
+  return (
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <p className="text-muted-foreground">{items.length} alumni/testimoni</p>
+        <Button onClick={openAdd} className="gap-1"><Plus className="h-4 w-4" />Tambah</Button>
+      </div>
+      <div className="space-y-3">
+        {items.map(item => (
+          <Card key={item.id} className="p-4">
+            <div className="flex gap-4 items-start">
+              {item.avatar_url ? (
+                <img src={item.avatar_url} alt={item.name} className="w-12 h-12 rounded-full object-cover shrink-0" />
+              ) : (
+                <div className="w-12 h-12 rounded-full bg-primary/10 text-primary font-semibold flex items-center justify-center shrink-0 text-sm">{getInitials(item.name)}</div>
+              )}
+              <div className="flex-1 min-w-0">
+                <h4 className="font-medium text-sm">{item.name}</h4>
+                <p className="text-xs text-primary">{item.role}</p>
+                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">"{item.message}"</p>
+                <div className="flex gap-0.5 mt-1">{[...Array(item.rating || 5)].map((_, i) => <span key={i} className="text-amber-400 text-xs">★</span>)}</div>
+              </div>
+              <div className="flex gap-1 shrink-0">
+                <Button size="icon" variant="ghost" onClick={() => openEdit(item)}><Edit className="h-4 w-4" /></Button>
+                <Button size="icon" variant="ghost" className="text-destructive" onClick={() => handleDelete(item.id)}><Trash2 className="h-4 w-4" /></Button>
+              </div>
+            </div>
+          </Card>
+        ))}
+        {items.length === 0 && <p className="text-center py-8 text-muted-foreground">Belum ada data alumni</p>}
+      </div>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>{editingItem ? 'Edit' : 'Tambah'} Alumni</DialogTitle></DialogHeader>
+          <div className="space-y-3 max-h-[60vh] overflow-y-auto">
+            <div><Label>Nama</Label><Input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Nama lengkap" /></div>
+            <div><Label>Peran / Prodi</Label><Input value={form.role} onChange={e => setForm({ ...form, role: e.target.value })} placeholder="Contoh: Alumni Fakultas Ekonomi" /></div>
+            <div><Label>Testimoni</Label><Textarea value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} rows={3} placeholder="Pesan testimoni..." /></div>
+            <div><Label>Rating (1-5)</Label><Input type="number" min={1} max={5} value={form.rating} onChange={e => setForm({ ...form, rating: parseInt(e.target.value) || 5 })} /></div>
+            <div>
+              <Label>Foto (opsional)</Label>
+              {form.avatar_url && <img src={form.avatar_url} alt="preview" className="w-16 h-16 rounded-full object-cover mb-2" />}
+              <Input type="file" accept="image/*" onChange={e => { const f = e.target.files?.[0]; if (f) uploadImage(f).then(url => url && setForm({ ...form, avatar_url: url })); }} />
+            </div>
+            <div><Label>Urutan</Label><Input type="number" value={form.order_num} onChange={e => setForm({ ...form, order_num: parseInt(e.target.value) || 0 })} /></div>
+            <div className="flex gap-2 justify-end pt-2">
+              <Button variant="outline" onClick={() => setIsDialogOpen(false)}>Batal</Button>
+              <Button onClick={handleSave}>Simpan</Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+};
+
 // ── Akreditasi Manager ──
 const AkreditasiManager = () => {
   const [items, setItems] = useState<any[]>([]);
