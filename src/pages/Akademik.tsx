@@ -1,49 +1,39 @@
+import { useEffect, useState } from 'react';
 import TopBar from '@/components/layout/TopBar';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import HeroSection from '@/components/sections/HeroSection';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GraduationCap, BookOpen, Clock, Users, CheckCircle } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+
+const facilities = [
+  'Laboratorium Komputer Modern',
+  'Perpustakaan Digital',
+  'Studio Musik',
+  'Ruang Kelas Multimedia',
+  'Aula Serbaguna',
+  'Hotspot WiFi Kampus',
+];
 
 const Akademik = () => {
-  const breadcrumbs = [
-    { label: 'Akademik', href: '/akademik' },
-  ];
+  const breadcrumbs = [{ label: 'Akademik', href: '/akademik' }];
+  const [faculties, setFaculties] = useState<any[]>([]);
+  const [programs, setPrograms] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const faculties = [
-    {
-      name: 'Fakultas Teologi',
-      description: 'Mempersiapkan pemimpin rohani yang kompeten dan relevan dengan konteks masyarakat modern.',
-      programs: [
-        { name: 'S1 Pendidikan Agama Kristen', duration: '4 Tahun', akreditasi: 'B' },
-      ],
-    },
-    {
-      name: 'Fakultas Teknik',
-      description: 'Mencetak ahli teknologi yang inovatif dan mampu bersaing di era digital.',
-      programs: [
-        { name: 'S1 Teknik Informatika', duration: '4 Tahun', akreditasi: 'B' },
-        { name: 'S1 Teknik Lingkungan', duration: '4 Tahun', akreditasi: 'B' },
-      ],
-    },
-    {
-      name: 'Fakultas Ekonomi',
-      description: 'Mengembangkan entrepreneur dan profesional bisnis berjiwa kristiani.',
-      programs: [
-        { name: 'S1 Manajemen', duration: '4 Tahun', akreditasi: 'B' },
-        { name: 'S1 Akuntansi', duration: '4 Tahun', akreditasi: 'B' },
-      ],
-    },
-  ];
-
-  const facilities = [
-    'Laboratorium Komputer Modern',
-    'Perpustakaan Digital',
-    'Studio Musik',
-    'Ruang Kelas Multimedia',
-    'Aula Serbaguna',
-    'Hotspot WiFi Kampus',
-  ];
+  useEffect(() => {
+    const load = async () => {
+      const [{ data: fac }, { data: prog }] = await Promise.all([
+        supabase.from('faculty').select('*').order('order_num'),
+        supabase.from('program_studi').select('*'),
+      ]);
+      setFaculties(fac || []);
+      setPrograms(prog || []);
+      setLoading(false);
+    };
+    load();
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -51,10 +41,7 @@ const Akademik = () => {
       <Header />
       
       <main className="flex-1">
-        <HeroSection 
-          title="Akademik" 
-          breadcrumbs={breadcrumbs}
-        />
+        <HeroSection title="Akademik" breadcrumbs={breadcrumbs} />
 
         {/* Intro Section */}
         <section className="py-12 lg:py-16">
@@ -78,45 +65,64 @@ const Akademik = () => {
             <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-8 text-center">
               Fakultas & Program Studi
             </h2>
-            <div className="space-y-8">
-              {faculties.map((faculty) => (
-                <Card key={faculty.name} className="overflow-hidden">
-                  <CardHeader className="bg-primary text-primary-foreground">
-                    <CardTitle className="flex items-center gap-3">
-                      <GraduationCap className="w-6 h-6" />
-                      {faculty.name}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-6">
-                    <p className="text-muted-foreground mb-6">{faculty.description}</p>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {faculty.programs.map((program) => (
-                        <div 
-                          key={program.name}
-                          className="border border-border rounded-lg p-4 hover:border-primary transition-colors"
-                        >
-                          <div className="flex items-start gap-3">
-                            <BookOpen className="w-5 h-5 text-primary mt-0.5" />
-                            <div>
-                              <h4 className="font-semibold text-foreground">{program.name}</h4>
-                              <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
-                                <span className="flex items-center gap-1">
-                                  <Clock className="w-4 h-4" />
-                                  {program.duration}
-                                </span>
-                                <span className="bg-primary/10 text-primary px-2 py-0.5 rounded text-xs font-medium">
-                                  Akreditasi {program.akreditasi}
-                                </span>
+            {loading ? (
+              <p className="text-center text-muted-foreground py-8">Memuat data...</p>
+            ) : (
+              <div className="space-y-8">
+                {faculties.map((faculty) => {
+                  const facultyPrograms = programs.filter(p => p.faculty_id === faculty.id);
+                  return (
+                    <Card key={faculty.id} className="overflow-hidden">
+                      <CardHeader className="bg-primary text-primary-foreground">
+                        <CardTitle className="flex items-center gap-3">
+                          <GraduationCap className="w-6 h-6" />
+                          {faculty.name}
+                        </CardTitle>
+                        {faculty.description && (
+                          <p className="text-primary-foreground/80 text-sm mt-1">{faculty.description}</p>
+                        )}
+                      </CardHeader>
+                      <CardContent className="p-6">
+                        {facultyPrograms.length === 0 ? (
+                          <p className="text-muted-foreground text-sm">Belum ada program studi.</p>
+                        ) : (
+                          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {facultyPrograms.map((program: any) => (
+                              <div
+                                key={program.id}
+                                className="border border-border rounded-lg p-4 hover:border-primary transition-colors"
+                              >
+                                <div className="flex items-start gap-3">
+                                  <BookOpen className="w-5 h-5 text-primary mt-0.5" />
+                                  <div>
+                                    <h4 className="font-semibold text-foreground">{program.name}</h4>
+                                    {program.description && (
+                                      <p className="text-xs text-muted-foreground mt-1">{program.description}</p>
+                                    )}
+                                    <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground flex-wrap">
+                                      <span className="flex items-center gap-1">
+                                        <Clock className="w-4 h-4" />
+                                        {program.durasi || '4 Tahun'}
+                                      </span>
+                                      <span className="bg-primary/10 text-primary px-2 py-0.5 rounded text-xs font-medium">
+                                        Akreditasi {program.akreditasi || 'B'}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
+                            ))}
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+                {faculties.length === 0 && (
+                  <p className="text-center text-muted-foreground py-8">Belum ada data fakultas.</p>
+                )}
+              </div>
+            )}
           </div>
         </section>
 
