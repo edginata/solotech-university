@@ -387,8 +387,12 @@ const AdminDashboard = () => {
         <DialogContent>
           <DialogHeader><DialogTitle>Tambah Program Studi</DialogTitle></DialogHeader>
           <div className="space-y-3">
-            <div><Label>Nama</Label><Input value={itemForm.name || ''} onChange={e => setItemForm({ ...itemForm, name: e.target.value })} /></div>
+            <div><Label>Nama Program Studi</Label><Input value={itemForm.name || ''} onChange={e => setItemForm({ ...itemForm, name: e.target.value })} /></div>
             <div><Label>Deskripsi</Label><Textarea value={itemForm.description || ''} onChange={e => setItemForm({ ...itemForm, description: e.target.value })} rows={2} /></div>
+            <div className="grid grid-cols-2 gap-3">
+              <div><Label>Akreditasi</Label><Input value={itemForm.akreditasi || ''} placeholder="cth: A, B, Unggul" onChange={e => setItemForm({ ...itemForm, akreditasi: e.target.value })} /></div>
+              <div><Label>Durasi</Label><Input value={itemForm.durasi || ''} placeholder="cth: 4 Tahun" onChange={e => setItemForm({ ...itemForm, durasi: e.target.value })} /></div>
+            </div>
             <div className="flex gap-2 justify-end">
               <Button variant="outline" onClick={() => { setIsAddDialogOpen(false); setItemForm({}); }}>Batal</Button>
               <Button onClick={async () => {
@@ -408,8 +412,12 @@ const AdminDashboard = () => {
         <DialogContent>
           <DialogHeader><DialogTitle>Edit Program Studi</DialogTitle></DialogHeader>
           <div className="space-y-3">
-            <div><Label>Nama</Label><Input value={itemForm.name || ''} onChange={e => setItemForm({ ...itemForm, name: e.target.value })} /></div>
+            <div><Label>Nama Program Studi</Label><Input value={itemForm.name || ''} onChange={e => setItemForm({ ...itemForm, name: e.target.value })} /></div>
             <div><Label>Deskripsi</Label><Textarea value={itemForm.description || ''} onChange={e => setItemForm({ ...itemForm, description: e.target.value })} rows={2} /></div>
+            <div className="grid grid-cols-2 gap-3">
+              <div><Label>Akreditasi</Label><Input value={itemForm.akreditasi || ''} placeholder="cth: A, B, Unggul" onChange={e => setItemForm({ ...itemForm, akreditasi: e.target.value })} /></div>
+              <div><Label>Durasi</Label><Input value={itemForm.durasi || ''} placeholder="cth: 4 Tahun" onChange={e => setItemForm({ ...itemForm, durasi: e.target.value })} /></div>
+            </div>
             <div className="flex gap-2 justify-end">
               <Button variant="outline" onClick={() => { setIsEditDialogOpen(false); setEditingItem(null); setItemForm({}); }}>Batal</Button>
               <Button onClick={async () => {
