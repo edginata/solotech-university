@@ -577,6 +577,7 @@ const AdminDashboard = () => {
       case 'pendaftar': return renderPendaftar();
       case 'akademik': return renderAkademik();
       case 'akreditasi': return <AkreditasiManager />;
+      case 'alumni': return <AlumniManager uploadImage={uploadImage} />;
       case 'settings': return renderSettings();
       default: return renderContentSection();
     }
