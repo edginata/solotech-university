@@ -638,6 +638,9 @@ const ContentFormDialog = ({ open, onOpenChange, title, form, setForm, isJadwal,
 // ── Carousel Manager ──
 const CarouselManager = ({ uploadImage }: { uploadImage: (f: File) => Promise<string | null> }) => {
   const [items, setItems] = useState<any[]>([]);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editTitle, setEditTitle] = useState('');
+
   useEffect(() => {
     supabase.from('galeri').select('*').order('created_at', { ascending: false }).then(({ data }) => setItems(data || []));
   }, []);
@@ -658,13 +661,36 @@ const CarouselManager = ({ uploadImage }: { uploadImage: (f: File) => Promise<st
     toast.success('Foto dihapus');
   };
 
+  const startEdit = (item: any) => {
+    setEditingId(item.id);
+    setEditTitle(item.title || '');
+  };
+
+  const saveTitle = async (id: string) => {
+    await supabase.from('galeri').update({ title: editTitle }).eq('id', id);
+    setItems(items.map(i => i.id === id ? { ...i, title: editTitle } : i));
+    setEditingId(null);
+    toast.success('Judul diperbarui');
+  };
+
   return (
     <div className="space-y-3">
       <div className="grid grid-cols-3 gap-2">
         {items.map(item => (
-          <div key={item.id} className="relative group">
+          <div key={item.id} className="relative group space-y-1">
             <img src={item.image_url} alt={item.title || ''} className="w-full h-24 object-cover rounded-lg" />
             <button onClick={() => handleDelete(item.id)} className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full w-5 h-5 text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">×</button>
+            {editingId === item.id ? (
+              <div className="flex gap-1">
+                <Input value={editTitle} onChange={e => setEditTitle(e.target.value)} className="h-7 text-xs" placeholder="Judul slide" onKeyDown={e => e.key === 'Enter' && saveTitle(item.id)} />
+                <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" onClick={() => saveTitle(item.id)}>✓</Button>
+                <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" onClick={() => setEditingId(null)}>✗</Button>
+              </div>
+            ) : (
+              <button onClick={() => startEdit(item)} className="w-full text-left text-xs text-muted-foreground truncate hover:text-primary transition-colors px-1">
+                {item.title && !/\.\w{2,4}$/.test(item.title) ? item.title : <span className="italic">Klik untuk edit judul</span>}
+              </button>
+            )}
           </div>
         ))}
       </div>
