@@ -41,7 +41,8 @@ const App = () => (
           <Route path="/pmb" element={<PMB />} />
           <Route path="/berita-kegiatan" element={<BeritaKegiatan />} />
           <Route path="/pendaftaran" element={<Pendaftaran />} />
-          <Route path="/bem" element={<BEM />} />
+            <Route path="/bem" element={<BEM />} />
+            <Route path="/alumni" element={<Alumni />} />
           <Route path="/fakultas/teologi" element={<FakultasTeologi />} />
           <Route path="/fakultas/teknik" element={<FakultasTeknik />} />
           <Route path="/fakultas/ekonomi" element={<FakultasEkonomi />} />

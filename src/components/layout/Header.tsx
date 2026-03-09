@@ -80,6 +80,7 @@ const Header = () => {
     { label: 'PENELITIAN', href: '/penelitian' },
     { label: 'PENGABDIAN', href: '/pengabdian' },
     { label: 'BEM', href: '/bem' },
+    { label: 'ALUMNI', href: '/alumni' },
     { label: 'PMB', href: '/pmb' },
   ];
 
