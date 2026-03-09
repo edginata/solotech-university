@@ -27,12 +27,12 @@ interface Pendaftar {
   asal_sekolah: string | null; created_at: string; updated_at: string;
 }
 
-type SectionType = 'dashboard' | 'pendaftar' | 'akademik' | 'pengabdian' | 'penelitian' | 'berita' | 'kegiatan' | 'jadwal' | 'bem' | 'akreditasi' | 'settings';
+type SectionType = 'dashboard' | 'pendaftar' | 'akademik' | 'pengabdian' | 'penelitian' | 'berita' | 'kegiatan' | 'jadwal' | 'bem' | 'akreditasi' | 'alumni' | 'settings';
 
 const sectionTitles: Record<SectionType, string> = {
   dashboard: 'Dashboard', pendaftar: 'Data Pendaftar', akademik: 'Program Studi',
   pengabdian: 'Pengabdian', penelitian: 'Penelitian', berita: 'Berita',
-  kegiatan: 'Kegiatan', jadwal: 'Jadwal', bem: 'BEM', akreditasi: 'Akreditasi', settings: 'Pengaturan',
+  kegiatan: 'Kegiatan', jadwal: 'Jadwal', bem: 'BEM', akreditasi: 'Akreditasi', alumni: 'Alumni', settings: 'Pengaturan',
 };
 
 const AdminDashboard = () => {
