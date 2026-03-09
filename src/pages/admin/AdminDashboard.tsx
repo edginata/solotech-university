@@ -639,7 +639,7 @@ const ContentFormDialog = ({ open, onOpenChange, title, form, setForm, isJadwal,
 const CarouselManager = ({ uploadImage }: { uploadImage: (f: File) => Promise<string | null> }) => {
   const [items, setItems] = useState<any[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [editTitle, setEditTitle] = useState('');
+  const [editForm, setEditForm] = useState({ title: '', subtitle: '', description: '' });
 
   useEffect(() => {
     supabase.from('galeri').select('*').order('created_at', { ascending: false }).then(({ data }) => setItems(data || []));
@@ -650,7 +650,7 @@ const CarouselManager = ({ uploadImage }: { uploadImage: (f: File) => Promise<st
     if (!file) return;
     const url = await uploadImage(file);
     if (!url) return;
-    const { data } = await supabase.from('galeri').insert({ image_url: url, title: file.name }).select().single();
+    const { data } = await supabase.from('galeri').insert({ image_url: url, title: file.name } as any).select().single();
     if (data) { setItems([data, ...items]); toast.success('Foto ditambahkan'); }
   };
 
@@ -663,32 +663,37 @@ const CarouselManager = ({ uploadImage }: { uploadImage: (f: File) => Promise<st
 
   const startEdit = (item: any) => {
     setEditingId(item.id);
-    setEditTitle(item.title || '');
+    setEditForm({ title: item.title || '', subtitle: item.subtitle || '', description: item.description || '' });
   };
 
-  const saveTitle = async (id: string) => {
-    await supabase.from('galeri').update({ title: editTitle }).eq('id', id);
-    setItems(items.map(i => i.id === id ? { ...i, title: editTitle } : i));
+  const saveSlide = async (id: string) => {
+    await supabase.from('galeri').update({ title: editForm.title, subtitle: editForm.subtitle, description: editForm.description } as any).eq('id', id);
+    setItems(items.map(i => i.id === id ? { ...i, ...editForm } : i));
     setEditingId(null);
-    toast.success('Judul diperbarui');
+    toast.success('Slide diperbarui');
   };
 
   return (
     <div className="space-y-3">
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
         {items.map(item => (
           <div key={item.id} className="relative group space-y-1">
             <img src={item.image_url} alt={item.title || ''} className="w-full h-24 object-cover rounded-lg" />
             <button onClick={() => handleDelete(item.id)} className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full w-5 h-5 text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">×</button>
             {editingId === item.id ? (
-              <div className="flex gap-1">
-                <Input value={editTitle} onChange={e => setEditTitle(e.target.value)} className="h-7 text-xs" placeholder="Judul slide" onKeyDown={e => e.key === 'Enter' && saveTitle(item.id)} />
-                <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" onClick={() => saveTitle(item.id)}>✓</Button>
-                <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" onClick={() => setEditingId(null)}>✗</Button>
+              <div className="space-y-1">
+                <Input value={editForm.title} onChange={e => setEditForm({ ...editForm, title: e.target.value })} className="h-7 text-xs" placeholder="Judul (label atas)" />
+                <Input value={editForm.subtitle} onChange={e => setEditForm({ ...editForm, subtitle: e.target.value })} className="h-7 text-xs" placeholder="Subtitle (heading utama)" />
+                <Textarea value={editForm.description} onChange={e => setEditForm({ ...editForm, description: e.target.value })} className="text-xs min-h-[48px]" placeholder="Deskripsi singkat" rows={2} />
+                <div className="flex gap-1 justify-end">
+                  <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" onClick={() => saveSlide(item.id)}>✓ Simpan</Button>
+                  <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" onClick={() => setEditingId(null)}>✗ Batal</Button>
+                </div>
               </div>
             ) : (
-              <button onClick={() => startEdit(item)} className="w-full text-left text-xs text-muted-foreground truncate hover:text-primary transition-colors px-1">
-                {item.title && !/\.\w{2,4}$/.test(item.title) ? item.title : <span className="italic">Klik untuk edit judul</span>}
+              <button onClick={() => startEdit(item)} className="w-full text-left text-xs text-muted-foreground hover:text-primary transition-colors px-1">
+                <div className="font-medium truncate">{item.title && !/\.\w{2,4}$/.test(item.title) ? item.title : <span className="italic">Klik untuk edit</span>}</div>
+                {item.subtitle && <div className="truncate opacity-70">{item.subtitle}</div>}
               </button>
             )}
           </div>

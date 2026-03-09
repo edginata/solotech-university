@@ -137,20 +137,26 @@ export type Database = {
       galeri: {
         Row: {
           created_at: string
+          description: string | null
           id: string
           image_url: string
+          subtitle: string | null
           title: string | null
         }
         Insert: {
           created_at?: string
+          description?: string | null
           id?: string
           image_url: string
+          subtitle?: string | null
           title?: string | null
         }
         Update: {
           created_at?: string
+          description?: string | null
           id?: string
           image_url?: string
+          subtitle?: string | null
           title?: string | null
         }
         Relationships: []
