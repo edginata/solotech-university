@@ -14,6 +14,7 @@ import BeritaKegiatan from "./pages/BeritaKegiatan";
 import PMB from "./pages/PMB";
 import Pendaftaran from "./pages/Pendaftaran";
 import BEM from "./pages/BEM";
+import Alumni from "./pages/Alumni";
 import FakultasTeologi from "./pages/FakultasTeologi";
 import FakultasTeknik from "./pages/FakultasTeknik";
 import FakultasEkonomi from "./pages/FakultasEkonomi";
