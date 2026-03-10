@@ -336,6 +336,9 @@ const AdminDashboard = () => {
     );
   };
 
+  const [editFacultyId, setEditFacultyId] = useState<string | null>(null);
+  const [facultyForm, setFacultyForm] = useState<any>({});
+
   const renderAkademik = () => (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
@@ -354,7 +357,18 @@ const AdminDashboard = () => {
                 <ChevronDown className="h-4 w-4" />
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <div className="p-4 pt-0 space-y-2">
+                <div className="p-4 pt-0 space-y-3">
+                  {/* Faculty edit button */}
+                  <div className="flex items-center gap-2 p-3 bg-accent/10 rounded-lg border border-accent/20">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-muted-foreground">Deskripsi Fakultas</p>
+                      <p className="text-sm text-foreground line-clamp-2">{faculty.description || <span className="italic text-muted-foreground">Belum ada deskripsi</span>}</p>
+                    </div>
+                    <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); setEditFacultyId(faculty.id); setFacultyForm({ name: faculty.name, description: faculty.description || '' }); }} className="gap-1 shrink-0">
+                      <Edit className="h-3 w-3" />Edit Fakultas
+                    </Button>
+                  </div>
+
                   {facultyPrograms.map((prog: any) => (
                     <div key={prog.id} className="flex justify-between items-center p-3 bg-muted/30 rounded-lg">
                       <div>
@@ -381,6 +395,27 @@ const AdminDashboard = () => {
           </Card>
         );
       })}
+
+      {/* Edit Faculty Dialog */}
+      <Dialog open={!!editFacultyId} onOpenChange={(v) => { if (!v) setEditFacultyId(null); }}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>Edit Fakultas</DialogTitle><DialogDescription>Edit nama dan deskripsi fakultas</DialogDescription></DialogHeader>
+          <div className="space-y-3">
+            <div><Label>Nama Fakultas</Label><Input value={facultyForm.name || ''} onChange={e => setFacultyForm({ ...facultyForm, name: e.target.value })} /></div>
+            <div><Label>Deskripsi</Label><Textarea value={facultyForm.description || ''} onChange={e => setFacultyForm({ ...facultyForm, description: e.target.value })} rows={4} placeholder="Deskripsi fakultas yang akan ditampilkan di halaman publik..." /></div>
+            <div className="flex gap-2 justify-end pt-2">
+              <Button variant="outline" onClick={() => setEditFacultyId(null)}>Batal</Button>
+              <Button onClick={async () => {
+                if (!editFacultyId || !facultyForm.name) return toast.error('Nama wajib diisi');
+                await supabase.from('faculty').update({ name: facultyForm.name, description: facultyForm.description }).eq('id', editFacultyId);
+                setFaculties(faculties.map(f => f.id === editFacultyId ? { ...f, ...facultyForm } : f));
+                setEditFacultyId(null);
+                toast.success('Fakultas diperbarui');
+              }}>Simpan</Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Add Program Dialog */}
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
