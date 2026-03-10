@@ -409,20 +409,104 @@ const AdminDashboard = () => {
 
       {/* Edit Program Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent>
-          <DialogHeader><DialogTitle>Edit Program Studi</DialogTitle></DialogHeader>
-          <div className="space-y-3">
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader><DialogTitle>Edit Program Studi</DialogTitle><DialogDescription>Edit semua detail program studi</DialogDescription></DialogHeader>
+          <div className="space-y-4">
             <div><Label>Nama Program Studi</Label><Input value={itemForm.name || ''} onChange={e => setItemForm({ ...itemForm, name: e.target.value })} /></div>
-            <div><Label>Deskripsi</Label><Textarea value={itemForm.description || ''} onChange={e => setItemForm({ ...itemForm, description: e.target.value })} rows={2} /></div>
-            <div className="grid grid-cols-2 gap-3">
+            <div><Label>Deskripsi</Label><Textarea value={itemForm.description || ''} onChange={e => setItemForm({ ...itemForm, description: e.target.value })} rows={3} /></div>
+            <div className="grid grid-cols-3 gap-3">
               <div><Label>Akreditasi</Label><Input value={itemForm.akreditasi || ''} placeholder="cth: A, B, Unggul" onChange={e => setItemForm({ ...itemForm, akreditasi: e.target.value })} /></div>
               <div><Label>Durasi</Label><Input value={itemForm.durasi || ''} placeholder="cth: 4 Tahun" onChange={e => setItemForm({ ...itemForm, durasi: e.target.value })} /></div>
+              <div><Label>SKS</Label><Input type="number" value={itemForm.sks || ''} placeholder="cth: 148" onChange={e => setItemForm({ ...itemForm, sks: parseInt(e.target.value) || null })} /></div>
             </div>
-            <div className="flex gap-2 justify-end">
+
+            {/* Kompetensi Lulusan */}
+            <div>
+              <Label className="mb-2 block">Kompetensi Lulusan</Label>
+              {(Array.isArray(itemForm.kompetensi_lulusan) ? itemForm.kompetensi_lulusan : []).map((item: string, idx: number) => (
+                <div key={idx} className="flex gap-2 mb-2">
+                  <Input value={item} onChange={e => {
+                    const arr = [...(itemForm.kompetensi_lulusan || [])];
+                    arr[idx] = e.target.value;
+                    setItemForm({ ...itemForm, kompetensi_lulusan: arr });
+                  }} />
+                  <Button size="icon" variant="ghost" className="text-destructive shrink-0" onClick={() => {
+                    const arr = (itemForm.kompetensi_lulusan || []).filter((_: any, i: number) => i !== idx);
+                    setItemForm({ ...itemForm, kompetensi_lulusan: arr });
+                  }}><Trash2 className="h-4 w-4" /></Button>
+                </div>
+              ))}
+              <Button size="sm" variant="outline" onClick={() => setItemForm({ ...itemForm, kompetensi_lulusan: [...(itemForm.kompetensi_lulusan || []), ''] })} className="gap-1"><Plus className="h-3 w-3" />Tambah</Button>
+            </div>
+
+            {/* Prospek Karir */}
+            <div>
+              <Label className="mb-2 block">Prospek Karir</Label>
+              {(Array.isArray(itemForm.prospek_karir) ? itemForm.prospek_karir : []).map((item: string, idx: number) => (
+                <div key={idx} className="flex gap-2 mb-2">
+                  <Input value={item} onChange={e => {
+                    const arr = [...(itemForm.prospek_karir || [])];
+                    arr[idx] = e.target.value;
+                    setItemForm({ ...itemForm, prospek_karir: arr });
+                  }} />
+                  <Button size="icon" variant="ghost" className="text-destructive shrink-0" onClick={() => {
+                    const arr = (itemForm.prospek_karir || []).filter((_: any, i: number) => i !== idx);
+                    setItemForm({ ...itemForm, prospek_karir: arr });
+                  }}><Trash2 className="h-4 w-4" /></Button>
+                </div>
+              ))}
+              <Button size="sm" variant="outline" onClick={() => setItemForm({ ...itemForm, prospek_karir: [...(itemForm.prospek_karir || []), ''] })} className="gap-1"><Plus className="h-3 w-3" />Tambah</Button>
+            </div>
+
+            {/* Dosen */}
+            <div>
+              <Label className="mb-2 block">Dosen</Label>
+              {(Array.isArray(itemForm.dosen) ? itemForm.dosen : []).map((d: any, idx: number) => (
+                <div key={idx} className="flex gap-2 mb-2">
+                  <Input placeholder="Nama" value={d?.name || ''} onChange={e => {
+                    const arr = [...(itemForm.dosen || [])];
+                    arr[idx] = { ...arr[idx], name: e.target.value };
+                    setItemForm({ ...itemForm, dosen: arr });
+                  }} className="flex-1" />
+                  <Input placeholder="Bidang" value={d?.bidang || ''} onChange={e => {
+                    const arr = [...(itemForm.dosen || [])];
+                    arr[idx] = { ...arr[idx], bidang: e.target.value };
+                    setItemForm({ ...itemForm, dosen: arr });
+                  }} className="flex-1" />
+                  <Button size="icon" variant="ghost" className="text-destructive shrink-0" onClick={() => {
+                    const arr = (itemForm.dosen || []).filter((_: any, i: number) => i !== idx);
+                    setItemForm({ ...itemForm, dosen: arr });
+                  }}><Trash2 className="h-4 w-4" /></Button>
+                </div>
+              ))}
+              <Button size="sm" variant="outline" onClick={() => setItemForm({ ...itemForm, dosen: [...(itemForm.dosen || []), { name: '', bidang: '' }] })} className="gap-1"><Plus className="h-3 w-3" />Tambah Dosen</Button>
+            </div>
+
+            {/* Fasilitas */}
+            <div>
+              <Label className="mb-2 block">Fasilitas</Label>
+              {(Array.isArray(itemForm.fasilitas) ? itemForm.fasilitas : []).map((item: string, idx: number) => (
+                <div key={idx} className="flex gap-2 mb-2">
+                  <Input value={item} onChange={e => {
+                    const arr = [...(itemForm.fasilitas || [])];
+                    arr[idx] = e.target.value;
+                    setItemForm({ ...itemForm, fasilitas: arr });
+                  }} />
+                  <Button size="icon" variant="ghost" className="text-destructive shrink-0" onClick={() => {
+                    const arr = (itemForm.fasilitas || []).filter((_: any, i: number) => i !== idx);
+                    setItemForm({ ...itemForm, fasilitas: arr });
+                  }}><Trash2 className="h-4 w-4" /></Button>
+                </div>
+              ))}
+              <Button size="sm" variant="outline" onClick={() => setItemForm({ ...itemForm, fasilitas: [...(itemForm.fasilitas || []), ''] })} className="gap-1"><Plus className="h-3 w-3" />Tambah</Button>
+            </div>
+
+            <div className="flex gap-2 justify-end pt-2">
               <Button variant="outline" onClick={() => { setIsEditDialogOpen(false); setEditingItem(null); setItemForm({}); }}>Batal</Button>
               <Button onClick={async () => {
                 if (!editingItem) return;
-                await supabase.from('program_studi').update(itemForm).eq('id', editingItem.id);
+                const { id, created_at, ...updateData } = itemForm;
+                await supabase.from('program_studi').update(updateData).eq('id', editingItem.id);
                 setPrograms(programs.map((p: any) => p.id === editingItem.id ? { ...p, ...itemForm } : p));
                 setIsEditDialogOpen(false); setEditingItem(null); setItemForm({});
                 toast.success('Program diperbarui');
