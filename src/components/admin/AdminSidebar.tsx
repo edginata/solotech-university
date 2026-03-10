@@ -34,7 +34,7 @@ import uktsLogo from '@/assets/gallery/logo-ukts.png';
 const menuItems = [
   { title: 'Dashboard', url: '/admin/dashboard', icon: LayoutDashboard },
   { title: 'Data Pendaftar', url: '/admin/pendaftar', icon: Users },
-  { title: 'Program Studi', url: '/admin/akademik', icon: GraduationCap },
+  { title: 'Akademik', url: '/admin/akademik', icon: GraduationCap },
   { title: 'Berita', url: '/admin/berita', icon: Newspaper },
   { title: 'Kegiatan', url: '/admin/kegiatan', icon: Calendar },
   { title: 'Penelitian', url: '/admin/penelitian', icon: FlaskConical },
