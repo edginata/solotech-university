@@ -152,7 +152,7 @@ const FeaturesSection = () => {
                   <div className="space-y-3">
                     <a href="/pmb" className="block">
                       <Button className="w-full bg-primary hover:bg-primary/90">
-                        Buka PMB 2026
+                        Buka PMB
                       </Button>
                     </a>
                     <a href="/profil" className="block">

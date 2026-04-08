@@ -19,6 +19,7 @@ export type Database = {
           created_at: string
           description: string | null
           id: string
+          image_url: string | null
           issuer: string | null
           order_num: number | null
           status: string | null
@@ -28,6 +29,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          image_url?: string | null
           issuer?: string | null
           order_num?: number | null
           status?: string | null
@@ -37,6 +39,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          image_url?: string | null
           issuer?: string | null
           order_num?: number | null
           status?: string | null
@@ -367,28 +370,43 @@ export type Database = {
           akreditasi: string | null
           created_at: string
           description: string | null
+          dosen: Json | null
           durasi: string | null
           faculty_id: string | null
+          fasilitas: Json | null
           id: string
+          kompetensi_lulusan: Json | null
           name: string
+          prospek_karir: Json | null
+          sks: number | null
         }
         Insert: {
           akreditasi?: string | null
           created_at?: string
           description?: string | null
+          dosen?: Json | null
           durasi?: string | null
           faculty_id?: string | null
+          fasilitas?: Json | null
           id?: string
+          kompetensi_lulusan?: Json | null
           name: string
+          prospek_karir?: Json | null
+          sks?: number | null
         }
         Update: {
           akreditasi?: string | null
           created_at?: string
           description?: string | null
+          dosen?: Json | null
           durasi?: string | null
           faculty_id?: string | null
+          fasilitas?: Json | null
           id?: string
+          kompetensi_lulusan?: Json | null
           name?: string
+          prospek_karir?: Json | null
+          sks?: number | null
         }
         Relationships: [
           {

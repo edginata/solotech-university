@@ -10,10 +10,10 @@ import {
 import pmbPosterFallback from '@/assets/gallery/pmbbaru.png';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-
-const currentYear = new Date().getFullYear();
+import { useActiveYear } from '@/hooks/useActiveYear';
 
 const PMB = () => {
+  const activeYear = useActiveYear();
   const [posterUrl, setPosterUrl] = useState<string>(pmbPosterFallback);
   const [pmbOpen, setPmbOpen] = useState<boolean | null>(null);
 
@@ -104,7 +104,7 @@ const PMB = () => {
         <section className="py-12 bg-primary">
           <div className="section-container">
             <h2 className="font-heading font-bold text-2xl text-primary-foreground mb-8 text-center">
-              Jadwal Pendaftaran {currentYear}/{currentYear + 1}
+              Jadwal Pendaftaran {activeYear}/{activeYear + 1}
             </h2>
            <div className="flex justify-center">
               <div className="bg-primary-foreground/10 rounded-lg p-6 text-center w-full max-w-sm">
