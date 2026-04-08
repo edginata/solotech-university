@@ -526,6 +526,27 @@ const AdminDashboard = () => {
     <div className="space-y-6 max-w-lg">
       <Card>
         <CardHeader>
+          <CardTitle className="text-base">Tahun Aktif</CardTitle>
+          <CardDescription>Mengubah tahun yang tampil di seluruh website (PMB, copyright, dll)</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center gap-3">
+            <Input type="number" value={activeYear} onChange={e => setActiveYear(e.target.value)} className="w-32" />
+            <Button size="sm" onClick={async () => {
+              const { data: existing } = await supabase.from('site_settings').select('id').eq('key', 'active_year').maybeSingle();
+              if (existing) {
+                await supabase.from('site_settings').update({ value: activeYear }).eq('key', 'active_year');
+              } else {
+                await supabase.from('site_settings').insert({ key: 'active_year', value: activeYear });
+              }
+              toast.success('Tahun aktif diperbarui');
+            }}>Simpan</Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
           <CardTitle className="text-base">Penerimaan Mahasiswa Baru (PMB)</CardTitle>
           <CardDescription>Kontrol apakah form pendaftaran dapat diakses publik</CardDescription>
         </CardHeader>
