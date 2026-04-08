@@ -920,8 +920,27 @@ const AkreditasiManager = () => {
             <div><Label>Deskripsi</Label><Textarea value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} rows={2} /></div>
             <div>
               <Label>Gambar Sertifikat</Label>
-              {form.image_url && <img src={form.image_url} alt="preview" className="w-full max-h-32 object-contain rounded-lg border mb-2" />}
-              <Input type="file" accept="image/*" onChange={e => { const f = e.target.files?.[0]; if (f) uploadAkreditasiImage(f).then(url => url && setForm({ ...form, image_url: url })); }} />
+              {form.image_url && (
+                <div className="relative mb-2">
+                  <img src={form.image_url} alt="preview" className="w-full max-h-32 object-contain rounded-lg border" />
+                  <Button type="button" size="sm" variant="destructive" className="absolute top-1 right-1 h-7 gap-1 text-xs" onClick={async () => {
+                    try {
+                      const path = form.image_url.split('/media/')[1];
+                      if (path) await supabase.storage.from('media').remove([decodeURIComponent(path)]);
+                    } catch {}
+                    setForm({ ...form, image_url: '' });
+                  }}><Trash2 className="h-3 w-3" />Hapus</Button>
+                </div>
+              )}
+              <Input type="file" accept="image/*" onChange={async e => {
+                const f = e.target.files?.[0]; if (!f) return;
+                // delete old image first
+                if (form.image_url) {
+                  try { const p = form.image_url.split('/media/')[1]; if (p) await supabase.storage.from('media').remove([decodeURIComponent(p)]); } catch {}
+                }
+                const url = await uploadAkreditasiImage(f);
+                if (url) setForm({ ...form, image_url: url });
+              }} />
             </div>
             <div><Label>Urutan</Label><Input type="number" value={form.order_num} onChange={e => setForm({ ...form, order_num: parseInt(e.target.value) || 0 })} /></div>
             <div className="flex gap-2 justify-end pt-2">
