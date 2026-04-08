@@ -48,6 +48,7 @@ const AdminDashboard = () => {
   const [contentList, setContentList] = useState<any[]>([]);
   const [pmbOpen, setPmbOpen] = useState(true);
   const [pmbPosterUrl, setPmbPosterUrl] = useState('');
+  const [activeYear, setActiveYear] = useState(String(new Date().getFullYear()));
 
   // ── UI states ──
   const [searchTerm, setSearchTerm] = useState('');
@@ -85,12 +86,14 @@ const AdminDashboard = () => {
           setContentList(data || []);
         }
         if (selectedSection === 'settings') {
-          const [pmbRes, posterRes] = await Promise.all([
+          const [pmbRes, posterRes, yearRes] = await Promise.all([
             supabase.from('site_settings').select('*').eq('key', 'pmb_open').maybeSingle(),
             supabase.from('site_settings').select('*').eq('key', 'pmb_poster_url').maybeSingle(),
+            supabase.from('site_settings').select('*').eq('key', 'active_year').maybeSingle(),
           ]);
           setPmbOpen(pmbRes.data?.value === 'true');
           setPmbPosterUrl(posterRes.data?.value || '');
+          setActiveYear(yearRes.data?.value || String(new Date().getFullYear()));
         }
       } catch (err) { console.error('Fetch error:', err); }
     };
