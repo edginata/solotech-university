@@ -10,10 +10,10 @@ import JadwalSection from '@/components/sections/JadwalSection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import FeaturesSection from '@/components/sections/FeaturesSection';
 import NewsletterSection from '@/components/sections/NewsletterSection';
-
-const currentYear = new Date().getFullYear();
+import { useActiveYear } from '@/hooks/useActiveYear';
 
 const Index = () => {
+  const activeYear = useActiveYear();
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
@@ -35,7 +35,7 @@ const Index = () => {
         <HeroSection 
           title="Selamat Datang di Solotech University" 
           subtitle="Pendidikan Berkualitas Global Berlandaskan Nilai Kristiani"
-          cta={{ label: `Buka PMB ${currentYear}`, href: '/pmb' }}
+          cta={{ label: `Buka PMB ${activeYear}`, href: '/pmb' }}
         />
         
         <ProfileContent />

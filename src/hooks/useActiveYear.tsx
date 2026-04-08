@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 const fallbackYear = new Date().getFullYear();
 
 let cachedYear: number | null = null;
-let fetchPromise: Promise<number> | null = null;
+let fetchPromise: Promise<number> | null = null as any;
 
 const fetchYear = () => {
   if (!fetchPromise) {
