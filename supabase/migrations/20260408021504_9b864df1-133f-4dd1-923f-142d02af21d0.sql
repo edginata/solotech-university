@@ -1,0 +1,1 @@
+ALTER TABLE public.akreditasi ADD COLUMN IF NOT EXISTS image_url text;
