@@ -122,6 +122,9 @@ const ProfileContent = () => {
               <div className="grid md:grid-cols-3 gap-4 mb-8">
                 {akreditasiList.map((cert, index) => (
                   <div key={cert.id} className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-xl p-5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300" style={{ transitionDelay: `${index * 100}ms` }}>
+                    {cert.image_url && (
+                      <img src={cert.image_url} alt={cert.title} className="w-full h-32 object-contain rounded-lg mb-3" />
+                    )}
                     <div className="flex items-start justify-between mb-2">
                       <h5 className="font-heading font-semibold text-foreground flex-1">{cert.title}</h5>
                       <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded-full whitespace-nowrap ml-2">{cert.status}</span>
