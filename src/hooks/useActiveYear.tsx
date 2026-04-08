@@ -6,18 +6,18 @@ const fallbackYear = new Date().getFullYear();
 let cachedYear: number | null = null;
 let fetchPromise: Promise<number> | null = null as any;
 
-const fetchYear = () => {
+const fetchYear = (): Promise<number> => {
   if (!fetchPromise) {
-    fetchPromise = supabase
-      .from('site_settings')
-      .select('value')
-      .eq('key', 'active_year')
-      .maybeSingle()
-      .then(({ data }) => {
-        const y = data?.value ? parseInt(data.value) : fallbackYear;
-        cachedYear = isNaN(y) ? fallbackYear : y;
-        return cachedYear;
-      });
+    fetchPromise = (async () => {
+      const { data } = await supabase
+        .from('site_settings')
+        .select('value')
+        .eq('key', 'active_year')
+        .maybeSingle();
+      const y = data?.value ? parseInt(data.value) : fallbackYear;
+      cachedYear = isNaN(y) ? fallbackYear : y;
+      return cachedYear;
+    })();
   }
   return fetchPromise;
 };
