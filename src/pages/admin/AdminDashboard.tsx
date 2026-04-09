@@ -522,6 +522,54 @@ const AdminDashboard = () => {
     toast.success('Poster PMB berhasil diperbarui');
   };
 
+  const JalurPendaftaranSettings = () => {
+    const [jalurList, setJalurList] = useState<string[]>([]);
+    const [newJalur, setNewJalur] = useState('');
+    const [jalurLoaded, setJalurLoaded] = useState(false);
+
+    useEffect(() => {
+      supabase.from('site_settings').select('value').eq('key', 'jalur_pendaftaran').maybeSingle().then(({ data }) => {
+        try { setJalurList(JSON.parse(data?.value || '[]')); } catch { setJalurList(['Reguler', 'Beasiswa Prestasi', 'Profesional']); }
+        setJalurLoaded(true);
+      });
+    }, []);
+
+    const saveJalur = async (list: string[]) => {
+      const val = JSON.stringify(list);
+      const { data: existing } = await supabase.from('site_settings').select('id').eq('key', 'jalur_pendaftaran').maybeSingle();
+      if (existing) { await supabase.from('site_settings').update({ value: val }).eq('key', 'jalur_pendaftaran'); }
+      else { await supabase.from('site_settings').insert({ key: 'jalur_pendaftaran', value: val }); }
+      setJalurList(list);
+      toast.success('Jalur pendaftaran diperbarui');
+    };
+
+    if (!jalurLoaded) return null;
+
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Jalur Pendaftaran</CardTitle>
+          <CardDescription>Kelola pilihan jalur pendaftaran yang tampil di form</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {jalurList.map((j, i) => (
+            <div key={i} className="flex items-center gap-2">
+              <Input value={j} onChange={e => { const copy = [...jalurList]; copy[i] = e.target.value; setJalurList(copy); }} className="flex-1" />
+              <Button size="icon" variant="ghost" onClick={() => saveJalur(jalurList.filter((_, idx) => idx !== i))}><Trash2 className="h-4 w-4" /></Button>
+            </div>
+          ))}
+          <div className="flex items-center gap-2">
+            <Input placeholder="Tambah jalur baru..." value={newJalur} onChange={e => setNewJalur(e.target.value)} className="flex-1" />
+            <Button size="sm" onClick={() => { if (newJalur.trim()) { saveJalur([...jalurList, newJalur.trim()]); setNewJalur(''); } }}>
+              <Plus className="h-4 w-4 mr-1" />Tambah
+            </Button>
+          </div>
+          <Button size="sm" variant="outline" onClick={() => saveJalur(jalurList)}>Simpan Perubahan</Button>
+        </CardContent>
+      </Card>
+    );
+  };
+
   const renderSettings = () => (
     <div className="space-y-6 max-w-lg">
       <Card>
