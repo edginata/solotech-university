@@ -21,7 +21,7 @@ import AdminLayout from '@/components/layout/AdminLayout';
 
 // ── Types ──────────────────────────────────────────────
 interface Pendaftar {
-  id: string; nama: string; email: string; telepon: string;
+  id: string; nama: string; email: string; telepon: string; no_wa_aktif: string | null;
   alamat: string | null; program_studi: string; jalur_pendaftaran: string | null;
   status: string; tanggal_lahir: string | null; jenis_kelamin: string | null;
   asal_sekolah: string | null; created_at: string; updated_at: string;
