@@ -300,6 +300,7 @@ export type Database = {
           jalur_pendaftaran: string | null
           jenis_kelamin: string | null
           nama: string
+          no_wa_aktif: string | null
           program_studi: string
           status: string
           tanggal_lahir: string | null
@@ -315,6 +316,7 @@ export type Database = {
           jalur_pendaftaran?: string | null
           jenis_kelamin?: string | null
           nama: string
+          no_wa_aktif?: string | null
           program_studi: string
           status?: string
           tanggal_lahir?: string | null
@@ -330,6 +332,7 @@ export type Database = {
           jalur_pendaftaran?: string | null
           jenis_kelamin?: string | null
           nama?: string
+          no_wa_aktif?: string | null
           program_studi?: string
           status?: string
           tanggal_lahir?: string | null

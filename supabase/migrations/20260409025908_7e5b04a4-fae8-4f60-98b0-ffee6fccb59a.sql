@@ -1,0 +1,1 @@
+ALTER TABLE public.pendaftar ADD COLUMN no_wa_aktif text DEFAULT NULL;
