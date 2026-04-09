@@ -24,6 +24,7 @@ const Pendaftaran = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [programs, setPrograms] = useState<{ value: string; label: string }[]>([]);
+  const [jalurOptions, setJalurOptions] = useState<string[]>([]);
   const [pmbOpen, setPmbOpen] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -31,10 +32,15 @@ const Pendaftaran = () => {
     Promise.all([
       supabase.from('program_studi').select('*').order('created_at', { ascending: true }),
       supabase.from('site_settings').select('value').eq('key', 'pmb_open').maybeSingle(),
-    ]).then(([prodiRes, pmbRes]) => {
+      supabase.from('site_settings').select('value').eq('key', 'jalur_pendaftaran').maybeSingle(),
+    ]).then(([prodiRes, pmbRes, jalurRes]) => {
       if (mounted) {
         setPrograms((prodiRes.data || []).map((p: any) => ({ value: p.name, label: p.name })));
         setPmbOpen(pmbRes.data?.value !== 'false');
+        try {
+          const parsed = JSON.parse(jalurRes.data?.value || '[]');
+          setJalurOptions(Array.isArray(parsed) ? parsed : ['Reguler', 'Beasiswa Prestasi', 'Profesional']);
+        } catch { setJalurOptions(['Reguler', 'Beasiswa Prestasi', 'Profesional']); }
       }
     });
     return () => { mounted = false; };
@@ -54,7 +60,9 @@ const Pendaftaran = () => {
     try {
       const { error } = await supabase.from('pendaftar').insert({
         nama: formData.nama.trim(), email: formData.email.trim(), telepon: formData.telepon.trim(),
+        no_wa_aktif: formData.no_wa_aktif.trim() || null,
         alamat: formData.alamat.trim() || null, program_studi: formData.program_studi,
+        jalur_pendaftaran: formData.jalur_pendaftaran || null,
         tanggal_lahir: formData.tanggal_lahir || null, asal_sekolah: formData.asal_sekolah.trim() || null,
       });
       if (error) {
@@ -166,7 +174,7 @@ const Pendaftaran = () => {
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email *</Label>
+                        <Label htmlFor="email">Email Aktif *</Label>
                         <div className="relative">
                           <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                           <Input id="email" type="email" placeholder="email@example.com" className="pl-10" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required />
@@ -175,12 +183,21 @@ const Pendaftaran = () => {
                     </div>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="telepon">Nomor Telepon *</Label>
+                        <Label htmlFor="telepon">No Telp Aktif *</Label>
                         <div className="relative">
                           <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                           <Input id="telepon" placeholder="08xxxxxxxxxx" className="pl-10" value={formData.telepon} onChange={(e) => setFormData({ ...formData, telepon: e.target.value })} required />
                         </div>
                       </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="no_wa">No WA Aktif *</Label>
+                        <div className="relative">
+                          <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                          <Input id="no_wa" placeholder="08xxxxxxxxxx" className="pl-10" value={formData.no_wa_aktif} onChange={(e) => setFormData({ ...formData, no_wa_aktif: e.target.value })} />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="tanggal-lahir">Tanggal Lahir *</Label>
                         <Input id="tanggal-lahir" type="date" value={formData.tanggal_lahir} onChange={(e) => setFormData({ ...formData, tanggal_lahir: e.target.value })} />
