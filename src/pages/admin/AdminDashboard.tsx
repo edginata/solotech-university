@@ -289,6 +289,7 @@ const AdminDashboard = () => {
                 <div><p className="text-muted-foreground">Nama</p><p className="font-medium">{detailItem.nama}</p></div>
                 <div><p className="text-muted-foreground">Email</p><p className="font-medium">{detailItem.email}</p></div>
                 <div><p className="text-muted-foreground">Telepon</p><p className="font-medium">{detailItem.telepon}</p></div>
+                <div><p className="text-muted-foreground">No WA</p><p className="font-medium">{detailItem.no_wa_aktif || '-'}</p></div>
                 <div><p className="text-muted-foreground">Jenis Kelamin</p><p className="font-medium">{detailItem.jenis_kelamin || '-'}</p></div>
                 <div><p className="text-muted-foreground">Tanggal Lahir</p><p className="font-medium">{detailItem.tanggal_lahir || '-'}</p></div>
                 <div><p className="text-muted-foreground">Asal Sekolah</p><p className="font-medium">{detailItem.asal_sekolah || '-'}</p></div>
