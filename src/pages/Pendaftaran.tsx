@@ -19,7 +19,7 @@ const Pendaftaran = () => {
   const [formData, setFormData] = useState({
     nama: '', email: '', telepon: '', no_wa_aktif: '', tanggal_lahir: '',
     alamat: '', asal_sekolah: '', tahun_lulus: '', jurusan_sma: '',
-    program_studi: '', program_studi_2: '', beasiswa: '', catatan: '',
+    program_studi: '', program_studi_2: '', jalur_pendaftaran: '', catatan: '',
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
