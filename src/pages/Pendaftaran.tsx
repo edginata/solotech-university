@@ -253,6 +253,17 @@ const Pendaftaran = () => {
                           </Select>
                         </div>
                       </div>
+                      <div className="space-y-2 md:col-span-2">
+                        <Label>Jalur Pendaftaran *</Label>
+                        <Select value={formData.jalur_pendaftaran} onValueChange={(v) => setFormData({ ...formData, jalur_pendaftaran: v })}>
+                          <SelectTrigger><SelectValue placeholder="Pilih jalur pendaftaran" /></SelectTrigger>
+                          <SelectContent>
+                            {jalurOptions.map((j) => (
+                              <SelectItem key={j} value={j}>{j}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </div>
                     <div className="pt-6 border-t">
                       <div className="bg-muted rounded-lg p-4 mb-6">

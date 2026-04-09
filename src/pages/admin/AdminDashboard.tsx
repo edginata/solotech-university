@@ -545,6 +545,8 @@ const AdminDashboard = () => {
         </CardContent>
       </Card>
 
+      <JalurPendaftaranSettings />
+
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Penerimaan Mahasiswa Baru (PMB)</CardTitle>
