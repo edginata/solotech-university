@@ -287,12 +287,49 @@ const Pendaftaran = () => {
                         </Select>
                       </div>
                     </div>
+                    <div className="pt-4 border-t">
+                      <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+                        <Upload className="w-5 h-5 text-primary" />Upload Dokumen
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-4">Format yang diterima: JPG, PNG, PDF. Maksimal 5MB per file.</p>
+                      <div className="grid md:grid-cols-3 gap-4">
+                        {([
+                          { key: 'ijazah' as const, label: 'Ijazah / SKL' },
+                          { key: 'ktp' as const, label: 'KTP / Kartu Pelajar' },
+                          { key: 'nilai' as const, label: 'Rapor / Nilai' },
+                        ]).map(({ key, label }) => (
+                          <div key={key} className="space-y-2">
+                            <Label>{label}</Label>
+                            <div className="border-2 border-dashed rounded-lg p-4 text-center hover:border-primary/50 transition-colors">
+                              {files[key] ? (
+                                <div className="space-y-1">
+                                  <p className="text-sm font-medium truncate">{files[key]!.name}</p>
+                                  <p className="text-xs text-muted-foreground">{(files[key]!.size / 1024 / 1024).toFixed(2)} MB</p>
+                                  <Button type="button" variant="ghost" size="sm" onClick={() => setFiles(f => ({ ...f, [key]: null }))}>Hapus</Button>
+                                </div>
+                              ) : (
+                                <label className="cursor-pointer block">
+                                  <Upload className="w-6 h-6 mx-auto text-muted-foreground mb-1" />
+                                  <p className="text-xs text-muted-foreground">Pilih file</p>
+                                  <input type="file" className="hidden" accept=".jpg,.jpeg,.png,.pdf"
+                                    onChange={(e) => {
+                                      const file = e.target.files?.[0];
+                                      if (file && file.size > 5 * 1024 * 1024) { toast.error('Ukuran file maksimal 5MB'); return; }
+                                      if (file) setFiles(f => ({ ...f, [key]: file }));
+                                    }} />
+                                </label>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                     <div className="pt-6 border-t">
                       <div className="bg-muted rounded-lg p-4 mb-6">
                         <p className="text-sm text-muted-foreground">Dengan mengirimkan formulir ini, Anda menyetujui untuk menerima informasi terkait pendaftaran mahasiswa baru UKTS melalui email dan/atau telepon.</p>
                       </div>
                       <Button type="submit" className="cta-button w-full text-lg py-6" disabled={loading}>
-                        {loading ? 'Mengirim...' : 'Kirim Pendaftaran'}
+                        {loading ? (uploadProgress ? 'Mengupload dokumen...' : 'Mengirim...') : 'Kirim Pendaftaran'}
                       </Button>
                     </div>
                   </form>
