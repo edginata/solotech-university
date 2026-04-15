@@ -26,6 +26,8 @@ const Pendaftaran = () => {
   const [programs, setPrograms] = useState<{ value: string; label: string }[]>([]);
   const [jalurOptions, setJalurOptions] = useState<string[]>([]);
   const [pmbOpen, setPmbOpen] = useState<boolean | null>(null);
+  const [files, setFiles] = useState<{ ijazah: File | null; ktp: File | null; nilai: File | null }>({ ijazah: null, ktp: null, nilai: null });
+  const [uploadProgress, setUploadProgress] = useState(false);
 
   useEffect(() => {
     let mounted = true;
