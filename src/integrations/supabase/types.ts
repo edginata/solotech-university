@@ -297,9 +297,12 @@ export type Database = {
           created_at: string
           email: string
           id: string
+          ijazah_url: string | null
           jalur_pendaftaran: string | null
           jenis_kelamin: string | null
+          ktp_url: string | null
           nama: string
+          nilai_url: string | null
           no_wa_aktif: string | null
           program_studi: string
           status: string
@@ -313,9 +316,12 @@ export type Database = {
           created_at?: string
           email: string
           id?: string
+          ijazah_url?: string | null
           jalur_pendaftaran?: string | null
           jenis_kelamin?: string | null
+          ktp_url?: string | null
           nama: string
+          nilai_url?: string | null
           no_wa_aktif?: string | null
           program_studi: string
           status?: string
@@ -329,9 +335,12 @@ export type Database = {
           created_at?: string
           email?: string
           id?: string
+          ijazah_url?: string | null
           jalur_pendaftaran?: string | null
           jenis_kelamin?: string | null
+          ktp_url?: string | null
           nama?: string
+          nilai_url?: string | null
           no_wa_aktif?: string | null
           program_studi?: string
           status?: string

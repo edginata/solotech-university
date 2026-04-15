@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { User, Mail, Phone, MapPin, GraduationCap, FileText, CheckCircle, XCircle } from 'lucide-react';
+import { User, Mail, Phone, MapPin, GraduationCap, FileText, CheckCircle, XCircle, Upload } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
@@ -26,6 +26,8 @@ const Pendaftaran = () => {
   const [programs, setPrograms] = useState<{ value: string; label: string }[]>([]);
   const [jalurOptions, setJalurOptions] = useState<string[]>([]);
   const [pmbOpen, setPmbOpen] = useState<boolean | null>(null);
+  const [files, setFiles] = useState<{ ijazah: File | null; ktp: File | null; nilai: File | null }>({ ijazah: null, ktp: null, nilai: null });
+  const [uploadProgress, setUploadProgress] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -46,6 +48,15 @@ const Pendaftaran = () => {
     return () => { mounted = false; };
   }, []);
 
+  const uploadFile = async (file: File, folder: string): Promise<string | null> => {
+    const ext = file.name.split('.').pop();
+    const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+    const { error } = await supabase.storage.from('pendaftaran-docs').upload(fileName, file);
+    if (error) { console.error('Upload error:', error); return null; }
+    const { data } = supabase.storage.from('pendaftaran-docs').getPublicUrl(fileName);
+    return data.publicUrl;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.nama || !formData.email || !formData.telepon || !formData.program_studi) {
@@ -57,13 +68,23 @@ const Pendaftaran = () => {
     if (phoneClean.length < 9) { toast.error('Nomor telepon tidak valid'); return; }
 
     setLoading(true);
+    setUploadProgress(true);
     try {
+      // Upload files
+      const [ijazahUrl, ktpUrl, nilaiUrl] = await Promise.all([
+        files.ijazah ? uploadFile(files.ijazah, 'ijazah') : Promise.resolve(null),
+        files.ktp ? uploadFile(files.ktp, 'ktp') : Promise.resolve(null),
+        files.nilai ? uploadFile(files.nilai, 'nilai') : Promise.resolve(null),
+      ]);
+      setUploadProgress(false);
+
       const { error } = await supabase.from('pendaftar').insert({
         nama: formData.nama.trim(), email: formData.email.trim(), telepon: formData.telepon.trim(),
         no_wa_aktif: formData.no_wa_aktif.trim() || null,
         alamat: formData.alamat.trim() || null, program_studi: formData.program_studi,
         jalur_pendaftaran: formData.jalur_pendaftaran || null,
         tanggal_lahir: formData.tanggal_lahir || null, asal_sekolah: formData.asal_sekolah.trim() || null,
+        ijazah_url: ijazahUrl, ktp_url: ktpUrl, nilai_url: nilaiUrl,
       });
       if (error) {
         console.error('Error submitting:', error);
@@ -77,6 +98,7 @@ const Pendaftaran = () => {
       toast.error('Terjadi kesalahan. Silakan coba lagi.');
     } finally {
       setLoading(false);
+      setUploadProgress(false);
     }
   };
 
@@ -265,12 +287,49 @@ const Pendaftaran = () => {
                         </Select>
                       </div>
                     </div>
+                    <div className="pt-4 border-t">
+                      <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+                        <Upload className="w-5 h-5 text-primary" />Upload Dokumen
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-4">Format yang diterima: JPG, PNG, PDF. Maksimal 5MB per file.</p>
+                      <div className="grid md:grid-cols-3 gap-4">
+                        {([
+                          { key: 'ijazah' as const, label: 'Ijazah / SKL' },
+                          { key: 'ktp' as const, label: 'KTP / Kartu Pelajar' },
+                          { key: 'nilai' as const, label: 'Rapor / Nilai' },
+                        ]).map(({ key, label }) => (
+                          <div key={key} className="space-y-2">
+                            <Label>{label}</Label>
+                            <div className="border-2 border-dashed rounded-lg p-4 text-center hover:border-primary/50 transition-colors">
+                              {files[key] ? (
+                                <div className="space-y-1">
+                                  <p className="text-sm font-medium truncate">{files[key]!.name}</p>
+                                  <p className="text-xs text-muted-foreground">{(files[key]!.size / 1024 / 1024).toFixed(2)} MB</p>
+                                  <Button type="button" variant="ghost" size="sm" onClick={() => setFiles(f => ({ ...f, [key]: null }))}>Hapus</Button>
+                                </div>
+                              ) : (
+                                <label className="cursor-pointer block">
+                                  <Upload className="w-6 h-6 mx-auto text-muted-foreground mb-1" />
+                                  <p className="text-xs text-muted-foreground">Pilih file</p>
+                                  <input type="file" className="hidden" accept=".jpg,.jpeg,.png,.pdf"
+                                    onChange={(e) => {
+                                      const file = e.target.files?.[0];
+                                      if (file && file.size > 5 * 1024 * 1024) { toast.error('Ukuran file maksimal 5MB'); return; }
+                                      if (file) setFiles(f => ({ ...f, [key]: file }));
+                                    }} />
+                                </label>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                     <div className="pt-6 border-t">
                       <div className="bg-muted rounded-lg p-4 mb-6">
                         <p className="text-sm text-muted-foreground">Dengan mengirimkan formulir ini, Anda menyetujui untuk menerima informasi terkait pendaftaran mahasiswa baru UKTS melalui email dan/atau telepon.</p>
                       </div>
                       <Button type="submit" className="cta-button w-full text-lg py-6" disabled={loading}>
-                        {loading ? 'Mengirim...' : 'Kirim Pendaftaran'}
+                        {loading ? (uploadProgress ? 'Mengupload dokumen...' : 'Mengirim...') : 'Kirim Pendaftaran'}
                       </Button>
                     </div>
                   </form>
