@@ -25,6 +25,7 @@ interface Pendaftar {
   alamat: string | null; program_studi: string; jalur_pendaftaran: string | null;
   status: string; tanggal_lahir: string | null; jenis_kelamin: string | null;
   asal_sekolah: string | null; created_at: string; updated_at: string;
+  ijazah_url: string | null; ktp_url: string | null; nilai_url: string | null;
 }
 
 type SectionType = 'dashboard' | 'pendaftar' | 'akademik' | 'pengabdian' | 'penelitian' | 'berita' | 'kegiatan' | 'jadwal' | 'bem' | 'akreditasi' | 'alumni' | 'settings';
@@ -298,6 +299,9 @@ const AdminDashboard = () => {
                 <div><p className="text-muted-foreground">Jalur</p><p className="font-medium">{detailItem.jalur_pendaftaran || '-'}</p></div>
                 <div><p className="text-muted-foreground">Status</p><StatusBadge status={detailItem.status} /></div>
                 <div><p className="text-muted-foreground">Tanggal Daftar</p><p className="font-medium">{new Date(detailItem.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p></div>
+                {detailItem.ijazah_url && <div><p className="text-muted-foreground">Ijazah</p><a href={detailItem.ijazah_url} target="_blank" rel="noopener noreferrer" className="text-primary underline text-sm">Lihat Ijazah</a></div>}
+                {detailItem.ktp_url && <div><p className="text-muted-foreground">KTP</p><a href={detailItem.ktp_url} target="_blank" rel="noopener noreferrer" className="text-primary underline text-sm">Lihat KTP</a></div>}
+                {detailItem.nilai_url && <div><p className="text-muted-foreground">Nilai</p><a href={detailItem.nilai_url} target="_blank" rel="noopener noreferrer" className="text-primary underline text-sm">Lihat Nilai</a></div>}
               </div>
             )}
           </DialogContent>
