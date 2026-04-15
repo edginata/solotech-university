@@ -48,6 +48,15 @@ const Pendaftaran = () => {
     return () => { mounted = false; };
   }, []);
 
+  const uploadFile = async (file: File, folder: string): Promise<string | null> => {
+    const ext = file.name.split('.').pop();
+    const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+    const { error } = await supabase.storage.from('pendaftaran-docs').upload(fileName, file);
+    if (error) { console.error('Upload error:', error); return null; }
+    const { data } = supabase.storage.from('pendaftaran-docs').getPublicUrl(fileName);
+    return data.publicUrl;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.nama || !formData.email || !formData.telepon || !formData.program_studi) {
@@ -59,13 +68,23 @@ const Pendaftaran = () => {
     if (phoneClean.length < 9) { toast.error('Nomor telepon tidak valid'); return; }
 
     setLoading(true);
+    setUploadProgress(true);
     try {
+      // Upload files
+      const [ijazahUrl, ktpUrl, nilaiUrl] = await Promise.all([
+        files.ijazah ? uploadFile(files.ijazah, 'ijazah') : Promise.resolve(null),
+        files.ktp ? uploadFile(files.ktp, 'ktp') : Promise.resolve(null),
+        files.nilai ? uploadFile(files.nilai, 'nilai') : Promise.resolve(null),
+      ]);
+      setUploadProgress(false);
+
       const { error } = await supabase.from('pendaftar').insert({
         nama: formData.nama.trim(), email: formData.email.trim(), telepon: formData.telepon.trim(),
         no_wa_aktif: formData.no_wa_aktif.trim() || null,
         alamat: formData.alamat.trim() || null, program_studi: formData.program_studi,
         jalur_pendaftaran: formData.jalur_pendaftaran || null,
         tanggal_lahir: formData.tanggal_lahir || null, asal_sekolah: formData.asal_sekolah.trim() || null,
+        ijazah_url: ijazahUrl, ktp_url: ktpUrl, nilai_url: nilaiUrl,
       });
       if (error) {
         console.error('Error submitting:', error);
@@ -79,6 +98,7 @@ const Pendaftaran = () => {
       toast.error('Terjadi kesalahan. Silakan coba lagi.');
     } finally {
       setLoading(false);
+      setUploadProgress(false);
     }
   };
 
